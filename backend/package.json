@@ -4,7 +4,8 @@
   "description": "A final project for PB138 at FI MU - backend.",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0"
   },
   "author": "Diana Janickova, Katarina Sieklova, Jakub Ulicny, Jozef Zizka",
   "license": "ISC",
