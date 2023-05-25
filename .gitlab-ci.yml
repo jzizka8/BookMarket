@@ -1,0 +1,22 @@
+stages:
+  - lint
+
+lint_frontend:
+  stage: lint
+  image: node:lts
+  script:
+    - cd frontend
+    - npm ci
+    - npm run lint
+  tags:
+    - shared-fi
+
+lint_backend:
+  stage: lint
+  image: node:lts
+  script:
+    - cd backend
+    - npm ci
+    - npm run lint
+  tags:
+    - shared-fi
