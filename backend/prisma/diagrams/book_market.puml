@@ -16,6 +16,7 @@ entity "Book" {
   --
   *category: <<Category FK>>
   *soldBy: <<User FK>>
+  *invoice: <<Invoice FK>>
   *name: string
   *author: string
   *price: float
@@ -36,6 +37,7 @@ entity "Invoice" {
   *id : <<uuid>>
   --
   *user: <<User FK>>
+  *books: Book[]
   *date: Date
   *amount: number
   *name: string
@@ -65,5 +67,6 @@ enum "Genre" {
 Category ||..o{ Book
 User ||..o{ Invoice
 User ||..o{ Book
+Invoice |o..|{ Book
 
 @enduml
