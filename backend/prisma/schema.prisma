@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  username       String
+  hashedPassword String
+  booksForSale   Book[]    @relation("BooksForSale")
+  invoices       Invoice[]
+}
+
+model Book {
+  id              String   @id @default(uuid())
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  soldBy          String
+  seller          User     @relation("BooksForSale", fields: [soldBy], references: [id])
+  invoiceId       String?
+  invoice         Invoice? @relation(fields: [invoiceId], references: [id])
+  name            String
+  author          String
+  price           Float
+  publicationYear Int
+  language        Lang
+  photo           String?
+  description     String?
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  Genre
+  books Book[]
+}
+
+model Invoice {
+  id          String   @id @default(uuid())
+  buyerId      String
+  buyer        User     @relation(fields: [buyerId], references: [id])
+  date        DateTime
+  amount      Float
+  name        String
+  surname     String
+  email       String
+  phoneNumber String
+  street      String
+  city        String
+  zipcode     String
+  country     String
+  books       Book[]
+}
+
+enum Lang {
+  CS
+  DE
+  EN
+  ES
+  FR
+  SK
+}
+
+enum Genre {
+  Mystery
+  Thriller
+  YoungAdult
+  Horror
+  Historical
+  Romance
+  ScienceFiction
+  Fantasy
+  Dystopian
+  Classical
+  Biography
+  Memoir
+  Politics
+  SelfHelp
+  Business
+  Finance
+  ChildrensBooks
+  Travel
+  Food
+  Religion
+  LiteraryFiction
+  NonFiction
+}
