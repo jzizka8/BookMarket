@@ -1,0 +1,72 @@
+@startuml book_market
+
+skinparam linetype ortho
+
+entity "User" {
+  *id : <<uuid>>
+  --
+  *name : string
+  *hashedPassword: string
+  *booksForSale: Book[]
+  *invoices: Invoice[]
+}
+
+entity "Book" {
+  *id : <<uuid>>
+  --
+  *category: <<Category FK>>
+  *soldBy: <<User FK>>
+  *invoice: <<Invoice FK>>
+  *name: string
+  *author: string
+  *price: float
+  *publicationYear: number
+  *language: Lang
+  photo: text
+  description: string
+}
+
+entity "Category" {
+  *id : <<uuid>>
+  --
+  *name: Genre
+  *books: Book[]
+}
+
+entity "Invoice" {
+  *id : <<uuid>>
+  --
+  *user: <<User FK>>
+  *books: Book[]
+  *date: Date
+  *amount: number
+  *name: string
+  *surname: string
+  *email: string
+  *phoneNumber: string
+  *street: string
+  *city: string
+  *zipcode: string
+  *country: string
+}
+
+enum "Lang" {
+  CS | DE | EN | ES| FR | SK
+}
+
+enum "Genre" {
+  Mystery/Thriller | Young Adult | 
+  Horror | Historical | Romance | 
+  Science Fiction | Fantasy | Dystopian |
+  Classical | Biography/Memoir | Politics |
+  Self-help | Business/Finance |
+  Children's Books | Travel | Food | Religion |
+  Literary Fiction | Non-fiction
+}
+
+Category ||..o{ Book
+User ||..o{ Invoice
+User ||..o{ Book
+Invoice |o..|{ Book
+
+@enduml
