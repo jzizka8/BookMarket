@@ -1,7 +1,8 @@
 import { useAuth } from '../hooks/useAuth';
+import AuthContextType from '../types/AuthContextType';
 
 const Homepage = () => {
-  const { user }: any = useAuth();
+  const { user }: AuthContextType = useAuth();
 
   return (
     <div>

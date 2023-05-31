@@ -1,14 +1,17 @@
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage';
-const AuthContext = createContext({});
+import UserDataType from '../types/UserDataType';
+import AuthContextType from '../types/AuthContextType';
 
-export const AuthProvider = ({ children }: any) => {
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useLocalStorage('user', null);
   const navigate = useNavigate();
 
   // call this function when you want to authenticate the user
-  const login = async (data: any) => {
+  const login = async (data: UserDataType) => {
     // A function used to authenticate the user. I think we need to validate the data in here.
     setUser(data);
     navigate('/');
@@ -40,6 +43,12 @@ export const AuthProvider = ({ children }: any) => {
 // and functions within components. It returns the AuthContext
 // using useContext, which gives access to the user, login, and logout
 // values provided by the AuthProvider.
-export const useAuth = () => {
-  return useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+
+  return authContext;
 };

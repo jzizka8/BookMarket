@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import UserDataType from '../types/UserDataType';
 
-export const useLocalStorage = (keyName: any, defaultValue: any) => {
+export const useLocalStorage = (
+  keyName: string,
+  defaultValue: UserDataType | null
+) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       // The state variable that holds the current value stored in local storage.
@@ -21,7 +25,7 @@ export const useLocalStorage = (keyName: any, defaultValue: any) => {
       return defaultValue;
     }
   });
-  const setValue = (newValue: any) => {
+  const setValue = (newValue: UserDataType | null) => {
     try {
       window.localStorage.setItem(keyName, JSON.stringify(newValue));
     } catch (err) {}
