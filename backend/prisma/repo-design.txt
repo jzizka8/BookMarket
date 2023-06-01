@@ -1,3 +1,10 @@
+Legenda -
+  * --------###-------- folder s nazvom "###"
+  * bez odsadenia (napr. Create) je názov file-u
+  * prvé odsadenie je názov funkcie
+  * vnútri {} je popis toho čo sa deje vnútri (ak je niečo špecifické)
+  * "att:" atribúty funkcie
+
 --------USER--------
 Create - 
   create(att: name, hashedPassword) 
@@ -28,14 +35,14 @@ Create - seeding
   }
 
 Read -
-  specific(att: id | name) ///prerob si to
+  specificName(att: name)
   {
-    findUnique(id) | findUnique(name)
+    findUnique(name)
 
     return category & Book[] (not deleted books)
   }
   
-  all(att: void) // without any filter --------- not sure if we need this
+  all(att: void) // without any filter --------- not sure if we need this (prob. nope)
   {
     all categories that we have
 
@@ -57,14 +64,14 @@ Create -
   }
 
 Delete -
-  delete(att: (id) | (name | author | publicationYear))
+  delete(att: (id) | (name, author, publicationYear))
   {
     delete if not deletedAt 
 
     return book
   }
 
-Read - all not deletedAt
+Read - all deletedAt === null
   specificSearchFilter(att: author | name)
   {
     return book[]
@@ -118,6 +125,6 @@ Create -
 Read -
   specificByUser(att: userId)
   {
-    return invoice[] | User
+    return invoice[] & User
   }
 
