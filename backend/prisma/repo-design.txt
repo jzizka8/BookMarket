@@ -1,0 +1,28 @@
+--------USER--------
+Create - 
+  create (att: name, hashedPassword) 
+  {
+    books for sale, invoices = empty list 
+  }
+
+Read - 
+  unique (att: id)
+    {}
+
+--------CATEGORY--------
+Create - seeding
+  create (att: name)
+  {
+    books = empty list
+  }
+
+Read -
+  unique (att: (id | name) | (id? | name) | (id | name?))
+  {
+    findUnique(id) | findUnique(name)
+  }
+  
+  all (att: void)
+  {
+    all categories that we have
+  }
