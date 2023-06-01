@@ -1,28 +1,123 @@
 --------USER--------
 Create - 
-  create (att: name, hashedPassword) 
+  create(att: name, hashedPassword) 
   {
-    books for sale, invoices = empty list 
+    books for sale, invoices = empty list
+
+    return user
   }
 
 Read - 
-  unique (att: id)
-    {}
+  unique(att: id) 
+  {
+    return user & Book[] (not deleted)
+  }
+
+  forLogin(att: name (should be email!!!), hashedPassword)
+  {
+    return user
+  }
 
 --------CATEGORY--------
 Create - seeding
-  create (att: name)
+  create(att: name)
   {
     books = empty list
+
+    return category
   }
 
 Read -
-  unique (att: (id | name) | (id? | name) | (id | name?))
+  specific(att: id | name) ///prerob si to
   {
     findUnique(id) | findUnique(name)
+
+    return category & Book[] (not deleted books)
   }
   
-  all (att: void)
+  all(att: void) // without any filter --------- not sure if we need this
   {
     all categories that we have
+
+    return categories
   }
+
+  specificFilter(att: name[]) // only by names
+  {
+    get all categories by filter
+
+    return categories & Book[] (not deleted books)
+  }
+
+--------BOOK--------
+Create -
+  create(att: name, author, price, publicationYear, Language, CategoryFK, photoUrl?, description?)
+  {
+    return book
+  }
+
+Delete -
+  delete(att: (id) | (name | author | publicationYear))
+  {
+    delete if not deletedAt 
+
+    return book
+  }
+
+Read - all not deletedAt
+  specificSearchFilter(att: author | name)
+  {
+    return book[]
+  }
+
+  specificCategory(att: CategoryFK) 
+  {
+    return book[] & Category where book.CategoryFK == CategoryFK
+  }
+
+  specificInvoice(att: InvoiceFK)
+  {
+    return book[] & Invoice (invoice has to be unique)
+  }
+
+   //        \\
+  //if we want\\
+ //            \\
+  specificLanguage(att: language[])
+  {
+    return book[]
+  }
+
+Update -
+  update(att: description? | photoUrl? | price? | name? | author?) // maybe to smaller parts - every update in new function
+  {
+    return book
+  }
+
+--------INVOICE--------
+type UserInfo = {
+  name: string,
+  surname: string,
+  email: string,
+  phoneNumber: string (good format! prob. some regex)
+}
+
+type Address = {
+  street: string,
+  city: string,
+  zipcode: string,
+  country: string,
+}
+
+Create - 
+  create(att: userId, bookId[], amount, UserInfo, Address)
+  {
+    return invoice & User
+  }
+
+Read -
+  specificByUser(att: userId)
+  {
+    return invoice[] | User
+  }
+
