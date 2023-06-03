@@ -17,10 +17,10 @@ Create -
 Read - 
   unique(att: id) 
   {
-    return user & Book[] (not deleted)
+    return user & Book[] (not deleted) & invoice[]
   }
 
-  forLogin(att: name (should be email!!!), hashedPassword)
+  forLogin(att: username, hashedPassword)
   {
     return user
   }
@@ -35,36 +35,22 @@ Create - seeding
   }
 
 Read -
-  specificName(att: name)
+  all(att: name[]?)
   {
-    findUnique(name)
-
-    return category & Book[] (not deleted books)
-  }
-  
-  all(att: void) // without any filter --------- not sure if we need this (prob. nope)
-  {
-    all categories that we have
+    all categories which we have
 
     return categories
   }
 
-  specificFilter(att: name[]) // only by names
-  {
-    get all categories by filter
-
-    return categories & Book[] (not deleted books)
-  }
-
 --------BOOK--------
 Create -
-  create(att: name, author, price, publicationYear, Language, CategoryFK, photoUrl?, description?)
+  create(att: name, author, price, publicationYear, Language, categoryName, photoUrl?, description?)
   {
     return book
   }
 
 Delete -
-  delete(att: (id) | (name, author, publicationYear))
+  delete(att: id)
   {
     delete if not deletedAt 
 
@@ -72,31 +58,21 @@ Delete -
   }
 
 Read - all deletedAt === null
-  specificSearchFilter(att: author | name)
+  all(att: void)
   {
     return book[]
   }
 
-  specificCategory(att: CategoryFK) 
-  {
+  specificFilter(att: (author | name) | (CategoryFK)) // this means all combinations where at least
+  {                                                   // one att is not null (im too lazy to write all combinations)
+    if (author | name) {                              // we can add more filter options as language etc. if we want
+      return book[]
+    }
     return book[] & Category where book.CategoryFK == CategoryFK
   }
 
-  specificInvoice(att: InvoiceFK)
-  {
-    return book[] & Invoice (invoice has to be unique)
-  }
-
-   //        \\
-  //if we want\\
- //            \\
-  specificLanguage(att: language[])
-  {
-    return book[]
-  }
-
 Update -
-  update(att: description? | photoUrl? | price? | name? | author?) // maybe to smaller parts - every update in new function
+  update(att: description? | photoUrl? | price? | name? | author?)
   {
     return book
   }
