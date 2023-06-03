@@ -29,7 +29,7 @@ model Book {
   seller          User      @relation("BooksForSale", fields: [soldBy], references: [id])
   invoiceId       String?
   invoice         Invoice?  @relation(fields: [invoiceId], references: [id])
-  name            String
+  title           String
   author          String
   price           Float
   publicationYear Int
