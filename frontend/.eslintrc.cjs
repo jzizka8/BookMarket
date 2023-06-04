@@ -4,9 +4,6 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'airbnb-typescript',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -23,5 +20,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 0,
     'import/extensions': 0,
+    "react/prefer-stateless-function": ["error", {"ignorePureComponents": true}],
   },
 };
