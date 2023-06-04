@@ -37,9 +37,12 @@ Create - seeding
 Read -
   all(att: name[]?)
   {
-    all categories which we have
+    return category[]
+  }
 
-    return categories
+  specific(att: id)
+  {
+    return category & book[]
   }
 
 --------BOOK--------
@@ -58,17 +61,14 @@ Delete -
   }
 
 Read - all deletedAt === null
-  all(att: void)
+  all(att: author?, name?, CategoryFK?)
   {
     return book[]
   }
 
-  specificFilter(att: (author | name) | (CategoryFK)) // this means all combinations where at least
-  {                                                   // one att is not null (im too lazy to write all combinations)
-    if (author | name) {                              // we can add more filter options as language etc. if we want
-      return book[]
-    }
-    return book[] & Category where book.CategoryFK == CategoryFK
+  specific(att: id) 
+  {             
+    return book[]
   }
 
 Update -
@@ -99,7 +99,12 @@ Create -
   }
 
 Read -
-  specificByUser(att: userId)
+  all(att: userId)
+  {
+    return invoice[] & User
+  }
+
+  specific(att: id)
   {
     return invoice[] & User
   }
