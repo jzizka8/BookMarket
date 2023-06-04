@@ -1,0 +1,111 @@
+Legenda -
+  * --------###-------- folder s nazvom "###"
+  * bez odsadenia (napr. Create) je názov file-u
+  * prvé odsadenie je názov funkcie
+  * vnútri {} je popis toho čo sa deje vnútri (ak je niečo špecifické)
+  * "att:" atribúty funkcie
+
+--------USER--------
+Create - 
+  create(att: name, hashedPassword) 
+  {
+    books for sale, invoices = empty list
+
+    return user
+  }
+
+Read - 
+  unique(att: id) 
+  {
+    return user & Book[] (not deleted) & invoice[]
+  }
+
+  forLogin(att: username, hashedPassword)
+  {
+    return user
+  }
+
+--------CATEGORY--------
+Create - seeding
+  create(att: name)
+  {
+    books = empty list
+
+    return category
+  }
+
+Read -
+  all(att: name[]?)
+  {
+    return category[]
+  }
+
+  specific(att: id)
+  {
+    return category & book[]
+  }
+
+--------BOOK--------
+Create -
+  create(att: name, author, price, publicationYear, Language, categoryName, photoUrl?, description?)
+  {
+    return book
+  }
+
+Delete -
+  delete(att: id)
+  {
+    delete if not deletedAt 
+
+    return book
+  }
+
+Read - all deletedAt === null
+  all(att: author?, name?, CategoryFK?)
+  {
+    return book[]
+  }
+
+  specific(att: id) 
+  {             
+    return book[]
+  }
+
+Update -
+  update(att: description? | photoUrl? | price? | name? | author?)
+  {
+    return book
+  }
+
+--------INVOICE--------
+type UserInfo = {
+  name: string,
+  surname: string,
+  email: string,
+  phoneNumber: string (good format! prob. some regex)
+}
+
+type Address = {
+  street: string,
+  city: string,
+  zipcode: string,
+  country: string,
+}
+
+Create - 
+  create(att: userId, bookId[], amount, UserInfo, Address)
+  {
+    return invoice & User
+  }
+
+Read -
+  all(att: userId)
+  {
+    return invoice[] & User
+  }
+
+  specific(att: id)
+  {
+    return invoice[] & User
+  }
+

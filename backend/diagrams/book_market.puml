@@ -5,7 +5,7 @@ skinparam linetype ortho
 entity "User" {
   *id : <<uuid>>
   --
-  *name : string
+  *userName : string
   *hashedPassword: string
   *booksForSale: Book[]
   *invoices: Invoice[]
@@ -15,13 +15,13 @@ entity "Book" {
   *id : <<uuid>>
   --
   *category: <<Category FK>>
-  *soldBy: <<User FK>>
-  *invoice: <<Invoice FK>>
   *name: string
   *author: string
   *price: float
   *publicationYear: number
   *language: Lang
+  soldBy: <<User FK>>
+  deletedAt: Date
   photo: text
   description: string
 }
