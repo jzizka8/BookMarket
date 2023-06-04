@@ -6,7 +6,7 @@ import Missing from './pages/Missing';
 import Register from './pages/Register';
 import AllBooks from './pages/AllBooks';
 import UserBooksForSale from './pages/UserBooksForSale';
-import Detail from './pages/Detail';
+import BookDetail from './pages/BookDetail';
 import BookAddition from './pages/BookAddition';
 import PurchaseForm from './pages/PurchaseForm';
 import PaymentInfo from './pages/PaymentInfo';
@@ -16,7 +16,7 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<AllBooks />}>
-        <Route path="/:bookId" element={<Detail />} />
+        <Route path="/:bookId" element={<BookDetail />} />
       </Route>
       <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
       <Route path="/bookAddition" element={<BookAddition />} />
