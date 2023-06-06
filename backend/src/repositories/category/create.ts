@@ -2,7 +2,7 @@ import { Result } from '@badrap/result';
 import type { Category } from '@prisma/client';
 import client from '../client';
 import genericError from '../types';
-import type { CategoryCreateData } from './types/types';
+import type { CategoryCreateData } from './types';
 
 /**
  * Repository call that creates a category.
