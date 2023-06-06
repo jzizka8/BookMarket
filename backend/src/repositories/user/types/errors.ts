@@ -1,0 +1,1 @@
+export class NotUniqueUsernameError extends Error {}
