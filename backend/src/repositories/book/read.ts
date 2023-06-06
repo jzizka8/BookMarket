@@ -46,6 +46,10 @@ export const specific = async (
 export const all = async (): BookReadAllReturn => {
   try {
     const result = await client.book.findMany({
+      where: {
+        deletedAt: null,
+        invoiceId: null,
+      },
       orderBy: {
         createdAt: 'desc',
       },
