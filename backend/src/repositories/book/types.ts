@@ -15,3 +15,7 @@ export type BookCreateData = {
 export type BookDeleteData = {
   id: string;
 };
+
+export type BookReadSpecificData = {
+  id: string;
+};
