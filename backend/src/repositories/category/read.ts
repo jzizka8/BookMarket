@@ -10,16 +10,11 @@ import { NonexistentRecordError } from '../types/errors';
  * The books are by default ordered by its `createdAt` property
  * in descending order.
  *
- * Special cases for an error (returned error type and message):
- *
- * - NonexistentRecordError('The specified category does not exist!')
- *
- * Otherwise: a generic error.
  *
  * @param data object containing a name of the category
  * @returns - On success: Category and its books
- *          - On failure: Either a special error (mentioned earlier), or a
- *                        generic error
+ *          - On failure: NonexistentRecordError if the category does not exist
+ *                        generic error otherwise
  */
 export const specific = async (
   data: CategoryReadSpecificData

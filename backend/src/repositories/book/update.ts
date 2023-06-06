@@ -9,12 +9,11 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
  * Repository call that updates the book's data.
  *
  *
- * @param data object containing the employee id and: either name or surname,
- *             or both
- * @returns - On success: An updated employee record and their timetable
- *            records (ordered by the `from` property in descending order)
+ * @param data object containing the book id and fields to be updated
+ * @returns - On success: An updated book record
  *          - On failure: NonExistentRecordError if the book does not exist
  *                        DeletedRecordError if the book was already deleted
+ *                        generic error otherwise
  */
 const update = async (data: BookUpdateData): Promise<Result<Book>> => {
   try {
