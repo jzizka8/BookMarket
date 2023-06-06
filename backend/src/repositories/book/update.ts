@@ -1,0 +1,58 @@
+import { Result } from '@badrap/result';
+import type { Book } from '@prisma/client';
+import client from '../client';
+import genericError from '../types';
+import type { BookUpdateData } from './types';
+import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
+
+/**
+ * Repository call that updates the book's data.
+ *
+ *
+ * @param data object containing the employee id and: either name or surname,
+ *             or both
+ * @returns - On success: An updated employee record and their timetable
+ *            records (ordered by the `from` property in descending order)
+ *          - On failure: NonExistentRecordError if the book does not exist
+ *                        DeletedRecordError if the book was already deleted
+ */
+const update = async (data: BookUpdateData): Promise<Result<Book>> => {
+  try {
+    const book = await client.book.findUnique({
+      where: {
+        id: data.id,
+      },
+    });
+
+    if (!book) {
+      return Result.err(
+        new NonexistentRecordError('The specified book does not exist!')
+      );
+    }
+
+    if (book.deletedAt) {
+      return Result.err(
+        new DeletedRecordError('The specified book has already been deleted!')
+      );
+    }
+
+    const updatedData = Object.fromEntries(
+      Object.entries(data).filter(([, value]) => value !== undefined)
+    );
+
+    const employeeUpdated = await client.$transaction(async (tx) => {
+      return tx.book.update({
+        where: {
+          id: data.id,
+        },
+        data: updatedData,
+      });
+    });
+
+    return Result.ok(employeeUpdated);
+  } catch (e) {
+    return genericError;
+  }
+};
+
+export default update;

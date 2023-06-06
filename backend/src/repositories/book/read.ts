@@ -35,6 +35,13 @@ export const specific = async (
   }
 };
 
+/**
+ * Repository call that reads data of all books.
+ *
+ * @param data object containing id of the book
+ * @returns - On success: All categories (without books)
+ *          - On failure: A generic error
+ */
 export const all = async (): Promise<Result<Book[]>> => {
   try {
     const result = await client.book.findMany({

@@ -19,3 +19,19 @@ export type BookDeleteData = {
 export type BookReadSpecificData = {
   id: string;
 };
+
+export type BookUpdateData = {
+  id: string;
+  toUpdate: ToUpdate;
+};
+
+export type ToUpdate = {
+  title?: string;
+  author?: string;
+  price?: number;
+  publicationYear?: number;
+  language?: Lang;
+  categoryName?: Genre;
+  photo?: string;
+  description?: string;
+};
