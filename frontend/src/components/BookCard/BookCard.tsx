@@ -11,7 +11,7 @@ const BookCard = (props: IBookCardProps) => {
       <div className="flex justify-center overflow-hidden ">
         <Link to={`./${book.id}`}>
           <img
-            className=" w-[100cqw] h-72 object-cover "
+            className=" h-72 w-[100cqw] object-cover "
             src={book.photo}
             alt=""
           />
@@ -28,7 +28,9 @@ const BookCard = (props: IBookCardProps) => {
           {book.author}
         </h2>
       </Link>
-      <p className="text-center text-2xl text-gray-700">&euro;{book.price}</p>
+      <p className="mb-2 text-center text-2xl text-gray-700">
+        {book.price.toFixed(2)}&nbsp;&euro;
+      </p>
       {/* </div> */}
       <div className="flex justify-center ">
         <button
