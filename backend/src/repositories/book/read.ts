@@ -3,7 +3,6 @@ import type { Book } from '@prisma/client';
 import type { BookReadSpecificData } from './types';
 import client from '../client';
 import { NonexistentRecordError } from '../types/errors';
-import genericError from '../types';
 
 /**
  * Repository call that reads data about a specific book.
@@ -31,7 +30,7 @@ export const specific = async (
       return Result.ok(book);
     });
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };
 
@@ -51,6 +50,6 @@ export const all = async (): Promise<Result<Book[]>> => {
 
     return Result.ok(result);
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };

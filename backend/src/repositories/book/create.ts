@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import type { Book } from '@prisma/client';
 import client from '../client';
-import genericError from '../types';
 import type { BookCreateData } from './types';
 import { NonexistentRecordError } from '../types/errors';
 
@@ -58,7 +57,7 @@ const create = async (data: BookCreateData): Promise<Result<Book>> => {
 
     return Result.ok(book);
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };
 

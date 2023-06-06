@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import type { Book } from '@prisma/client';
 import client from '../client';
-import genericError from '../types';
 import type { BookDeleteData } from './types';
 import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 
@@ -49,7 +48,7 @@ const deleteBook = async (data: BookDeleteData): Promise<Result<Book>> => {
       return Result.ok(bookUpdated);
     });
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };
 

@@ -2,7 +2,6 @@ import { Result } from '@badrap/result';
 import type { Category } from '@prisma/client';
 import type { CategoryReadSpecificData, CategoryWithBooks } from './types';
 import client from '../client';
-import genericError from '../types';
 import { NonexistentRecordError } from '../types/errors';
 
 /**
@@ -41,7 +40,7 @@ export const specific = async (
       return Result.ok(category);
     });
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };
 
@@ -58,6 +57,6 @@ export const all = async (): Promise<Result<Category[]>> => {
 
     return Result.ok(result);
   } catch (e) {
-    return genericError;
+    return Result.err(e as Error);
   }
 };
