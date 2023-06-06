@@ -5,22 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite && npm run watch:css",
-    "build": "tsc && vite build && npm run build:css",
+    "build": "tsc & vite build && npm run build:css",
     "build:css": "npx tailwindcss -i ./src/styles/index.css -o ./src/styles/compiled.css ",
     "watch:css": "npx tailwindcss -i ./src/styles/index.css -o ./src/styles/compiled.css --watch",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "prestart": "npm run tailwind",
-    "prebuild": "npm run tailwind",
-    "tailwind": "postcss src/index.css -o src/tailwind.css"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
-    "postcss": "^8.4.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
