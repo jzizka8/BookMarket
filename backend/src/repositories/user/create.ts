@@ -18,7 +18,7 @@ const create = async (data: UserCreateData): UserCreateResult => {
       where: { username: data.username }
     })
     if (user !== null) {
-      new NotUniqueUsernameError('The username is not unique!');
+      return Result.err(new NotUniqueUsernameError('The username is not unique!'));
     }
     return Result.ok(await prisma.user.create({
       data: {
