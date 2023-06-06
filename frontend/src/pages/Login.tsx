@@ -1,25 +1,38 @@
-import { SyntheticEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoginFormSchemaType } from '../../types/FormSchemaTypes';
+import loginFormSchema from '../../utils/formSchemas/LoginFormSchema';
 
 const Login = () => {
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormSchemaType>({
+    resolver: zodResolver(loginFormSchema),
+  });
+
+  const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
     // Handle form submission logic here
+    navigate('/register');
+    console.log(data);
   };
+
   return (
     <>
       <div className="flex justify-center items-center h-screen">
         <div className="w-64 sm:w-80">
           <img
-            src="https://via.placeholder.com/200"
+            src="https://via.placeholder.com/300x200"
             alt="Placeholder Image"
-            width="200"
+            width="300"
             height="200"
             className="mx-auto"
           />
-          <form onSubmit={handleSubmit} className="mt-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
             <div className="mb-4">
               <label
                 htmlFor="username"
@@ -31,9 +44,14 @@ const Login = () => {
                 type="text"
                 id="username"
                 className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Username"
+                {...register('username')}
               />
+              {errors.username && (
+                <span className="text-red-800 block mt-2">
+                  {errors.username?.message}
+                </span>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -46,9 +64,14 @@ const Login = () => {
                 type="password"
                 id="password"
                 className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                {...register('password')}
               />
+              {errors.password && (
+                <span className="text-red-800 block mt-2">
+                  {errors.password?.message}
+                </span>
+              )}
             </div>
             <div className="flex justify-center">
               <button
