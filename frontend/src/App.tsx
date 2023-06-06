@@ -14,9 +14,8 @@ import OrderConfirmation from './pages/OrderConfirmation';
 export const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<AllBooks />}>
-        <Route path="/:bookId" element={<BookDetail />} />
-      </Route>
+      <Route path="/" element={<AllBooks />}/>
+      <Route path="/:bookId" element={<BookDetail />} />
       <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
       <Route path="/bookAddition" element={<BookAddition />} />
       <Route path="/cart" element={<Cart />} />
