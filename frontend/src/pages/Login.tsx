@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         <div className="w-64 sm:w-80">
           <img
             src="https://via.placeholder.com/300x200"
@@ -43,12 +43,12 @@ const Login = () => {
               <input
                 type="text"
                 id="username"
-                className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                 placeholder="Username"
                 {...register('username')}
               />
               {errors.username && (
-                <span className="text-red-800 block mt-2">
+                <span className="mt-2 block text-red-800">
                   {errors.username?.message}
                 </span>
               )}
@@ -63,12 +63,12 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
                 placeholder="••••••••"
                 {...register('password')}
               />
               {errors.password && (
-                <span className="text-red-800 block mt-2">
+                <span className="mt-2 block text-red-800">
                   {errors.password?.message}
                 </span>
               )}
@@ -76,7 +76,7 @@ const Login = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 Submit
               </button>
