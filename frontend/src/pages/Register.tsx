@@ -20,18 +20,18 @@ const Register = () => {
   };
   return (
     <>
-      <div className="flex flex-col justify-center items-center space-y-8 h-screen">
+      <div className="flex flex-col justify-center items-center min-h-screen">
         <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white break-words">
           Create an account
         </h1>
         <form
-          className="space-y-4 md:space-y-6"
+          className="space-y-4 md:space-y-6 w-full max-w-sm"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>
             <label
               htmlFor="username"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm f ont-medium text-gray-900 dark:text-white"
             >
               Your username
             </label>
