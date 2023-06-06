@@ -11,3 +11,7 @@ export type BookCreateData = {
   photo: string | null;
   description: string | null;
 };
+
+export type BookDeleteData = {
+  id: string;
+};
