@@ -8,16 +8,23 @@ const BookCard = (props: IBookCardProps) => {
   const book = props.book;
   return (
     <div className="flex max-w-sm flex-col  rounded-lg border border-gray-200 bg-white p-3 shadow ">
-      <div className="flex justify-center overflow-hidden ">
+      <div className="flex justify-center overflow-hidden  ">
         <Link to={`./${book.id}`}>
-          <img
-            className=" h-72 w-[100cqw] object-cover "
-            src={book.photo}
-            alt=""
-          />
+          <div className="relative">
+            {book.invoice && (
+              <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-80 text-3xl font-semibold text-white">
+                <img className=" h-12 w-12" src="/src/assets/tick.svg" alt="" />
+                Sold
+              </div>
+            )}
+            <img
+              className=" h-72 w-[100cqw] object-cover "
+              src={book.photo}
+              alt=""
+            />
+          </div>
         </Link>
       </div>
-      {/* <div className="mt-auto px-5 flex flex-col gap-3"> */}
       <Link to={`./${book.id}`}>
         <h1 className="my-3 text-center text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600">
           {book.title}
@@ -31,7 +38,6 @@ const BookCard = (props: IBookCardProps) => {
       <p className="mb-2 text-center text-2xl text-gray-700">
         {book.price.toFixed(2)}&nbsp;&euro;
       </p>
-      {/* </div> */}
       <div className="flex justify-center ">
         <button
           type="button"

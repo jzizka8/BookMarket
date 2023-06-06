@@ -20,30 +20,30 @@ const Register = () => {
   };
   return (
     <>
-      <div className="flex flex-col justify-center items-center min-h-screen">
-        <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white break-words">
+      <div className="flex min-h-screen flex-col items-center justify-center">
+        <h1 className="break-words text-center text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
           Create an account
         </h1>
         <form
-          className="space-y-4 md:space-y-6 w-full max-w-sm"
+          className="w-full max-w-sm space-y-4 md:space-y-6"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>
             <label
               htmlFor="username"
-              className="block mb-2 text-sm f ont-medium text-gray-900 dark:text-white"
+              className="f ont-medium mb-2 block text-sm text-gray-900 dark:text-white"
             >
               Your username
             </label>
             <input
               type="text"
               id="username"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
               placeholder="Your name"
               {...register('username')}
             />
             {errors.username && (
-              <span className="text-red-800 block mt-2">
+              <span className="mt-2 block text-red-800">
                 {errors.username?.message}
               </span>
             )}
@@ -51,7 +51,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
               Password
             </label>
@@ -59,11 +59,11 @@ const Register = () => {
               type="password"
               id="password"
               placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
               {...register('password')}
             />
             {errors.password && (
-              <span className="text-red-800 block mt-2">
+              <span className="mt-2 block text-red-800">
                 {errors.password?.message}
               </span>
             )}
@@ -71,7 +71,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
               Confirm password
             </label>
@@ -79,12 +79,12 @@ const Register = () => {
               type="password"
               id="confirmPassword"
               placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
               {...register('confirmPassword')}
             />
 
             {errors.confirmPassword && (
-              <span className="text-red-800 block mt-2">
+              <span className="mt-2 block text-red-800">
                 {errors.confirmPassword?.message}
               </span>
             )}
@@ -92,7 +92,7 @@ const Register = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               Create an account
             </button>
