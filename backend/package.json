@@ -9,7 +9,7 @@
     "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
     "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts"
   },
-  "author": "Diana Janickova, Katarina Sieklova, Jakub Ulicny, Jozef Zizka",
+  "author": "Diana Janickova, Katarina Sieklova, Jakub Ulicny, Josef Zizka",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node18-strictest": "^1.0.0",
