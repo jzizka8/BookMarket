@@ -1,6 +1,9 @@
 import { Result } from '@badrap/result';
-import type { Category } from '@prisma/client';
-import type { CategoryReadSpecificData, CategoryWithBooks } from './types';
+import type {
+  CategoryReadAllReturn,
+  CategoryReadSpecificData,
+  CategoryReadSpecificReturn,
+} from './types';
 import client from '../client';
 import { NonexistentRecordError } from '../types/errors';
 
@@ -17,7 +20,7 @@ import { NonexistentRecordError } from '../types/errors';
  */
 export const specific = async (
   data: CategoryReadSpecificData
-): Promise<Result<CategoryWithBooks>> => {
+): CategoryReadSpecificReturn => {
   try {
     return await client.$transaction(async (tx) => {
       const category = await tx.category.findUnique({
@@ -51,7 +54,7 @@ export const specific = async (
  * @returns - On success: All categories (without books)
  *          - On failure: A generic error
  */
-export const all = async (): Promise<Result<Category[]>> => {
+export const all = async (): CategoryReadAllReturn => {
   try {
     const result = await client.category.findMany();
 

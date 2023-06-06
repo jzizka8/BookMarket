@@ -1,6 +1,9 @@
 import { Result } from '@badrap/result';
-import type { Book } from '@prisma/client';
-import type { BookReadSpecificData } from './types';
+import type {
+  BookGenericReturn,
+  BookReadAllReturn,
+  BookReadSpecificData,
+} from './types';
 import client from '../client';
 import { NonexistentRecordError } from '../types/errors';
 
@@ -14,7 +17,7 @@ import { NonexistentRecordError } from '../types/errors';
  */
 export const specific = async (
   data: BookReadSpecificData
-): Promise<Result<Book>> => {
+): BookGenericReturn => {
   try {
     return await client.$transaction(async (tx) => {
       const book = await tx.book.findUnique({
@@ -40,7 +43,7 @@ export const specific = async (
  * @returns - On success: All books
  *          - On failure: A generic error
  */
-export const all = async (): Promise<Result<Book[]>> => {
+export const all = async (): BookReadAllReturn => {
   try {
     const result = await client.book.findMany({
       orderBy: {

@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
-import type { Category } from '@prisma/client';
 import client from '../client';
-import type { CategoryCreateData } from './types';
+import type { CategoryCreateData, CategoryGenericReturn } from './types';
 import { ConflictingRecordError } from '../types/errors';
 
 /**
@@ -13,7 +12,7 @@ import { ConflictingRecordError } from '../types/errors';
  *                        a generic error
  */
 
-const create = async (data: CategoryCreateData): Promise<Result<Category>> => {
+const create = async (data: CategoryCreateData): CategoryGenericReturn => {
   try {
     const existingCategory = await client.category.findFirst({
       where: {

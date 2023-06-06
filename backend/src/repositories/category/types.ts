@@ -1,3 +1,4 @@
+import type { Result } from '@badrap/result';
 import type { Book, Category, Genre } from '@prisma/client';
 
 export type CategoryCreateData = {
@@ -11,3 +12,9 @@ export type CategoryReadSpecificData = {
 export type CategoryWithBooks = Category & {
   books: Book[];
 };
+
+export type CategoryGenericReturn = Promise<Result<Category>>;
+
+export type CategoryReadSpecificReturn = Promise<Result<CategoryWithBooks>>;
+
+export type CategoryReadAllReturn = Promise<Result<Category[]>>;

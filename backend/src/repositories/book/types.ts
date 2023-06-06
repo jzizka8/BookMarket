@@ -1,4 +1,5 @@
-import type { Genre, Lang } from '@prisma/client';
+import type { Result } from '@badrap/result';
+import type { Book, Genre, Lang } from '@prisma/client';
 
 export type BookCreateData = {
   title: string;
@@ -35,3 +36,7 @@ export type ToUpdate = {
   photo?: string;
   description?: string;
 };
+
+export type BookGenericReturn = Promise<Result<Book>>;
+
+export type BookReadAllReturn = Promise<Result<Book[]>>;

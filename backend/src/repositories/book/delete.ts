@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
-import type { Book } from '@prisma/client';
 import client from '../client';
-import type { BookDeleteData } from './types';
+import type { BookDeleteData, BookGenericReturn } from './types';
 import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 
 /**
@@ -13,7 +12,7 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
  *                        DeletedRecordError if the book was already deleted
  *                        generic error otherwise
  */
-const deleteBook = async (data: BookDeleteData): Promise<Result<Book>> => {
+const deleteBook = async (data: BookDeleteData): BookGenericReturn => {
   try {
     const book = await client.book.findUnique({
       where: {

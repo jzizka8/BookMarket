@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
-import type { Book } from '@prisma/client';
 import client from '../client';
-import type { BookCreateData } from './types';
+import type { BookCreateData, BookGenericReturn } from './types';
 import { NonexistentRecordError } from '../types/errors';
 
 /**
@@ -11,7 +10,7 @@ import { NonexistentRecordError } from '../types/errors';
  * @returns - On success: the created book record
  *          - On failure: a generic error
  */
-const create = async (data: BookCreateData): Promise<Result<Book>> => {
+const create = async (data: BookCreateData): BookGenericReturn => {
   try {
     const { categoryName, soldBy, ...bookData } = data;
 
