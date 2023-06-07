@@ -14,7 +14,7 @@ import type { UserCreateData, UserCreateResult } from './types';
  */
 const create = async (data: UserCreateData): UserCreateResult => {
   try {
-    const user = client.user.findUnique({
+    const user = await client.user.findUnique({
       where: { username: data.username }
     })
     if (user !== null) {
