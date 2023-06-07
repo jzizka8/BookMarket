@@ -6,7 +6,7 @@ import type { UserCreateData, UserCreateResult } from './types';
 /**
  * Repository call that creates a User.
  *
- * @param data - username 
+ * @param data - username
  *             - hashedPassword
  * @returns - Result.ok({ User }) on success
  *          - NotUniqueUsernameError if the username is not unique
@@ -15,20 +15,24 @@ import type { UserCreateData, UserCreateResult } from './types';
 const create = async (data: UserCreateData): UserCreateResult => {
   try {
     const user = await client.user.findUnique({
-      where: { username: data.username }
-    })
+      where: { username: data.username },
+    });
     if (user !== null) {
-      return Result.err(new NotUniqueUsernameError('The username is not unique!'));
+      return Result.err(
+        new NotUniqueUsernameError('The username is not unique!')
+      );
     }
-    return Result.ok(await client.user.create({
-      data: {
-        username: data.username,
-        hashedPassword: data.hashedPassword,
-      }
-    }));
+    return Result.ok(
+      await client.user.create({
+        data: {
+          username: data.username,
+          hashedPassword: data.hashedPassword,
+        },
+      })
+    );
   } catch (e) {
     return Result.err(e as Error);
   }
-}
+};
 
 export default create;

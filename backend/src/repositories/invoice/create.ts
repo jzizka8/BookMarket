@@ -1,8 +1,8 @@
-import { Result } from "@badrap/result";
-import client from "../client";
-import { specific } from "../user/read";
-import type { InvoiceCreateData, InvoiceCreateResult } from "./types";
-import { BookNotFound, DeletedBook, UserNotFound } from "./types/errors";
+import { Result } from '@badrap/result';
+import client from '../client';
+import { specific } from '../user/read';
+import type { InvoiceCreateData, InvoiceCreateResult } from './types';
+import { BookNotFound, DeletedBook, UserNotFound } from './types/errors';
 
 /**
  * Repository call that creates a Invoice.
@@ -19,24 +19,28 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
 
       const user = await specific({ id: data.userId });
       if (user.isErr) {
-        return Result.err(new UserNotFound('User with this id does not exist!'));
+        return Result.err(
+          new UserNotFound('User with this id does not exist!')
+        );
       }
 
       const booksForPurchase = await tx.book.findMany({
         where: {
           id: {
-            in: data.bookId
-          }
+            in: data.bookId,
+          },
         },
-      })
+      });
 
-      const nullDeletedAt = booksForPurchase.every(book => book.deletedAt === null);
+      const nullDeletedAt = booksForPurchase.every(
+        (book) => book.deletedAt === null
+      );
 
       if (!nullDeletedAt) {
         return Result.err(new DeletedBook('Book has been already deleted!'));
       }
       if (booksForPurchase.length !== data.bookId.length) {
-        return Result.err(new BookNotFound('One or more books don\'t exist'));
+        return Result.err(new BookNotFound("One or more books don't exist"));
       }
 
       const deletedAt = new Date();
@@ -44,19 +48,19 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
       await tx.book.updateMany({
         where: {
           id: {
-            in: data.bookId
-          }
+            in: data.bookId,
+          },
         },
-        data: { deletedAt }
-      })
+        data: { deletedAt },
+      });
 
       const books = await tx.book.findMany({
         where: {
           id: {
-            in: data.bookId
-          }
+            in: data.bookId,
+          },
         },
-      })
+      });
 
       const invoice = await tx.invoice.create({
         data: {
@@ -72,21 +76,19 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
           country: address.country,
           books: {
             connect: books.map((book) => ({ id: book.id })),
-          }
+          },
         },
         include: {
           buyer: true,
-          books: true
+          books: true,
         },
-      }
-      );
+      });
 
       return Result.ok(invoice);
     });
-
   } catch (e) {
     return Result.err(e as Error);
   }
-}
+};
 
 export default create;

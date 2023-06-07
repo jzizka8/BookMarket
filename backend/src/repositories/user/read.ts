@@ -1,12 +1,12 @@
-import { Result } from "@badrap/result";
-import client from "../client";
+import { Result } from '@badrap/result';
+import client from '../client';
 import type {
   UserReadLoginData,
   UserReadLoginResult,
   UserReadSpecificData,
-  UserReadSpecificResult
-} from "./types";
-import { WrongPassword } from "./types/errors";
+  UserReadSpecificResult,
+} from './types';
+import { WrongPassword } from './types/errors';
 
 /**
  * Repository call that reads data about a specific user.
@@ -17,25 +17,28 @@ import { WrongPassword } from "./types/errors";
  * @returns       - On success: Result.ok(User & { Book[], Invoice[] })
  *                - On failure: Result.err(_)
  */
-export const specific = async (data: UserReadSpecificData): UserReadSpecificResult => {
+export const specific = async (
+  data: UserReadSpecificData
+): UserReadSpecificResult => {
   try {
-    return Result.ok(await client.user.findUniqueOrThrow({
-      where: { id: data.id },
-      include: {
-        booksForSale: {
-          where: { deletedAt: null },
-          orderBy: { createdAt: 'desc' }
+    return Result.ok(
+      await client.user.findUniqueOrThrow({
+        where: { id: data.id },
+        include: {
+          booksForSale: {
+            where: { deletedAt: null },
+            orderBy: { createdAt: 'desc' },
+          },
+          invoices: {
+            orderBy: { createdAt: 'desc' },
+          },
         },
-        invoices: {
-          orderBy: { createdAt: 'desc' }
-        }
-      },
-    }));
+      })
+    );
   } catch (e) {
     return Result.err(e as Error);
   }
-}
-
+};
 
 /**
  * Repository call that reads data about a specific user.
@@ -46,10 +49,12 @@ export const specific = async (data: UserReadSpecificData): UserReadSpecificResu
  * @returns       - On success: Result.ok(User)
  *                - On failure: Result.err(_)
  */
-export const forLogin = async (data: UserReadLoginData): UserReadLoginResult => {
+export const forLogin = async (
+  data: UserReadLoginData
+): UserReadLoginResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
-      where: { username: data.username }
+      where: { username: data.username },
     });
 
     if (user.hashedPassword !== data.hashedPassword) {
@@ -59,4 +64,4 @@ export const forLogin = async (data: UserReadLoginData): UserReadLoginResult => 
   } catch (e) {
     return Result.err(e as Error);
   }
-}
+};

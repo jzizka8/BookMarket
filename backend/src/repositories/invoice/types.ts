@@ -1,38 +1,40 @@
-import type { Result } from "@badrap/result"
-import type { Book, Invoice, User } from "@prisma/client"
+import type { Result } from '@badrap/result';
+import type { Book, Invoice, User } from '@prisma/client';
 
 type UserData = {
-  name: string,
-  surname: string,
-  email: string,
-  phoneNumber: string
-}
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+};
 
 type Address = {
-  street: string,
-  city: string,
-  zipcode: string,
-  country: string
-}
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};
 
 export type InvoiceCreateData = {
-  userId: string,
-  bookId: string[],
-  amount: number,
-  userData: UserData,
-  address: Address
-}
+  userId: string;
+  bookId: string[];
+  amount: number;
+  userData: UserData;
+  address: Address;
+};
 
-export type InvoiceCreateResult = Promise<Result<Invoice & {buyer: User}>>;
+export type InvoiceCreateResult = Promise<Result<Invoice & { buyer: User }>>;
 
 export type InvoiceReadSpecificData = {
-  buyerId: string
-}
+  buyerId: string;
+};
 
-export type InvoiceReadSpecificResult = Promise<Result<(Invoice & {books: Book[] })[] & { buyer: User }>>;
+export type InvoiceReadSpecificResult = Promise<
+  Result<(Invoice & { books: Book[] })[] & { buyer: User }>
+>;
 
 export type InvoiceReadAllData = {
-  id: string
-}
+  id: string;
+};
 
-export type InvoiceReadAllResult = Promise<Result<Invoice & {buyer: User}>>;
+export type InvoiceReadAllResult = Promise<Result<Invoice & { buyer: User }>>;
