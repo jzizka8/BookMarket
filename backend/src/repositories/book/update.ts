@@ -15,6 +15,10 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
  */
 const update = async (data: BookUpdateData): BookGenericReturn => {
   try {
+    const updatedData = Object.fromEntries(
+      Object.entries(data).filter(([, value]) => value !== undefined)
+    );
+
     const book = await client.book.findUnique({
       where: {
         id: data.id,
@@ -32,10 +36,6 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
         new DeletedRecordError('The specified book has already been deleted!')
       );
     }
-
-    const updatedData = Object.fromEntries(
-      Object.entries(data).filter(([, value]) => value !== undefined)
-    );
 
     const employeeUpdated = await client.$transaction(async (tx) => {
       return tx.book.update({
