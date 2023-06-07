@@ -30,3 +30,9 @@ export type InvoiceReadSpecificData = {
 }
 
 export type InvoiceReadSpecificResult = Promise<Result<Invoice[] & {buyer: User}>>;
+
+export type InvoiceReadAllData = {
+  id: string
+}
+
+export type InvoiceReadAllResult = Promise<Result<Invoice & {buyer: User}>>;
