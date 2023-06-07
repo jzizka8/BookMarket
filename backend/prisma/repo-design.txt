@@ -106,6 +106,6 @@ Read -
 
   specific(att: id)
   {
-    return invoice[] & User
+    return invoice & User
   }
 
