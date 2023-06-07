@@ -5,7 +5,6 @@ import type {
   CategoryReadSpecificReturn,
 } from './types';
 import client from '../client';
-import { NonexistentRecordError } from '../types/errors';
 
 /**
  * Repository call that reads data about a specific category.
@@ -15,7 +14,7 @@ import { NonexistentRecordError } from '../types/errors';
  *
  * @param data object containing a name of the category
  * @returns - On success: Category and its books
- *          - On failure: NonexistentRecordError if the category does not exist
+ *          - On failure: NotFoundError if the category does not exist
  *                        generic error otherwise
  */
 export const specific = async (
@@ -23,7 +22,7 @@ export const specific = async (
 ): CategoryReadSpecificReturn => {
   try {
     return await client.$transaction(async (tx) => {
-      const category = await tx.category.findUnique({
+      const category = await tx.category.findUniqueOrThrow({
         where: { name: data.name },
         include: {
           books: {
@@ -33,12 +32,6 @@ export const specific = async (
           },
         },
       });
-
-      if (!category) {
-        return Result.err(
-          new NonexistentRecordError('The specified category does not exist!')
-        );
-      }
 
       return Result.ok(category);
     });

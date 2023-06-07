@@ -1,42 +1,30 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { BookCreateData, BookGenericReturn } from './types';
-import { NonexistentRecordError } from '../types/errors';
 
 /**
  * Repository call that creates a book.
  *
  * @param data object containing necessary data to create a new book record
  * @returns - On success: the created book record
- *          - On failure: a generic error
+ *          - On failure: NotFoundError if category or user is not found
+ *                        a generic error otherwise
  */
 const create = async (data: BookCreateData): BookGenericReturn => {
   try {
     const { categoryName, soldBy, ...bookData } = data;
 
-    const category = await client.category.findUnique({
+    const category = await client.category.findUniqueOrThrow({
       where: {
         name: categoryName,
       },
     });
 
-    if (!category) {
-      return Result.err(
-        new NonexistentRecordError('The specified category does not exist!')
-      );
-    }
-
-    const user = await client.user.findUnique({
+    const user = await client.user.findUniqueOrThrow({
       where: {
         id: soldBy,
       },
     });
-
-    if (!user) {
-      return Result.err(
-        new NonexistentRecordError('The specified user does not exist!')
-      );
-    }
 
     const book = await client.book.create({
       data: {

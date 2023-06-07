@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { BookGenericReturn, BookUpdateData } from './types';
-import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
+import { DeletedRecordError } from '../types/errors';
 
 /**
  * Repository call that updates the book's data.
@@ -9,7 +9,7 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
  *
  * @param data object containing the book id and fields to be updated
  * @returns - On success: An updated book record
- *          - On failure: NonExistentRecordError if the book does not exist
+ *          - On failure: NotFoundError if the book does not exist
  *                        DeletedRecordError if the book was already deleted
  *                        generic error otherwise
  */
@@ -19,17 +19,11 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
       Object.entries(data).filter(([, value]) => value !== undefined)
     );
 
-    const book = await client.book.findUnique({
+    const book = await client.book.findUniqueOrThrow({
       where: {
         id: data.id,
       },
     });
-
-    if (!book) {
-      return Result.err(
-        new NonexistentRecordError('The specified book does not exist!')
-      );
-    }
 
     if (book.deletedAt) {
       return Result.err(

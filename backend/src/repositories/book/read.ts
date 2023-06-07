@@ -5,7 +5,6 @@ import type {
   BookReadSpecificData,
 } from './types';
 import client from '../client';
-import { NonexistentRecordError } from '../types/errors';
 
 /**
  * Repository call that reads data about a specific book.
@@ -20,15 +19,9 @@ export const specific = async (
 ): BookGenericReturn => {
   try {
     return await client.$transaction(async (tx) => {
-      const book = await tx.book.findUnique({
+      const book = await tx.book.findUniqueOrThrow({
         where: { id: data.id },
       });
-
-      if (!book) {
-        return Result.err(
-          new NonexistentRecordError('The specified book does not exist!')
-        );
-      }
 
       return Result.ok(book);
     });

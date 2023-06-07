@@ -1,30 +1,24 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { BookDeleteData, BookGenericReturn } from './types';
-import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
+import { DeletedRecordError } from '../types/errors';
 
 /**
  * Repository call that deletes a book.
  *
  * @param data object containing an id (string)
  * @returns - On success: book
- *          - On failure: NonExistentRecordError if the book does not exist
+ *          - On failure: NotFoundError if the book does not exist
  *                        DeletedRecordError if the book was already deleted
  *                        generic error otherwise
  */
 const deleteBook = async (data: BookDeleteData): BookGenericReturn => {
   try {
-    const book = await client.book.findUnique({
+    const book = await client.book.findUniqueOrThrow({
       where: {
         id: data.id,
       },
     });
-
-    if (!book) {
-      return Result.err(
-        new NonexistentRecordError('Given book does not exist')
-      );
-    }
 
     if (book.deletedAt) {
       return Result.err(
