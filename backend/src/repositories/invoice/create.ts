@@ -5,12 +5,11 @@ import type { InvoiceCreateData, InvoiceCreateResult } from "./types";
 import { UserNotFound } from "./types/errors";
 
 /**
- * Repository call that creates a User.
+ * Repository call that creates a Invoice.
  *
- * @param data - username 
- *             - hashedPassword
- * @returns - Result.ok({ User }) on success
- *          - NotUniqueUsernameError if the username is not unique
+ * @param data - containing necessary data to create a new invoice record
+ * @returns - Result.ok(Invoice &{ Buyer: User }) on success
+ *          - UserNotFound if the user don't exist
  *          - Result.err(_) otherwise
  */
 const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
@@ -22,7 +21,7 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
     if (user.isErr) {
       return Result.err(new UserNotFound('User with this id does not exist!'));
     }
-    
+
     const books = await prisma.book.findMany({
       where: {
         id: {
