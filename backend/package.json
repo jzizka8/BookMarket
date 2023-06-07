@@ -25,11 +25,12 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.8",
-    "prisma": "^4.14.1",
+    "prisma": "^4.15.0",
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.1",
+    "@badrap/result": "^0.2.13",
+    "@prisma/client": "^4.15.0",
     "lodash": "^4.17.21"
   }
 }
