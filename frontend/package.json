@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite && npm run watch:css",
+    "dev": "vite & npm run watch:css",
     "build": "tsc & vite build && npm run build:css",
     "build:css": "npx tailwindcss -i ./src/styles/index.css -o ./src/styles/compiled.css ",
     "watch:css": "npx tailwindcss -i ./src/styles/index.css -o ./src/styles/compiled.css --watch",
