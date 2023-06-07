@@ -102,7 +102,6 @@ const data: SeedData = {
     {
       id: '46808aed-cca9-4860-b69d-bfe56852f170',
       buyer: { connect: { id: '5df68034-f059-4703-baf5-1fb4657a1adc' } },
-      date: new Date(),
       amount: 18.9,
       name: 'William',
       surname: 'Harrington',
@@ -116,7 +115,6 @@ const data: SeedData = {
     {
       id: '1f69b283-8baa-4ea4-898f-530ce823bc19',
       buyer: { connect: { id: '5df68034-f059-4703-baf5-1fb4657a1adc' } },
-      date: new Date(),
       amount: 44.8,
       name: 'William',
       surname: 'Harrington',
