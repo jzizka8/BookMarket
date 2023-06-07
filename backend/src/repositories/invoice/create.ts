@@ -2,7 +2,7 @@ import { Result } from "@badrap/result";
 import client from "../client";
 import { specific } from "../user/read";
 import type { InvoiceCreateData, InvoiceCreateResult } from "./types";
-import { UserNotFound } from "./types/errors";
+import { DeletedBook, UserNotFound } from "./types/errors";
 
 /**
  * Repository call that creates a Invoice.
@@ -14,45 +14,71 @@ import { UserNotFound } from "./types/errors";
  */
 const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
   try {
+    return await client.$transaction(async (tx) => {
+      const { userData, address, ...invoiceData } = data;
 
-    const { userData, address, ...invoiceData } = data;
-
-    const user = await specific({ id: data.userId });
-    if (user.isErr) {
-      return Result.err(new UserNotFound('User with this id does not exist!'));
-    }
-
-    const books = await client.book.findMany({
-      where: {
-        id: {
-          in: data.bookId
-        }
+      const user = await specific({ id: data.userId });
+      if (user.isErr) {
+        return Result.err(new UserNotFound('User with this id does not exist!'));
       }
-    })
 
-    const invoice = await client.invoice.create({
-      data: {
-        buyerId: invoiceData.userId,
-        amount: invoiceData.amount,
-        name: userData.name,
-        surname: userData.surname,
-        email: userData.email,
-        phoneNumber: userData.phoneNumber,
-        street: address.street,
-        city: address.city,
-        zipcode: address.zipcode,
-        country: address.country,
-        books: {
-          connect: books.map((book) => ({ id: book.id })),
-        }
-      },
-      include: {
-        buyer: true
-      },
-    }
-    );
+      const booksForPurchase = await tx.book.findMany({
+        where: {
+          id: {
+            in: data.bookId
+          }
+        },
+      })
 
-    return Result.ok(invoice);
+      const nullDeletedAt = booksForPurchase.every(book => book.deletedAt === null);
+
+      if (!nullDeletedAt) {
+        return Result.err(new DeletedBook('Book has been already deleted!'));
+      }
+
+      const deletedAt = new Date();
+
+      await tx.book.updateMany({
+        where: {
+          id: {
+            in: data.bookId
+          }
+        },
+        data: { deletedAt }
+      })
+
+      const books = await tx.book.findMany({
+        where: {
+          id: {
+            in: data.bookId
+          }
+        },
+      })
+
+      const invoice = await tx.invoice.create({
+        data: {
+          buyerId: invoiceData.userId,
+          amount: invoiceData.amount,
+          name: userData.name,
+          surname: userData.surname,
+          email: userData.email,
+          phoneNumber: userData.phoneNumber,
+          street: address.street,
+          city: address.city,
+          zipcode: address.zipcode,
+          country: address.country,
+          books: {
+            connect: books.map((book) => ({ id: book.id })),
+          }
+        },
+        include: {
+          buyer: true
+        },
+      }
+      );
+
+      return Result.ok(invoice);
+    });
 
   } catch (e) {
     return Result.err(e as Error);
