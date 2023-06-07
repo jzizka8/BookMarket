@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
-    "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts"
+    "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts",
+    "start": "ts-node src/index.ts"
   },
   "author": "Diana Janickova, Katarina Sieklova, Jakub Ulicny, Jozef Zizka",
   "license": "ISC",

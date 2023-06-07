@@ -2,7 +2,7 @@ import { Result } from "@badrap/result";
 import client from "../client";
 import { specific } from "../user/read";
 import type { InvoiceCreateData, InvoiceCreateResult } from "./types";
-import { DeletedBook, UserNotFound } from "./types/errors";
+import { BookNotFound, DeletedBook, UserNotFound } from "./types/errors";
 
 /**
  * Repository call that creates a Invoice.
@@ -34,6 +34,9 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
 
       if (!nullDeletedAt) {
         return Result.err(new DeletedBook('Book has been already deleted!'));
+      }
+      if (booksForPurchase.length !== data.bookId.length) {
+        return Result.err(new BookNotFound('One or more books don\'t exist'));
       }
 
       const deletedAt = new Date();
@@ -72,7 +75,8 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
           }
         },
         include: {
-          buyer: true
+          buyer: true,
+          books: true
         },
       }
       );

@@ -1,5 +1,5 @@
 import type { Result } from "@badrap/result"
-import type { Invoice, User } from "@prisma/client"
+import type { Book, Invoice, User } from "@prisma/client"
 
 type UserData = {
   name: string,
@@ -29,7 +29,7 @@ export type InvoiceReadSpecificData = {
   buyerId: string
 }
 
-export type InvoiceReadSpecificResult = Promise<Result<Invoice[] & {buyer: User}>>;
+export type InvoiceReadSpecificResult = Promise<Result<(Invoice & {books: Book[] })[] & { buyer: User }>>;
 
 export type InvoiceReadAllData = {
   id: string
