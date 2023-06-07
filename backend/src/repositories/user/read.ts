@@ -1,10 +1,10 @@
 import { Result } from "@badrap/result";
-import prisma from "../client";
-import type { 
-  UserReadLoginData, 
-  UserReadLoginResult, 
-  UserReadSpecificData, 
-  UserReadSpecificResult 
+import client from "../client";
+import type {
+  UserReadLoginData,
+  UserReadLoginResult,
+  UserReadSpecificData,
+  UserReadSpecificResult
 } from "./types";
 import { WrongPassword } from "./types/errors";
 
@@ -19,12 +19,12 @@ import { WrongPassword } from "./types/errors";
  */
 export const specific = async (data: UserReadSpecificData): UserReadSpecificResult => {
   try {
-    return Result.ok(await prisma.user.findUniqueOrThrow({
+    return Result.ok(await client.user.findUniqueOrThrow({
       where: { id: data.id },
       include: {
         booksForSale: {
           where: { deletedAt: null },
-          orderBy: { createdAt: 'desc'}
+          orderBy: { createdAt: 'desc' }
         },
         invoices: {
           orderBy: { createdAt: 'desc' }
@@ -48,7 +48,7 @@ export const specific = async (data: UserReadSpecificData): UserReadSpecificResu
  */
 export const forLogin = async (data: UserReadLoginData): UserReadLoginResult => {
   try {
-    const user = await prisma.user.findUniqueOrThrow({
+    const user = await client.user.findUniqueOrThrow({
       where: { username: data.username }
     });
 

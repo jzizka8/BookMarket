@@ -2,7 +2,7 @@ import { Result } from "@badrap/result";
 import type { InvoiceReadAllData, InvoiceReadAllResult, InvoiceReadSpecificData, InvoiceReadSpecificResult } from "./types";
 import { specific as specificUser } from "../user/read";
 import { UserNotFound } from "./types/errors";
-import prisma from "../client";
+import client from "../client";
 import type { Invoice, User } from "@prisma/client";
 
 /**
@@ -20,7 +20,7 @@ export const allByUser = async (data: InvoiceReadSpecificData): InvoiceReadSpeci
       return Result.err(new UserNotFound('User was not found.'));
     }
     const { booksForSale, invoices, ...userEntity } = user.unwrap();
-    const userInvoices = await prisma.invoice.findMany({
+    const userInvoices = await client.invoice.findMany({
       where: { buyerId: data.buyerId },
     });
 
@@ -42,7 +42,7 @@ export const allByUser = async (data: InvoiceReadSpecificData): InvoiceReadSpeci
  */
 export const specific = async (data: InvoiceReadAllData): InvoiceReadAllResult => {
   try {
-    return Result.ok(await prisma.invoice.findUniqueOrThrow({
+    return Result.ok(await client.invoice.findUniqueOrThrow({
       where: { id: data.id },
       include: { buyer: true }
     }));

@@ -1,5 +1,5 @@
 import { Result } from "@badrap/result";
-import prisma from "../client";
+import client from "../client";
 import { specific } from "../user/read";
 import type { InvoiceCreateData, InvoiceCreateResult } from "./types";
 import { UserNotFound } from "./types/errors";
@@ -22,7 +22,7 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
       return Result.err(new UserNotFound('User with this id does not exist!'));
     }
 
-    const books = await prisma.book.findMany({
+    const books = await client.book.findMany({
       where: {
         id: {
           in: data.bookId
@@ -30,7 +30,7 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
       }
     })
 
-    const invoice = await prisma.invoice.create({
+    const invoice = await client.invoice.create({
       data: {
         buyerId: invoiceData.userId,
         amount: invoiceData.amount,

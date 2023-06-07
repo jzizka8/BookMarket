@@ -1,5 +1,5 @@
 import { Result } from '@badrap/result';
-import prisma from '../client';
+import client from '../client';
 import { NotUniqueUsernameError } from './types/errors';
 import type { UserCreateData, UserCreateResult } from './types';
 
@@ -14,13 +14,13 @@ import type { UserCreateData, UserCreateResult } from './types';
  */
 const create = async (data: UserCreateData): UserCreateResult => {
   try {
-    const user = prisma.user.findUnique({
+    const user = client.user.findUnique({
       where: { username: data.username }
     })
     if (user !== null) {
       return Result.err(new NotUniqueUsernameError('The username is not unique!'));
     }
-    return Result.ok(await prisma.user.create({
+    return Result.ok(await client.user.create({
       data: {
         username: data.username,
         hashedPassword: data.hashedPassword,
