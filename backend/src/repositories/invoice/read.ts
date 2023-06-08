@@ -6,8 +6,6 @@ import type {
   InvoiceReadSpecificData,
   InvoiceReadSpecificResult,
 } from './types';
-import { specific as specificUser } from '../user/read';
-import { UserNotFound } from './types/errors';
 import client from '../client';
 
 /**
@@ -22,23 +20,20 @@ export const allByUser = async (
   data: InvoiceReadSpecificData
 ): InvoiceReadSpecificResult => {
   try {
-    const user = await specificUser({ id: data.buyerId });
-    if (user.isErr) {
-      return Result.err(new UserNotFound('User was not found.'));
-    }
-    const { booksForSale, invoices, ...userEntity } = user.unwrap();
+    const user = await client.user.findUniqueOrThrow({
+      where: { id: data.buyerId }
+    });
+
     const userInvoices = await client.invoice.findMany({
       where: { buyerId: data.buyerId },
       include: { books: true },
     });
 
-    const result = userInvoices as (Invoice & { books: Book[] })[] & {
-      buyer: User;
-    };
-    result.buyer = userEntity;
+    const result = userInvoices as (Invoice & { books: Book[] })[] & 
+    { buyer: User };
+    result.buyer = user;
     return Result.ok(
-      userInvoices as (Invoice & { books: Book[] })[] & { buyer: User }
-    );
+      userInvoices as (Invoice & { books: Book[] })[] & { buyer: User });
   } catch (e) {
     return Result.err(e as Error);
   }
