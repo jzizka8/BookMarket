@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { InvoiceCreateData, InvoiceCreateResult } from './types';
-import { BookNotFound, DeletedBook } from './types/errors';
+import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 
 /**
  * Repository call that creates a Invoice.
@@ -31,10 +31,10 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
       const nullDeletedAt = books.every((book) => book.deletedAt === null);
 
       if (!nullDeletedAt) {
-        return Result.err(new DeletedBook('Book has been already deleted!'));
+        return Result.err(new DeletedRecordError('Book has been already deleted!'));
       }
       if (books.length !== data.bookId.length) {
-        return Result.err(new BookNotFound("One or more books don't exist"));
+        return Result.err(new NonexistentRecordError("One or more books don't exist"));
       }
 
       const invoice = await tx.invoice.create({

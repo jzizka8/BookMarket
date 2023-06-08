@@ -6,7 +6,7 @@ import type {
   UserReadSpecificData,
   UserReadSpecificResult,
 } from './types';
-import { WrongPassword } from './types/errors';
+import { WrongOwnershipError } from '../types/errors';
 
 /**
  * Repository call that reads data about a specific user.
@@ -56,7 +56,7 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     });
 
     if (user.hashedPassword !== data.hashedPassword) {
-      return Result.err(new WrongPassword("Password don't match."));
+      return Result.err(new WrongOwnershipError("Password don't match."));
     }
     return Result.ok(user);
   } catch (e) {

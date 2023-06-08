@@ -1,6 +1,5 @@
 import { Result } from '@badrap/result';
 import client from '../client';
-import { NotUniqueUsernameError } from './types/errors';
 import type { UserCreateData, UserCreateResult } from './types';
 
 /**
@@ -14,14 +13,9 @@ import type { UserCreateData, UserCreateResult } from './types';
  */
 const create = async (data: UserCreateData): UserCreateResult => {
   try {
-    const user = await client.user.findUnique({
+    await client.user.findUniqueOrThrow({
       where: { username: data.username },
     });
-    if (user !== null) {
-      return Result.err(
-        new NotUniqueUsernameError('The username is not unique!')
-      );
-    }
     return Result.ok(
       await client.user.create({
         data: {
