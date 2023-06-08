@@ -1,8 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
-import { specific } from '../user/read';
 import type { InvoiceCreateData, InvoiceCreateResult } from './types';
-import { BookNotFound, DeletedBook, UserNotFound } from './types/errors';
+import { BookNotFound, DeletedBook } from './types/errors';
 
 /**
  * Repository call that creates a Invoice.
