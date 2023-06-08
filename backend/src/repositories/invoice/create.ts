@@ -9,7 +9,7 @@ import { BookNotFound, DeletedBook, UserNotFound } from './types/errors';
  *
  * @param data - containing necessary data to create a new invoice record
  * @returns - Result.ok(Invoice &{ Buyer: User }) on success
- *          - UserNotFound if the user don't exist
+ *          - UserNotFound if the user doesn't exist
  *          - Result.err(_) otherwise
  */
 const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
@@ -17,41 +17,8 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
     return await client.$transaction(async (tx) => {
       const { userData, address, ...invoiceData } = data;
 
-      const user = await specific({ id: data.userId });
-      if (user.isErr) {
-        return Result.err(
-          new UserNotFound('User with this id does not exist!')
-        );
-      }
-
-      const booksForPurchase = await tx.book.findMany({
-        where: {
-          id: {
-            in: data.bookId,
-          },
-        },
-      });
-
-      const nullDeletedAt = booksForPurchase.every(
-        (book) => book.deletedAt === null
-      );
-
-      if (!nullDeletedAt) {
-        return Result.err(new DeletedBook('Book has been already deleted!'));
-      }
-      if (booksForPurchase.length !== data.bookId.length) {
-        return Result.err(new BookNotFound("One or more books don't exist"));
-      }
-
-      const deletedAt = new Date();
-
-      await tx.book.updateMany({
-        where: {
-          id: {
-            in: data.bookId,
-          },
-        },
-        data: { deletedAt },
+      await tx.user.findUniqueOrThrow({
+        where: { id: invoiceData.userId }
       });
 
       const books = await tx.book.findMany({
@@ -61,6 +28,17 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
           },
         },
       });
+
+      const nullDeletedAt = books.every(
+        (book) => book.deletedAt === null
+      );
+
+      if (!nullDeletedAt) {
+        return Result.err(new DeletedBook('Book has been already deleted!'));
+      }
+      if (books.length !== data.bookId.length) {
+        return Result.err(new BookNotFound("One or more books don't exist"));
+      }
 
       const invoice = await tx.invoice.create({
         data: {
