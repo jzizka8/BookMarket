@@ -21,7 +21,7 @@ export const allByUser = async (
 ): InvoiceReadSpecificResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
-      where: { id: data.buyerId }
+      where: { id: data.buyerId },
     });
 
     const userInvoices = await client.invoice.findMany({
@@ -29,11 +29,13 @@ export const allByUser = async (
       include: { books: true },
     });
 
-    const result = userInvoices as (Invoice & { books: Book[] })[] & 
-    { buyer: User };
+    const result = userInvoices as (Invoice & { books: Book[] })[] & {
+      buyer: User;
+    };
     result.buyer = user;
     return Result.ok(
-      userInvoices as (Invoice & { books: Book[] })[] & { buyer: User });
+      userInvoices as (Invoice & { books: Book[] })[] & { buyer: User }
+    );
   } catch (e) {
     return Result.err(e as Error);
   }

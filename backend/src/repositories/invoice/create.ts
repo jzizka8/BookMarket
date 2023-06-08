@@ -17,7 +17,7 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
       const { userData, address, ...invoiceData } = data;
 
       await tx.user.findUniqueOrThrow({
-        where: { id: invoiceData.userId }
+        where: { id: invoiceData.userId },
       });
 
       const books = await tx.book.findMany({
@@ -28,9 +28,7 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
         },
       });
 
-      const nullDeletedAt = books.every(
-        (book) => book.deletedAt === null
-      );
+      const nullDeletedAt = books.every((book) => book.deletedAt === null);
 
       if (!nullDeletedAt) {
         return Result.err(new DeletedBook('Book has been already deleted!'));

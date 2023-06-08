@@ -49,9 +49,7 @@ export const specific = async (
  * @returns       - On success: Result.ok(User)
  *                - On failure: Result.err(_)
  */
-export const login = async (
-  data: UserReadLoginData
-): UserReadLoginResult => {
+export const login = async (data: UserReadLoginData): UserReadLoginResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
       where: { username: data.username },
