@@ -49,7 +49,7 @@ export const specific = async (
  * @returns       - On success: Result.ok(User)
  *                - On failure: Result.err(_)
  */
-export const forLogin = async (
+export const login = async (
   data: UserReadLoginData
 ): UserReadLoginResult => {
   try {
