@@ -14,7 +14,6 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
   try {
     return await client.$transaction(async (tx) => {
-
       const { userData, address, ...invoiceData } = data;
 
       await tx.user.findUniqueOrThrow({
@@ -29,7 +28,9 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
         },
       });
 
-      const nullDeletedAt = books.every((book) => book.deletedAt === null && book.invoiceId == null);
+      const nullDeletedAt = books.every(
+        (book) => book.deletedAt === null && book.invoiceId == null
+      );
 
       if (!nullDeletedAt) {
         return Result.err(
