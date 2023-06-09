@@ -14,6 +14,7 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
   try {
     return await client.$transaction(async (tx) => {
+
       const { userData, address, ...invoiceData } = data;
 
       await tx.user.findUniqueOrThrow({
@@ -28,14 +29,14 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
         },
       });
 
-      const nullDeletedAt = books.every((book) => book.deletedAt === null);
+      const nullDeletedAt = books.every((book) => book.deletedAt === null && book.invoiceId == null);
 
       if (!nullDeletedAt) {
         return Result.err(
           new DeletedRecordError('Book has been already deleted!')
         );
       }
-      if (books.length !== data.bookId.length) {
+      if (books.length !== data.bookId.length || books.length === 0) {
         return Result.err(
           new NonexistentRecordError("One or more books don't exist")
         );
