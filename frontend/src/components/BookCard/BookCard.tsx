@@ -13,12 +13,14 @@ const BookCard = (props: IBookCardProps) => {
           <div className="relative">
             {book.invoice && (
               <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-80 text-3xl font-semibold text-white">
-                <img className=" h-12 w-12" src="/src/assets/tick.svg" alt="" />
                 Sold
               </div>
             )}
+            <span className="text-md absolute right-0 rounded-sm bg-yellow-100 px-2.5  py-0.5 font-medium ">
+              {book.category}
+            </span>
             <img
-              className=" h-72 w-[100cqw] object-cover "
+              className=" h-72 w-[100cqw] rounded-md object-cover "
               src={book.photo}
               alt=""
             />
