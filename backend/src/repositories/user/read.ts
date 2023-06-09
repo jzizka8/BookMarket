@@ -17,7 +17,7 @@ import { WrongOwnershipError } from '../types/errors';
  * @returns       - On success: Result.ok(User & { Book[], Invoice[] })
  *                - On failure: Result.err(_)
  */
-export const specific = async (
+const specific = async (
   data: UserReadSpecificData
 ): UserReadSpecificResult => {
   try {
@@ -49,7 +49,7 @@ export const specific = async (
  * @returns       - On success: Result.ok(User)
  *                - On failure: Result.err(_)
  */
-export const login = async (data: UserReadLoginData): UserReadLoginResult => {
+const login = async (data: UserReadLoginData): UserReadLoginResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
       where: { username: data.username },
@@ -62,4 +62,10 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
   } catch (e) {
     return Result.err(e as Error);
   }
+};
+
+
+export default {
+  userLogin: login,
+  one: specific,
 };
