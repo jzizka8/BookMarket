@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import LoginIcon from '../icons/LoginIcon';
 import BookIcon from '../icons/BookIcon';
 import LogoutIcon from '../icons/LogoutIcon';
+import ShoppingCartIcon from '../icons/ShoppingCartIcon';
 
 const Navbar = () => {
   const [userLoggedIn] = useState(true);
@@ -17,7 +18,7 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-between p-2 md:flex-row">
         <div className="flex w-full flex-row justify-between md:w-auto">
           <div className="flex items-center">
-            <BookIcon className="ml-3 h-12 md:mr-3" />
+            <BookIcon className="h-12 md:mr-3" />
           </div>
           <button
             data-collapse-toggle="navbar-default"
@@ -95,6 +96,17 @@ const Navbar = () => {
                     </span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    to={`/cart`}
+                    style={({ isActive }) =>
+                      isActive ? { color: '#c08992' } : {}
+                    }
+                    className='hover:text-primary-light'
+                  >
+                    <ShoppingCartIcon className='h-9 m-2 md:m-0'></ShoppingCartIcon>
+                  </NavLink>
+                </li>
               </>
             )}
             <li>
@@ -104,7 +116,7 @@ const Navbar = () => {
                   title="Logout"
                   className="flex items-center hover:text-primary-light"
                 >
-                  <LogoutIcon className="h-12 md:mr-3" />
+                  <LogoutIcon className="h-9" />
                 </Link>
               ) : (
                 <Link
@@ -112,7 +124,7 @@ const Navbar = () => {
                   title="Login"
                   className="flex items-center hover:text-primary-light"
                 >
-                  <LoginIcon className="h-12 md:mr-3" />
+                  <LoginIcon className="h-9" />
                 </Link>
               )}
             </li>
