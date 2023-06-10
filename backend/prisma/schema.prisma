@@ -49,7 +49,6 @@ model Invoice {
   createdAt   DateTime @default(now())
   buyerId     String
   buyer       User     @relation(fields: [buyerId], references: [id])
-  date        DateTime
   amount      Float
   name        String
   surname     String
