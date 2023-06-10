@@ -102,9 +102,9 @@ const Navbar = () => {
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
-                    className='hover:text-primary-light'
+                    className="hover:text-primary-light"
                   >
-                    <ShoppingCartIcon className='h-9 m-2 md:m-0'></ShoppingCartIcon>
+                    <ShoppingCartIcon className="m-2 h-9 md:m-0"></ShoppingCartIcon>
                   </NavLink>
                 </li>
               </>
