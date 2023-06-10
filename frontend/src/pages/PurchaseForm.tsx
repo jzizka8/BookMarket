@@ -6,7 +6,6 @@ import purchaseFormSchema from '../schemas/PurchaseFormSchema';
 
 const PurchaseForm = () => {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -27,8 +26,7 @@ const PurchaseForm = () => {
             Delivery Information
           </h1>
           <p className="mb-4 break-words text-center">
-            Congratulations on finding your perfect item! Fill out the form
-            below to complete your purchase.
+            Fill out the form below to complete your purchase.
           </p>
         </div>
 
@@ -37,21 +35,41 @@ const PurchaseForm = () => {
             <div className="grid w-full max-w-xl gap-x-4 gap-y-2 md:grid-cols-2">
               <div>
                 <label
-                  htmlFor="fullName"
+                  htmlFor="firstName"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your Full Name
+                  First Name
                 </label>
                 <input
                   type="text"
-                  id="fullName"
+                  id="firstName"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  placeholder="Janka Srnka"
-                  {...register('fullName')}
+                  placeholder="Janka"
+                  {...register('firstName')}
                 />
-                {errors.fullName && (
+                {errors.firstName && (
                   <span className="mt-2 block text-red-800">
-                    {errors.fullName?.message}
+                    {errors.firstName?.message}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="surname"
+                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Surname
+                </label>
+                <input
+                  type="text"
+                  id="surname"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
+                  placeholder="Srnka"
+                  {...register('surname')}
+                />
+                {errors.surname && (
+                  <span className="mt-2 block text-red-800">
+                    {errors.surname?.message}
                   </span>
                 )}
               </div>

@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 const purchaseFormSchema = z.object({
-  fullName: z.string().min(3, 'Full Name is required').max(100),
+  firstName: z.string().min(1, 'First Name is required').max(100),
+  surname: z.string().min(1, 'Surname is required').max(100),
   shippingAddress: z.string().min(1, 'Shipping address is required').max(100),
   city: z.string().min(1, 'City is required').max(100),
   state: z.string().min(1, 'State is required').max(100),
