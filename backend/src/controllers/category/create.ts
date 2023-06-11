@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { categoryCreateSchema } from '../../schemas/userSchemas';
+import { categoryCreateSchema } from '../../schemas/categorySchemas';
 import createCategory from '../../repositories/category/create';
 import { failResponse, loadFailedResponse } from '../common';
 
