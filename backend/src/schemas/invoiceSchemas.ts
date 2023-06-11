@@ -27,3 +27,11 @@ export const createBodySchema = z.object({
 export const createParamsSchema = z.object({
   userId: z.string().nonempty()
 })
+
+export const allSchema = z.object({
+  buyerId: z.string().nonempty()
+})
+
+export const specificSchema = z.object({
+  id: z.string().nonempty()
+})
