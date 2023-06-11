@@ -6,7 +6,7 @@ import { loadFailedResponse, failResponse } from '../common';
 const deleteBook = async (req: Request, res: Response) => {
   try {
     // Validation
-    const paramsValidate = deleteSchema.parse(req.body);
+    const paramsValidate = deleteSchema.parse(req.params);
 
     // Repo call
     const book = await delBook(paramsValidate);

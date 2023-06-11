@@ -6,7 +6,7 @@ import { loadFailedResponse, failResponse } from '../common';
 export const specificBook = async (req: Request, res: Response) => {
   try {
     // Validation
-    const bodyValidate = specificSchema.parse(req.body);
+    const bodyValidate = specificSchema.parse(req.params);
 
     // Repo call
     const book = await specific(bodyValidate);

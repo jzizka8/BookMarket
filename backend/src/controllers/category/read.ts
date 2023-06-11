@@ -6,10 +6,10 @@ import { loadFailedResponse, failResponse } from '../common';
 export const specificCategory = async (req: Request, res: Response) => {
   try {
     // Validation
-    const bodyValidate = categorySpecificSchema.parse(req.body);
+    const paramsValidate = categorySpecificSchema.parse(req.params);
 
     // Repo call
-    const category = await specific(bodyValidate);
+    const category = await specific(paramsValidate);
 
     // Checking repo answer and returning
     if (category.isErr) {

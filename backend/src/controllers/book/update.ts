@@ -1,6 +1,9 @@
 import type { Request, Response } from 'express';
 import { loadFailedResponse, failResponse } from '../common';
-import { updateBodySchema, updateParamsSchema } from '../../schemas/bookSchemas';
+import {
+  updateBodySchema,
+  updateParamsSchema,
+} from '../../schemas/bookSchemas';
 import update from '../../repositories/book/update';
 
 const updateBook = async (req: Request, res: Response) => {
@@ -8,12 +11,12 @@ const updateBook = async (req: Request, res: Response) => {
     // Validation
     const [paramsValidate, bodyValidate] = await Promise.all([
       updateParamsSchema.parseAsync(req.params),
-      updateBodySchema.parseAsync(req.body)
+      updateBodySchema.parseAsync(req.body),
     ]);
     // Repo call
-    const book = await update({ 
-      id: paramsValidate.id, 
-      toUpdate: bodyValidate 
+    const book = await update({
+      id: paramsValidate.id,
+      toUpdate: bodyValidate,
     });
 
     // Checking repo answer and returning

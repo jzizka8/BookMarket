@@ -27,7 +27,7 @@ export const all = async (req: Request, res: Response) => {
 export const specificInvoice = async (req: Request, res: Response) => {
   try {
     // Validation
-    const bodyValidate = specificSchema.parse(req.body);
+    const bodyValidate = specificSchema.parse(req.params);
 
     // Repo call
     const invoice = await specific(bodyValidate);

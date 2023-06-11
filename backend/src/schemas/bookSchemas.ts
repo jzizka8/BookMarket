@@ -40,7 +40,7 @@ export const specificSchema = z.object({
   id: z.string().nonempty(),
 });
 
-const toUpdate = z
+export const updateBodySchema = z
   .object({
     title: z
       .string()
@@ -74,7 +74,6 @@ const toUpdate = z
   })
   .strict();
 
-export const updateSchema = z.object({
+export const updateParamsSchema = z.object({
   id: z.string().nonempty(),
-  toUpdate,
 });
