@@ -7,10 +7,10 @@ export const specificUser = async (req: Request, res: Response) => {
   try {
     // Validation
     const paramsValidate = specificSchema.parse(req.params);
-    
+
     // Repo call
     const user = await specific(paramsValidate);
-    
+
     // Checking repo answer and returning
     if (user.isErr) {
       return loadFailedResponse(res);
@@ -21,7 +21,7 @@ export const specificUser = async (req: Request, res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-}
+};
 
 export const userLogin = async (req: Request, res: Response) => {
   try {

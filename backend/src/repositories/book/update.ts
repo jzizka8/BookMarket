@@ -31,15 +31,16 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
       );
     }
 
-    return Result.ok(await client.book.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        ...updatedData,
-      },
-    }));
-
+    return Result.ok(
+      await client.book.update({
+        where: {
+          id: data.id,
+        },
+        data: {
+          ...updatedData,
+        },
+      })
+    );
   } catch (e) {
     return Result.err(e as Error);
   }

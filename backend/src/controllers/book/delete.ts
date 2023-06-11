@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
-import delBook from "../../repositories/book/delete";
-import { deleteSchema } from "../../schemas/bookSchemas"
-import { loadFailedResponse, failResponse } from "../common";
+import type { Request, Response } from 'express';
+import delBook from '../../repositories/book/delete';
+import { deleteSchema } from '../../schemas/bookSchemas';
+import { loadFailedResponse, failResponse } from '../common';
 
 const deleteBook = async (req: Request, res: Response) => {
   try {
@@ -21,6 +21,6 @@ const deleteBook = async (req: Request, res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-}
+};
 
 export default deleteBook;

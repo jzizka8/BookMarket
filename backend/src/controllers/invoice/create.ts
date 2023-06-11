@@ -1,7 +1,10 @@
-import type { Request, Response } from "express";
-import { createBodySchema, createParamsSchema } from "../../schemas/invoiceSchemas";
-import createInvoice from "../../repositories/invoice/create";
-import { failResponse, loadFailedResponse } from "../common";
+import type { Request, Response } from 'express';
+import {
+  createBodySchema,
+  createParamsSchema,
+} from '../../schemas/invoiceSchemas';
+import createInvoice from '../../repositories/invoice/create';
+import { failResponse, loadFailedResponse } from '../common';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -28,6 +31,6 @@ const create = async (req: Request, res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-}
+};
 
-export default create
+export default create;

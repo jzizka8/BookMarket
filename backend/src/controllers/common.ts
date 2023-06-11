@@ -11,7 +11,7 @@ export const failResponse = (res: Response, e: unknown) => {
     };
     return res.status(400).send(validationFailed);
   }
-  const responseFailed: ApiResponse<{}> = {
+  const responseFailed: ApiResponse<object> = {
     status: 'failure',
     data: {},
     error: 'An error occurred',
@@ -20,7 +20,7 @@ export const failResponse = (res: Response, e: unknown) => {
 };
 
 export const loadFailedResponse = (res: Response) => {
-  const loadFailed: ApiResponse<{}> = {
+  const loadFailed: ApiResponse<object> = {
     status: 'failure',
     data: {},
     error: 'The entity does not exist.',

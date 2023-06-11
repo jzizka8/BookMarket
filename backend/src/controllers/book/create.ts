@@ -1,7 +1,10 @@
-import type { Request, Response } from "express";
-import { loadFailedResponse, failResponse } from "../common";
-import createBook from "../../repositories/book/create";
-import { createBodySchema, createParamsSchema } from "../../schemas/bookSchemas";
+import type { Request, Response } from 'express';
+import { loadFailedResponse, failResponse } from '../common';
+import createBook from '../../repositories/book/create';
+import {
+  createBodySchema,
+  createParamsSchema,
+} from '../../schemas/bookSchemas';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -28,6 +31,6 @@ const create = async (req: Request, res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-}
+};
 
-export default create
+export default create;

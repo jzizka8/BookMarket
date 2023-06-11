@@ -9,7 +9,7 @@ const create = async (req: Request, res: Response) => {
     const queryValidate = categoryCreateSchema.parse(req.body);
 
     // Repo call
-    const category = await createCategory(queryValidate)
+    const category = await createCategory(queryValidate);
 
     // Checking repo answer and returning
     if (category.isErr) {

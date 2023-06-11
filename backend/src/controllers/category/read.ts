@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
-import { categorySpecificSchema } from "../../schemas/categorySchemas";
-import { all, specific } from "../../repositories/category/read";
-import { loadFailedResponse, failResponse } from "../common";
+import type { Request, Response } from 'express';
+import { categorySpecificSchema } from '../../schemas/categorySchemas';
+import { all, specific } from '../../repositories/category/read';
+import { loadFailedResponse, failResponse } from '../common';
 
 export const specificCategory = async (req: Request, res: Response) => {
   try {
@@ -23,7 +23,6 @@ export const specificCategory = async (req: Request, res: Response) => {
   }
 };
 
-
 // Since we're not using any parameters for this call, I'll just leave out the req
 export const allCategories = async (res: Response) => {
   try {
@@ -38,4 +37,4 @@ export const allCategories = async (res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-}
+};
