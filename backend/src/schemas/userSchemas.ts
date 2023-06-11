@@ -5,3 +5,7 @@ export const signInSchema = z.object({
   hashedPassword: z.string()
 }).strict();
 
+export const specificSchema = z.object({
+  id: z.string().min(1),
+})
+

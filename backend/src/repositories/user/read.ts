@@ -11,13 +11,13 @@ import { WrongOwnershipError } from '../types/errors';
 /**
  * Repository call that reads data about a specific user.
  * The books and invoices are by default ordered by its `createdAt`
- *  property in descending order.
+ * property in descending order.
  *
  * @param   data  - user id
  * @returns       - On success: Result.ok(User & { Book[], Invoice[] })
  *                - On failure: Result.err(_)
  */
-const specific = async (
+export const specific = async (
   data: UserReadSpecificData
 ): UserReadSpecificResult => {
   try {
@@ -49,7 +49,7 @@ const specific = async (
  * @returns       - On success: Result.ok(User)
  *                - On failure: Result.err(_)
  */
-const login = async (data: UserReadLoginData): UserReadLoginResult => {
+export const login = async (data: UserReadLoginData): UserReadLoginResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
       where: { username: data.username },
@@ -62,10 +62,4 @@ const login = async (data: UserReadLoginData): UserReadLoginResult => {
   } catch (e) {
     return Result.err(e as Error);
   }
-};
-
-
-export default {
-  userLogin: login,
-  one: specific,
 };
