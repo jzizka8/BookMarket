@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
 import { loadFailedResponse, failResponse } from "../common";
 import createBook from "../../repositories/book/create";
-import { bookCreateBodySchema, bookCreateParamsSchema } from "../../schemas/bookSchemas";
+import { createBodySchema, createParamsSchema } from "../../schemas/bookSchemas";
 
 const create = async (req: Request, res: Response) => {
   try {
     // Validation
     const [paramsValidate, bodyValidate] = await Promise.all([
-      bookCreateParamsSchema.parseAsync(req.params),
-      bookCreateBodySchema.parseAsync(req.body),
+      createParamsSchema.parseAsync(req.params),
+      createBodySchema.parseAsync(req.body),
     ]);
 
     const data = {

@@ -6,10 +6,10 @@ import { failResponse, loadFailedResponse } from '../common';
 export const specificUser = async (req: Request, res: Response) => {
   try {
     // Validation
-    const queryValidate = await specificSchema.parse(req.params);
+    const paramsValidate = specificSchema.parse(req.params);
     
     // Repo call
-    const user = await specific(queryValidate);
+    const user = await specific(paramsValidate);
     
     // Checking repo answer and returning
     if (user.isErr) {
