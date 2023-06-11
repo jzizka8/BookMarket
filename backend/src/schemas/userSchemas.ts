@@ -8,4 +8,3 @@ export const signInSchema = z.object({
 export const specificSchema = z.object({
   id: z.string().min(1),
 })
-
