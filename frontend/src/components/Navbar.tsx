@@ -18,7 +18,9 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-between p-2 md:flex-row">
         <div className="flex w-full flex-row justify-between md:w-auto">
           <div className="flex items-center">
-            <BookIcon className="h-12 md:mr-3" />
+            <Link to="/">
+              <BookIcon className="h-12 md:mr-3" />
+            </Link>
           </div>
           <button
             data-collapse-toggle="navbar-default"
