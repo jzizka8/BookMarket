@@ -3,7 +3,7 @@ import { signInSchema, specificSchema } from '../../schemas/userSchemas';
 import { specific, login } from '../../repositories/user/read';
 import { failResponse, loadFailedResponse } from '../common';
 
-const specificUser = async (req: Request, res: Response) => {
+export const specificUser = async (req: Request, res: Response) => {
   try {
     // Validation
     const queryValidate = await specificSchema.parse(req.params);
@@ -23,7 +23,7 @@ const specificUser = async (req: Request, res: Response) => {
   }
 }
 
-const userLogin = async (req: Request, res: Response) => {
+export const userLogin = async (req: Request, res: Response) => {
   try {
     // Validation
     const queryValidate = signInSchema.parse(req.body);
@@ -41,9 +41,4 @@ const userLogin = async (req: Request, res: Response) => {
   } catch (e) {
     return failResponse(res, e);
   }
-};
-
-export default {
-  userLogin,
-  specificUser
 };
