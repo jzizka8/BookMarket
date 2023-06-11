@@ -25,5 +25,9 @@ export const bookCreateBodySchema = z.object({
 })
 
 export const bookCreateParamsSchema = z.object({
-  soldBy: z.string().min(1),
+  soldBy: z.string().nonempty(),
+})
+
+export const bookDeleteSchema = z.object({
+  id: z.string().nonempty()
 })
