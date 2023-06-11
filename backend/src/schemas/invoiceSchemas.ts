@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod"
 
 const userData = z.object({
   name: z.string()
