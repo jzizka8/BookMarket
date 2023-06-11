@@ -16,7 +16,7 @@ import { DeletedRecordError } from '../types/errors';
 const update = async (data: BookUpdateData): BookGenericReturn => {
   try {
     const updatedData = Object.fromEntries(
-      Object.entries(data).filter(([, value]) => value !== undefined)
+      Object.entries(data.toUpdate).filter(([, value]) => value !== undefined)
     );
 
     const book = await client.book.findUniqueOrThrow({
@@ -31,16 +31,15 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
       );
     }
 
-    const employeeUpdated = await client.$transaction(async (tx) => {
-      return tx.book.update({
-        where: {
-          id: data.id,
-        },
-        data: updatedData,
-      });
-    });
+    return Result.ok(await client.book.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        ...updatedData,
+      },
+    }));
 
-    return Result.ok(employeeUpdated);
   } catch (e) {
     return Result.err(e as Error);
   }

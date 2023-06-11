@@ -27,14 +27,14 @@ export type BookUpdateData = {
 };
 
 export type ToUpdate = {
-  title?: string;
-  author?: string;
-  price?: number;
-  publicationYear?: number;
-  language?: Lang;
-  categoryName?: Genre;
-  photo?: string;
-  description?: string;
+  title?: string | undefined;
+  author?: string | undefined;
+  price?: number | undefined;
+  publicationYear?: number | undefined;
+  language?: Lang | undefined;
+  categoryName?: Genre | undefined;
+  photo?: string | undefined;
+  description?: string | undefined;
 };
 
 export type BookGenericReturn = Promise<Result<Book>>;
