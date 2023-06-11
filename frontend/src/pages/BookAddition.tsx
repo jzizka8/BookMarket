@@ -23,7 +23,7 @@ const BookAddition = () => {
     <>
       <div className="flex min-h-screen flex-col items-center justify-center text-center">
         <div>
-          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-4xl">
+          <h1 className="mb-4 py-2.5 text-3xl font-bold leading-tight text-gray-900">
             Let a book live its second life
           </h1>
           <p className="mb-4 break-words text-center">
@@ -37,7 +37,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="title"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Title
                 </label>
@@ -57,7 +57,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="author"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Author
                 </label>
@@ -77,7 +77,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="genre"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Genre
                 </label>
@@ -101,7 +101,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="language"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Language
                 </label>
@@ -125,7 +125,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="yearOfPublication"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Year of Publication
                 </label>
@@ -145,7 +145,7 @@ const BookAddition = () => {
               <div>
                 <label
                   htmlFor="price"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Price
                 </label>
@@ -167,7 +167,7 @@ const BookAddition = () => {
           <div>
             <label
               htmlFor="picture"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900"
             >
               Picture
             </label>
@@ -184,7 +184,7 @@ const BookAddition = () => {
             )}
           </div>
           <div>
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 flex justify-center py-2.5">
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
