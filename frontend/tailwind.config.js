@@ -3,7 +3,15 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          'light': '#c08992',
+          'main': '#723d46',
+          'dark': '#402227'
+        }
+      }
+    },
   },
   plugins: [
   ],
