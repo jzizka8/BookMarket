@@ -7,7 +7,8 @@
     "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0",
-    "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts"
+    "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts",
+    "dev": "nodemon src/index.ts"
   },
   "author": "Diana Janickova, Katarina Sieklova, Jakub Ulicny, Josef Zizka",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
+    "nodemon": "^2.0.22",
     "zod": "^3.21.4"
   }
 }
