@@ -13,7 +13,7 @@ const deleteBook = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
     return res.status(200).send({
       data: book.unwrap(),

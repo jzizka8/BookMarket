@@ -24,7 +24,10 @@ export const specific = async (
     return Result.ok(
       await client.user.findUniqueOrThrow({
         where: { id: data.id },
-        include: {
+        select: {
+          id: true,
+          createdAt: true,
+          username: true,
           booksForSale: {
             where: { deletedAt: null },
             orderBy: { createdAt: 'desc' },
@@ -58,7 +61,14 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     if (user.hashedPassword !== data.hashedPassword) {
       return Result.err(new WrongOwnershipError("Password don't match."));
     }
-    return Result.ok(user);
+
+    const userToReturn = {
+      id: user.id,
+      username: user.username,
+      createdAt: user.createdAt
+    };
+
+    return Result.ok(userToReturn);
   } catch (e) {
     return Result.err(e as Error);
   }

@@ -14,16 +14,16 @@ export const failResponse = (res: Response, e: unknown) => {
   const responseFailed: ApiResponse<object> = {
     status: 'failure',
     data: {},
-    error: 'An error occurred',
+    error: 'An error occurred ',
   };
   return res.status(500).send(responseFailed);
 };
 
-export const loadFailedResponse = (res: Response) => {
+export const loadFailedResponse = (res: Response, message: string) => {
   const loadFailed: ApiResponse<object> = {
     status: 'failure',
     data: {},
-    error: 'The entity does not exist.',
+    error: message,
   };
   return res.status(404).send(loadFailed);
 };

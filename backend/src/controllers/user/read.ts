@@ -13,9 +13,9 @@ export const specificUser = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (user.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: user.unwrap(),
     });
   } catch (e) {
@@ -26,16 +26,16 @@ export const specificUser = async (req: Request, res: Response) => {
 export const userLogin = async (req: Request, res: Response) => {
   try {
     // Validation
-    const queryValidate = signInSchema.parse(req.body);
+    const bodyValidate = signInSchema.parse(req.body);
 
     // Repo call
-    const user = await login(queryValidate);
+    const user = await login(bodyValidate);
 
     // Checking repo answer and returning
     if (user.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: user.unwrap(),
     });
   } catch (e) {

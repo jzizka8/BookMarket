@@ -13,7 +13,7 @@ const create = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (category.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The user can not be created');
     }
     return res.status(201).send({
       data: category.unwrap(),

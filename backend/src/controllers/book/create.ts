@@ -5,6 +5,7 @@ import {
   createBodySchema,
   createParamsSchema,
 } from '../../schemas/bookSchemas';
+import { DeletedRecordError } from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -23,7 +24,11 @@ const create = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      return loadFailedResponse(res);
+      const error = book.unwrap();
+      if (error instanceof DeletedRecordError) {
+        return loadFailedResponse(res, 'The entity does not exist')
+      }
+      return loadFailedResponse(res, 'The entity can not be created.');
     }
     return res.status(201).send({
       data: book.unwrap(),

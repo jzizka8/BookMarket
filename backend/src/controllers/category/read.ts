@@ -13,7 +13,7 @@ export const specificCategory = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (category.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
     return res.status(200).send({
       data: category.unwrap(),
@@ -29,7 +29,7 @@ export const allCategories = async (_: Request, res: Response) => {
     const category = await all();
     // Checking repo answer and returning
     if (category.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
     return res.status(200).send({
       data: category.unwrap(),
