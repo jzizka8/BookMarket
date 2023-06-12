@@ -16,7 +16,7 @@ const deleteBook = async (data: BookDeleteData): BookGenericReturn => {
   try {
     const book = await client.book.findUniqueOrThrow({
       where: {
-        id: data.id,
+        id: data.bookId,
       },
     });
 
@@ -31,7 +31,7 @@ const deleteBook = async (data: BookDeleteData): BookGenericReturn => {
 
       const bookUpdated = await tx.book.update({
         where: {
-          id: data.id,
+          id: data.bookId,
         },
         data: {
           deletedAt,

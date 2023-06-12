@@ -23,7 +23,17 @@ export type InvoiceCreateData = {
   address: Address;
 };
 
-export type InvoiceCreateResult = Promise<Result<Invoice & { buyer: User }>>;
+export type InvoiceCreateResult = Promise<
+  Result<
+    Invoice & {
+      buyer: {
+        id: string;
+        createdAt: Date;
+        username: string;
+      };
+    }
+  >
+>;
 
 export type InvoiceReadSpecificData = {
   userId: string;
@@ -34,7 +44,7 @@ export type InvoiceReadSpecificResult = Promise<
 >;
 
 export type InvoiceReadAllData = {
-  id: string;
+  invoiceId: string;
 };
 
 export type InvoiceReadAllResult = Promise<

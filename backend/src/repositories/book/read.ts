@@ -20,7 +20,7 @@ export const specific = async (
   try {
     return await client.$transaction(async (tx) => {
       const book = await tx.book.findUniqueOrThrow({
-        where: { id: data.id },
+        where: { id: data.bookId },
       });
 
       return Result.ok(book);

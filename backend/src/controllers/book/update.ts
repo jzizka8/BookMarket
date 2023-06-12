@@ -15,7 +15,7 @@ const updateBook = async (req: Request, res: Response) => {
     ]);
     // Repo call
     const book = await update({
-      id: paramsValidate.id,
+      bookId: paramsValidate.bookId,
       toUpdate: bodyValidate,
     });
 

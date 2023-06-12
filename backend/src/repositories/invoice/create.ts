@@ -60,7 +60,13 @@ const create = async (data: InvoiceCreateData): InvoiceCreateResult => {
           },
         },
         include: {
-          buyer: true,
+          buyer: {
+            select: {
+              id: true,
+              createdAt: true,
+              username: true,
+            },
+          },
           books: true,
         },
       });

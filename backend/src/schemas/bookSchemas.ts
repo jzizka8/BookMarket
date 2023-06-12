@@ -33,11 +33,11 @@ export const createParamsSchema = z.object({
 });
 
 export const deleteSchema = z.object({
-  id: z.string().nonempty(),
+  bookId: z.string().nonempty(),
 });
 
 export const specificSchema = z.object({
-  id: z.string().nonempty(),
+  bookId: z.string().nonempty(),
 });
 
 export const updateBodySchema = z
@@ -75,5 +75,5 @@ export const updateBodySchema = z
   .strict();
 
 export const updateParamsSchema = z.object({
-  id: z.string().nonempty(),
+  bookId: z.string().nonempty(),
 });

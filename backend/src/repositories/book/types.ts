@@ -14,15 +14,15 @@ export type BookCreateData = {
 };
 
 export type BookDeleteData = {
-  id: string;
+  bookId: string;
 };
 
 export type BookReadSpecificData = {
-  id: string;
+  bookId: string;
 };
 
 export type BookUpdateData = {
-  id: string;
+  bookId: string;
   toUpdate: ToUpdate;
 };
 

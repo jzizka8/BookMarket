@@ -21,7 +21,7 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
 
     const book = await client.book.findUniqueOrThrow({
       where: {
-        id: data.id,
+        id: data.bookId,
       },
     });
 
@@ -34,7 +34,7 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
     return Result.ok(
       await client.book.update({
         where: {
-          id: data.id,
+          id: data.bookId,
         },
         data: {
           ...updatedData,

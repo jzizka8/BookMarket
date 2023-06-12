@@ -2,16 +2,11 @@ import { Router } from 'express';
 import UserController from '../controllers/user';
 
 const userRouter = Router();
-export const userRouteGeneric = '/user';
-export const userRouteSpecific = `${userRouteGeneric}/:id`;
 
-// POST /user
-userRouter.post(userRouteGeneric, UserController.create);
+userRouter.post('/user', UserController.create);
 
-// POST /user
 // userRouter.post(userRouteGeneric, UserController.userLogin);
 
-// GET /user/{id}
-userRouter.get(userRouteSpecific, UserController.specificUser);
+userRouter.get('/user/:userId', UserController.specificUser);
 
 export default userRouter;

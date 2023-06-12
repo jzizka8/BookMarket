@@ -54,7 +54,7 @@ export const specific = async (
   try {
     return Result.ok(
       await client.invoice.findUniqueOrThrow({
-        where: { id: data.id },
+        where: { id: data.invoiceId },
         include: {
           buyer: {
             select: {

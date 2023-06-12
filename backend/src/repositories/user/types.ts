@@ -8,7 +8,7 @@ export type UserCreateData = {
 
 export type UserCreateResult = Promise<Result<User>>;
 
-export type UserReadSpecificData = { id: string };
+export type UserReadSpecificData = { userId: string };
 
 export type UserReadSpecificResult = Promise<
   Result<{

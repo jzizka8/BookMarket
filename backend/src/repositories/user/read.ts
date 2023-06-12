@@ -23,7 +23,7 @@ export const specific = async (
   try {
     return Result.ok(
       await client.user.findUniqueOrThrow({
-        where: { id: data.id },
+        where: { id: data.userId },
         select: {
           id: true,
           createdAt: true,

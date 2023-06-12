@@ -3,7 +3,6 @@ import InvoiceController from '../controllers/invoice';
 
 const invoiceRouter = Router();
 export const invoiceRouteGeneric = '/user/:userId/invoice';
-export const invoiceRouteSpecific = '/invoice/:id';
 
 // POST /user/{userId}/invoice
 invoiceRouter.post(invoiceRouteGeneric, InvoiceController.create);
@@ -12,6 +11,6 @@ invoiceRouter.post(invoiceRouteGeneric, InvoiceController.create);
 invoiceRouter.get(invoiceRouteGeneric, InvoiceController.allInvoices);
 
 // GET /invoice/{invoiceId}
-invoiceRouter.get(invoiceRouteSpecific, InvoiceController.specificInvoice);
+invoiceRouter.get('/invoice/:invoiceId', InvoiceController.specificInvoice);
 
 export default invoiceRouter;

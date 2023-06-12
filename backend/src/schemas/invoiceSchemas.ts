@@ -37,5 +37,5 @@ export const allSchema = z.object({
 });
 
 export const specificSchema = z.object({
-  id: z.string().min(1),
+  invoiceId: z.string().min(1),
 });

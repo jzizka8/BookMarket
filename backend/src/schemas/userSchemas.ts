@@ -8,5 +8,5 @@ export const signInSchema = z
   .strict();
 
 export const specificSchema = z.object({
-  id: z.string().min(1),
+  userId: z.string().min(1),
 });
