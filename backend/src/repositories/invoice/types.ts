@@ -26,7 +26,7 @@ export type InvoiceCreateData = {
 export type InvoiceCreateResult = Promise<Result<Invoice & { buyer: User }>>;
 
 export type InvoiceReadSpecificData = {
-  buyerId: string;
+  userId: string;
 };
 
 export type InvoiceReadSpecificResult = Promise<
@@ -37,4 +37,10 @@ export type InvoiceReadAllData = {
   id: string;
 };
 
-export type InvoiceReadAllResult = Promise<Result<Invoice & { buyer: User }>>;
+export type InvoiceReadAllResult = Promise<Result<Invoice & {
+   buyer: {
+    id: string,
+    createdAt: Date,
+    username: string
+   }
+  }>>;

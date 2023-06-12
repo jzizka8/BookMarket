@@ -13,9 +13,9 @@ export const all = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (invoices.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: invoices.unwrap(),
     });
   } catch (e) {
@@ -23,20 +23,19 @@ export const all = async (req: Request, res: Response) => {
   }
 };
 
-// Since we're not using any parameters for this call, I'll just leave out the req
 export const specificInvoice = async (req: Request, res: Response) => {
   try {
     // Validation
-    const bodyValidate = specificSchema.parse(req.params);
+    const paramsValidate = specificSchema.parse(req.params);
 
     // Repo call
-    const invoice = await specific(bodyValidate);
+    const invoice = await specific(paramsValidate);
 
     // Checking repo answer and returning
     if (invoice.isErr) {
-      return loadFailedResponse(res);
+      return loadFailedResponse(res, 'The entity does not exist.');
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: invoice.unwrap(),
     });
   } catch (e) {

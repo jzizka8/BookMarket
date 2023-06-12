@@ -21,11 +21,11 @@ export const allByUser = async (
 ): InvoiceReadSpecificResult => {
   try {
     const user = await client.user.findUniqueOrThrow({
-      where: { id: data.buyerId },
+      where: { id: data.userId },
     });
 
     const userInvoices = await client.invoice.findMany({
-      where: { buyerId: data.buyerId },
+      where: { buyerId: data.userId },
       include: { books: true },
     });
 
@@ -55,7 +55,16 @@ export const specific = async (
     return Result.ok(
       await client.invoice.findUniqueOrThrow({
         where: { id: data.id },
-        include: { buyer: true, books: true },
+        include: { 
+          buyer: {
+            select: {
+              id: true,
+              createdAt: true,
+              username: true
+            }
+          },
+          books: true 
+        },
       })
     );
   } catch (e) {

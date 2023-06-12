@@ -5,6 +5,7 @@ import {
 } from '../../schemas/invoiceSchemas';
 import createInvoice from '../../repositories/invoice/create';
 import { failResponse, loadFailedResponse } from '../common';
+import { DeletedRecordError } from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -18,12 +19,17 @@ const create = async (req: Request, res: Response) => {
       userId: paramsValidate.userId,
       ...bodyValidate,
     };
+
     // Repo call
     const book = await createInvoice(data);
 
     // Checking repo answer and returning
     if (book.isErr) {
-      return loadFailedResponse(res);
+      const error = book.unwrap();
+      if (error instanceof DeletedRecordError) {
+
+      }
+      return loadFailedResponse(res, 'The entity can not be created.');
     }
     return res.status(201).send({
       data: book.unwrap(),
