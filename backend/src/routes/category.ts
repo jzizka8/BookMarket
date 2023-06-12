@@ -13,3 +13,5 @@ categoryRouter.get(categoryRouteSpecific, CategoryController.specificCategory);
 
 // GET /category
 categoryRouter.get(categoryRouteGeneric, CategoryController.allCategories);
+
+export default categoryRouter;

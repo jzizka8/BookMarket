@@ -19,3 +19,5 @@ bookRouter.get(bookRouteGeneric, BookController.allBooks);
 
 // PATCH /user/{userId}/book/{bookId}
 bookRouter.patch(bookRouteSpecific, BookController.update);
+
+export default bookRouter;

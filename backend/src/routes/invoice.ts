@@ -13,3 +13,5 @@ invoiceRouter.get(invoiceRouteGeneric, InvoiceController.allInvoices);
 
 // GET /user/{userId}/invoice/{invoiceId}
 invoiceRouter.get(invoiceRouteSpecific, InvoiceController.specificInvoice);
+
+export default invoiceRouter;

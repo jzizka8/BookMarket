@@ -13,3 +13,5 @@ userRouter.get(userRouteGeneric, UserController.userLogin);
 
 // GET /user/{id}
 userRouter.get(userRouteSpecific, UserController.specificUser);
+
+export default userRouter;
