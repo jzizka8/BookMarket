@@ -12,9 +12,9 @@ export type UserReadSpecificData = { id: string };
 
 export type UserReadSpecificResult = Promise<
   Result<{
-    id: string,
-    username: string,
-    createdAt: Date,
+    id: string;
+    username: string;
+    createdAt: Date;
     booksForSale: Book[];
     invoices: Invoice[];
   }>
@@ -22,8 +22,10 @@ export type UserReadSpecificResult = Promise<
 
 export type UserReadLoginData = { username: string; hashedPassword: string };
 
-export type UserReadLoginResult = Promise<Result<{
-  id: string,
-  username: string,
-  createdAt: Date,
-}>>;
+export type UserReadLoginResult = Promise<
+  Result<{
+    id: string;
+    username: string;
+    createdAt: Date;
+  }>
+>;

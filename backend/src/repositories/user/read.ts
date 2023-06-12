@@ -65,7 +65,7 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     const userToReturn = {
       id: user.id,
       username: user.username,
-      createdAt: user.createdAt
+      createdAt: user.createdAt,
     };
 
     return Result.ok(userToReturn);

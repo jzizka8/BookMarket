@@ -15,7 +15,10 @@ const create = async (req: Request, res: Response) => {
     // Checking repo answer and returning
     if (userCreated.isErr) {
       if (userCreated.error instanceof ConflictingRecordError) {
-        return loadFailedResponse(res, 'The user with this name already exist.')
+        return loadFailedResponse(
+          res,
+          'The user with this name already exist.'
+        );
       }
       return loadFailedResponse(res, 'The entity can not be created.');
     }

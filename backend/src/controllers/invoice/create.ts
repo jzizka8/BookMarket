@@ -27,7 +27,7 @@ const create = async (req: Request, res: Response) => {
     if (book.isErr) {
       const error = book.unwrap();
       if (error instanceof DeletedRecordError) {
-
+        return loadFailedResponse(res, 'The entity does not exist.');
       }
       return loadFailedResponse(res, 'The entity can not be created.');
     }

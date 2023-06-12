@@ -18,7 +18,7 @@ const create = async (data: UserCreateData): UserCreateResult => {
       where: { username: data.username },
     });
 
-    if (duplicate !== null){
+    if (duplicate !== null) {
       return Result.err(new ConflictingRecordError());
     }
 

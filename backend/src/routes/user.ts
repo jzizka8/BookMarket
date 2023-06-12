@@ -9,7 +9,7 @@ export const userRouteSpecific = `${userRouteGeneric}/:id`;
 userRouter.post(userRouteGeneric, UserController.create);
 
 // POST /user
-//userRouter.post(userRouteGeneric, UserController.userLogin);
+// userRouter.post(userRouteGeneric, UserController.userLogin);
 
 // GET /user/{id}
 userRouter.get(userRouteSpecific, UserController.specificUser);

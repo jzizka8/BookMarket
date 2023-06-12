@@ -55,15 +55,15 @@ export const specific = async (
     return Result.ok(
       await client.invoice.findUniqueOrThrow({
         where: { id: data.id },
-        include: { 
+        include: {
           buyer: {
             select: {
               id: true,
               createdAt: true,
-              username: true
-            }
+              username: true,
+            },
           },
-          books: true 
+          books: true,
         },
       })
     );

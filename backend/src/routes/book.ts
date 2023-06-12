@@ -4,7 +4,7 @@ import BookController from '../controllers/book';
 const bookRouter = Router();
 export const bookRouteGeneric = '/book';
 export const bookRouteSpecific = `${bookRouteGeneric}/:id`;
-export const bookRouteCreate = '/user/:soldBy/book'
+export const bookRouteCreate = '/user/:soldBy/book';
 
 // POST /user/:soldBy/book
 bookRouter.post(bookRouteCreate, BookController.create);
