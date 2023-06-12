@@ -28,7 +28,7 @@ app.use(userRouter);
 
 // No route was taken - 404 - Resource (API endpoint) not found.
 app.use((_req, res) => {
-  const response: ApiResponse<{}> = {
+  const response: ApiResponse<object> = {
     status: 'failure',
     data: {},
     error: 'No matching endpoint was found.',
@@ -37,10 +37,11 @@ app.use((_req, res) => {
   return res.status(404).send(response);
 });
 
+/* eslint-disable no-console */
 if (env['NODE_ENV'] !== 'test') {
   app.listen(port, () => {
     console.log(
-      `[${new Date().toISOString()}] RESTful API is listening on port ${port}`,
+      `[${new Date().toISOString()}] RESTful API is listening on port ${port}`
     );
   });
 }
