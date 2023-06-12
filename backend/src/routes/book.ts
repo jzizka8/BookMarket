@@ -2,22 +2,23 @@ import { Router } from 'express';
 import BookController from '../controllers/book';
 
 const bookRouter = Router();
-export const bookRouteGeneric = '/user/:userId/book';
-export const bookRouteSpecific = `${bookRouteGeneric}/:bookId`;
+export const bookRouteGeneric = '/book';
+export const bookRouteSpecific = `${bookRouteGeneric}/:id`;
+export const bookRouteCreate = '/user/:soldBy/book'
 
-// POST /user/{userId}/book
-bookRouter.post(bookRouteGeneric, BookController.create);
+// POST /user/:soldBy/book
+bookRouter.post(bookRouteCreate, BookController.create);
 
-// DELETE /user/{userId}/book/{bookId}
+// DELETE /book/{bookId}
 bookRouter.delete(bookRouteSpecific, BookController.deleteBook);
 
-// GET /user/{userId}/book/{bookId}
-bookRouter.get(bookRouteGeneric, BookController.specificBook);
+// GET /book/{bookId}
+bookRouter.get(bookRouteSpecific, BookController.specificBook);
 
-// GET /user/{userId}/book
+// GET /book
 bookRouter.get(bookRouteGeneric, BookController.allBooks);
 
-// PATCH /user/{userId}/book/{bookId}
+// PATCH book/{bookId}
 bookRouter.patch(bookRouteSpecific, BookController.update);
 
 export default bookRouter;

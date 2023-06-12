@@ -6,16 +6,16 @@ import { loadFailedResponse, failResponse } from '../common';
 export const specificBook = async (req: Request, res: Response) => {
   try {
     // Validation
-    const bodyValidate = specificSchema.parse(req.params);
+    const paramsValidate = specificSchema.parse(req.params);
 
     // Repo call
-    const book = await specific(bodyValidate);
+    const book = await specific(paramsValidate);
 
     // Checking repo answer and returning
     if (book.isErr) {
       return loadFailedResponse(res);
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: book.unwrap(),
     });
   } catch (e) {
@@ -24,7 +24,7 @@ export const specificBook = async (req: Request, res: Response) => {
 };
 
 // Since we're not using any parameters for this call, I'll just leave out the req
-export const allBooks = async (res: Response) => {
+export const allBooks = async (_: Request, res: Response) => {
   try {
     const books = await all();
 
@@ -32,7 +32,7 @@ export const allBooks = async (res: Response) => {
     if (books.isErr) {
       return loadFailedResponse(res);
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: books.unwrap(),
     });
   } catch (e) {

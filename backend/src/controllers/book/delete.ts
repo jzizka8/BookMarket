@@ -15,7 +15,7 @@ const deleteBook = async (req: Request, res: Response) => {
     if (book.isErr) {
       return loadFailedResponse(res);
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: book.unwrap(),
     });
   } catch (e) {
