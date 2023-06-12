@@ -15,7 +15,7 @@ export const specificCategory = async (req: Request, res: Response) => {
     if (category.isErr) {
       return loadFailedResponse(res);
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: category.unwrap(),
     });
   } catch (e) {
@@ -24,14 +24,14 @@ export const specificCategory = async (req: Request, res: Response) => {
 };
 
 // Since we're not using any parameters for this call, I'll just leave out the req
-export const allCategories = async (res: Response) => {
+export const allCategories = async (_: Request, res: Response) => {
   try {
     const category = await all();
     // Checking repo answer and returning
     if (category.isErr) {
       return loadFailedResponse(res);
     }
-    return res.status(201).send({
+    return res.status(200).send({
       data: category.unwrap(),
     });
   } catch (e) {

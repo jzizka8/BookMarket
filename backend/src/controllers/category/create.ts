@@ -6,10 +6,10 @@ import { failResponse, loadFailedResponse } from '../common';
 const create = async (req: Request, res: Response) => {
   try {
     // Validation
-    const queryValidate = categoryCreateSchema.parse(req.body);
+    const bodyValidate = categoryCreateSchema.parse(req.body);
 
     // Repo call
-    const category = await createCategory(queryValidate);
+    const category = await createCategory(bodyValidate);
 
     // Checking repo answer and returning
     if (category.isErr) {
