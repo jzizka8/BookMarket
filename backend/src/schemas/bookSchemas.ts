@@ -3,6 +3,7 @@ import { getYear } from 'date-fns';
 import { Genre, Lang } from '@prisma/client';
 
 export const createBodySchema = z.object({
+  soldBy: z.string().min(1),
   title: z
     .string()
     .min(2, 'Title of book should be at least 2 characters long.'),
@@ -55,7 +56,8 @@ export const updateBodySchema = z
       .nonnegative('Price has to be greater or equal to zero.')
       .optional()
       .refine(
-        (x) => x === undefined || x * 100 - Math.trunc(x * 100) < Number.EPSILON
+        (x) =>
+          x !== undefined && x * 1000 - Math.trunc(x * 1000) < Number.EPSILON
       ),
     publicationYear: z
       .number()
@@ -68,7 +70,7 @@ export const updateBodySchema = z
       )
       .optional(),
     language: z.nativeEnum(Lang).optional(),
-    categoryName: z.nativeEnum(Genre).optional(),
+    categoryId: z.string().min(1),
     photo: z.string().optional(),
     description: z.string().optional(),
   })

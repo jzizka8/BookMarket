@@ -4,8 +4,8 @@ import BookController from '../controllers/book';
 const bookRouter = Router();
 export const bookRouteSpecific = '/book/:bookId';
 
-// POST /user/:soldBy/book
-bookRouter.post('/user/:soldBy/book', BookController.create);
+// POST /book
+bookRouter.post('/book', BookController.create);
 
 // DELETE /book/{bookId}
 bookRouter.delete(bookRouteSpecific, BookController.deleteBook);

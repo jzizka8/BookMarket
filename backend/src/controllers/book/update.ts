@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { loadFailedResponse, failResponse } from '../common';
+import { /* loadFailedResponse, */ failResponse } from '../common';
 import {
   updateBodySchema,
   updateParamsSchema,
@@ -21,7 +21,8 @@ const updateBook = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      return loadFailedResponse(res, 'The entity does not exist.');
+      throw book.error;
+      // return loadFailedResponse(res, 'The entity does not exist.');
     }
     return res.status(200).send({
       data: book.unwrap(),

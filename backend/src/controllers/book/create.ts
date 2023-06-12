@@ -1,26 +1,15 @@
 import type { Request, Response } from 'express';
 import { loadFailedResponse, failResponse } from '../common';
 import createBook from '../../repositories/book/create';
-import {
-  createBodySchema,
-  createParamsSchema,
-} from '../../schemas/bookSchemas';
+import { createBodySchema } from '../../schemas/bookSchemas';
 import { DeletedRecordError } from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
     // Validation
-    const [paramsValidate, bodyValidate] = await Promise.all([
-      createParamsSchema.parseAsync(req.params),
-      createBodySchema.parseAsync(req.body),
-    ]);
-
-    const data = {
-      soldBy: paramsValidate.soldBy,
-      ...bodyValidate,
-    };
+    const bodyValidate = await createBodySchema.parseAsync(req.body);
     // Repo call
-    const book = await createBook(data);
+    const book = await createBook(bodyValidate);
 
     // Checking repo answer and returning
     if (book.isErr) {
