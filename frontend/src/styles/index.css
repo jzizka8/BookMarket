@@ -23,7 +23,7 @@
     .cart-grid {
         grid-template-areas:
             "photo title price cancel";
-        grid-template-columns: 8rem auto 6rem 6rem;
+        grid-template-columns: 8rem minmax(auto, 25rem) 6rem 6rem;
         grid-template-rows: minmax(10rem, auto);
     }
 }
