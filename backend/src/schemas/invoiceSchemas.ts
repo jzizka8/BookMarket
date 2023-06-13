@@ -11,10 +11,7 @@ const userData = z.object({
   email: z.string().email('This is not valid email.'),
   phoneNumber: z
     .string()
-    .regex(
-      /^+?\d{1,4}?[-.\s]?(?\d{1,3}?)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
-      'This is not valid phone number.'
-    ),
+    .regex(/^\+42\d{10}$/, 'This is not valid phone number.'),
 });
 
 const address = z.object({
