@@ -106,6 +106,7 @@ const AllBooks = () => {
       },
     },
   ];
+
   return (
     <div className="flex justify-center bg-slate-100">
       <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
