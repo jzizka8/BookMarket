@@ -10,23 +10,31 @@ import BookAddition from './pages/BookAddition';
 import PurchaseForm from './pages/PurchaseForm';
 import PaymentInfo from './pages/PaymentInfo';
 import OrderConfirmation from './pages/OrderConfirmation';
+import Navbar from './components/Navbar';
+import UserOrders from './pages/UserOrders';
 
 export const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<AllBooks />} />
-      <Route path="/:bookId" element={<BookDetail />} />
-      <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
-      <Route path="/bookAddition" element={<BookAddition />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/purchase" element={<PurchaseForm />} />
-      <Route path="/paymentInfo" element={<PaymentInfo />} />
-      <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+    <>
+      <header>
+        <Navbar></Navbar>
+      </header>
+      <Routes>
+        <Route path="/" element={<AllBooks />} />
+        <Route path="/:bookId" element={<BookDetail />} />
+        <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
+        <Route path="/userOrders/:userId" element={<UserOrders />} />
+        <Route path="/bookAddition" element={<BookAddition />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/purchase" element={<PurchaseForm />} />
+        <Route path="/paymentInfo" element={<PaymentInfo />} />
+        <Route path="/orderConfirmation" element={<OrderConfirmation />} />
 
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="*" element={<Missing />} />
-    </Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Missing />} />
+      </Routes>
+    </>
   );
 };
 
