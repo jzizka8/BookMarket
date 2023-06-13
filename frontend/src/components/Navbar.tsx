@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-screen-xl flex-col items-center justify-between p-2 md:flex-row">
         <div className="flex w-full flex-row justify-between md:w-auto">
           <div className="flex items-center">
-            <Link to="/">
+            <Link to="/books">
               <BookIcon className="h-12 md:mr-3" />
             </Link>
           </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
           <ul className="flex flex-col items-center rounded-lg bg-primary-main text-xl font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0">
             <li>
               <NavLink
-                to={`/`}
+                to={`/books`}
                 style={({ isActive }) => (isActive ? { color: '#c08992' } : {})}
               >
                 <span
