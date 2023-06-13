@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import newBookSchema from '../schemas/NewBookSchema';
 import { Genre, Lang } from '../types/prismaTypes';
 import '../styles/index.css';
+import { uploadImage } from '../utils/uploadUtils';
 const BookAddition = () => {
   const navigate = useNavigate();
   const {
@@ -14,8 +15,15 @@ const BookAddition = () => {
   } = useForm<NewBookSchemaType>({
     resolver: zodResolver(newBookSchema),
   });
-  const onSubmit: SubmitHandler<NewBookSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<NewBookSchemaType> = async (data) => {
     console.log(data);
+
+    try {
+      const url = await uploadImage('username', data.picture);
+      console.log(url);
+    } catch (error) {
+      console.error('Error uploading image or saving document: ', error);
+    }
     navigate('/');
   };
 
