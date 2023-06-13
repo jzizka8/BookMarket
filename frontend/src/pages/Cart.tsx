@@ -31,7 +31,7 @@ const Cart = () => {
         <p className="mb-4 mt-6 text-right text-xl">
           Total:{' '}
           <span className="font-semibold">
-            {cart.reduce((sum, current) => sum + current.price, 0)}
+            {cart.reduce((sum, current) => sum + current.price, 0).toFixed(2)}
             &nbsp;&euro;
           </span>{' '}
         </p>
