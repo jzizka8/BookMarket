@@ -91,7 +91,9 @@ const AllBooks = () => {
           hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
           createdAt: new Date(),
         },
+        buyerId: '5452fa3f-7a0c-446d-96f8-3c86476f58b8',
         date: new Date(),
+        createdAt: new Date(),
         amount: 18.9,
         name: 'William',
         surname: 'Harrington',
@@ -106,16 +108,17 @@ const AllBooks = () => {
   ];
 
   return (
-    <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {books.map((book) => (
-        <BookCard
-          key={book.id}
-          {...{
-            book,
-          }}
-        />
-      ))}
-      ;
+    <div className="flex justify-center bg-slate-100">
+      <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {books.map((book) => (
+          <BookCard
+            key={book.id}
+            {...{
+              book,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

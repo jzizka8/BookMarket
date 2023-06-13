@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginFormSchemaType } from '../../types/FormSchemaTypes';
+import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
 
 const Login = () => {
