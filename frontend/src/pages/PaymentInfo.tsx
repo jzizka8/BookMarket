@@ -22,7 +22,7 @@ const PaymentInfo = () => {
     <>
       <div className="mt-32 flex flex-col items-center justify-center text-center">
         <div>
-          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-4xl">
+          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
             Card Information
           </h1>
           <p className="mb-4 break-words text-center">
@@ -35,7 +35,7 @@ const PaymentInfo = () => {
             <div className="relative mb-8">
               <label
                 htmlFor="cardNumber"
-                className="block text-sm font-medium text-gray-900 dark:text-white"
+                className="block text-sm font-medium text-gray-900"
               >
                 Card number
               </label>
@@ -57,7 +57,7 @@ const PaymentInfo = () => {
             <div className="relative mb-8">
               <label
                 htmlFor="expirationDate"
-                className="block text-sm font-medium text-gray-900 dark:text-white"
+                className="block text-sm font-medium text-gray-900"
               >
                 Expiration Date
               </label>
@@ -79,7 +79,7 @@ const PaymentInfo = () => {
             <div className="relative mb-8">
               <label
                 htmlFor="cvv"
-                className="block text-sm font-medium text-gray-900 dark:text-white"
+                className="block text-sm font-medium text-gray-900"
               >
                 CVV
               </label>
@@ -101,7 +101,7 @@ const PaymentInfo = () => {
             <div className="relative mb-8">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-900 dark:text-white"
+                className="block text-sm font-medium text-gray-900"
               >
                 Name on the card
               </label>
