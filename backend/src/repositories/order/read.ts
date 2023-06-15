@@ -9,10 +9,10 @@ import type {
 import client from '../client';
 
 /**
- * Repository call that reads data about all invoices of specific user.
+ * Repository call that reads data about all orders of specific user.
  *
  * @param   data  - buyer(user) id
- * @returns       - On success: Result.ok(Invoice[] & {buyer: User})
+ * @returns       - On success: Result.ok(Order[] & {buyer: User})
  *                - On failure: UserNotFound('User was not found.')
  *                              otherwise Result.err(_)
  */
@@ -24,17 +24,17 @@ export const allByUser = async (
       where: { id: data.userId },
     });
 
-    const userInvoices = await client.order.findMany({
+    const userOrders = await client.order.findMany({
       where: { buyerId: data.userId },
       include: { books: true },
     });
 
-    const result = userInvoices as (Order & { books: Book[] })[] & {
+    const result = userOrders as (Order & { books: Book[] })[] & {
       buyer: User;
     };
     result.buyer = user;
     return Result.ok(
-      userInvoices as (Order & { books: Book[] })[] & { buyer: User }
+      userOrders as (Order & { books: Book[] })[] & { buyer: User }
     );
   } catch (e) {
     return Result.err(e as Error);
@@ -42,10 +42,10 @@ export const allByUser = async (
 };
 
 /**
- * Repository call that reads data about a specific invoice.
+ * Repository call that reads data about a specific order.
  *
  * @param   data  - invoice id
- * @returns       - On success: Result.ok(Invoice & {buyer: User})
+ * @returns       - On success: Result.ok(Order & {buyer: User})
  *                - On failure: otherwise Result.err(_)
  */
 export const specific = async (
