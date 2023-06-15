@@ -3,10 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import filterSchema from '../schemas/FilterSchema';
 import { FilterSchemaType } from '../types/FormSchemaTypes';
-import { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 interface FilterProps {
   books: Book[];
+  filterQuery: object;
+  setFilterQuery: Dispatch<SetStateAction<object>>;
 }
 
 const Filter = (props: FilterProps) => {
@@ -19,7 +21,21 @@ const Filter = (props: FilterProps) => {
   });
 
   const onSubmit: SubmitHandler<FilterSchemaType> = async (data) => {
-    console.log(data);
+    const filterObj: { genre?: string; min?: number; max?: number } = {};
+
+    if (data.genre) {
+      filterObj.genre = data.genre;
+    }
+
+    if (data.minPrice) {
+      filterObj.min = data.minPrice;
+    }
+
+    if (data.maxPrice) {
+      filterObj.max = data.maxPrice;
+    }
+
+    props.setFilterQuery(filterObj);
   };
 
   const initialMinValue = 0;

@@ -122,6 +122,7 @@ const AllBooks = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredBooks, setFilteredBooks] = useState(books);
+  const [filterQuery, setFilterQuery] = useState({});
 
   const filterBooks = (query: string) => {
     const filtered = books.filter(
@@ -155,7 +156,11 @@ const AllBooks = () => {
               }}
             />
           </div>
-          <Filter books={filteredBooks} />
+          <Filter
+            books={filteredBooks}
+            filterQuery={filterQuery}
+            setFilterQuery={setFilterQuery}
+          />
         </div>
       </div>
       <div className="flex justify-center bg-slate-100">
