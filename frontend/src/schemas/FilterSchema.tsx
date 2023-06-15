@@ -25,8 +25,7 @@ const filterSchema = z
       );
     },
     {
-      message:
-        'Invalid price range: Minimum price cannot be greater than maximum price',
+      message: 'Invalid price range',
       path: ['minPrice'],
     }
   );
