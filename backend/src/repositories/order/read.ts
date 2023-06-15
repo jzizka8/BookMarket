@@ -56,6 +56,7 @@ export const specific = async (
       await client.order.findUniqueOrThrow({
         where: { id: data.orderId },
         include: {
+          shippingInfo: true,
           buyer: {
             select: {
               id: true,

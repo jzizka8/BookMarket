@@ -60,6 +60,7 @@ const create = async (data: OrderCreateData): OrderCreateResult => {
           },
         },
         include: {
+          shippingInfo: true,
           buyer: {
             select: {
               id: true,

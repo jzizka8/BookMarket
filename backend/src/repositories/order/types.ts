@@ -22,6 +22,7 @@ export type OrderCreateData = {
 export type OrderCreateResult = Promise<
   Result<
     Order & {
+      shippingInfo: ShippingData,
       buyer: {
         id: string;
         createdAt: Date;
@@ -46,6 +47,7 @@ export type OrderReadAllData = {
 export type OrderReadAllResult = Promise<
   Result<
     Order & {
+      shippingInfo: ShippingData,
       buyer: {
         id: string;
         createdAt: Date;
