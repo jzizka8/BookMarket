@@ -60,10 +60,10 @@ const BookDetail = () => {
       <div className="grid max-w-7xl gap-x-4 gap-y-2 p-4 sm:grid-cols-2 md:flex-col">
         {/* book heading */}
         <div className="mb-4 sm:col-start-2 sm:mb-0">
-          <h1 className="mb-none mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:mb-2">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:mb-4">
             {book.title}
           </h1>
-          <h2 className="text-l mb-2 font-semibold tracking-tight text-gray-600">
+          <h2 className="mb-2 text-xl font-semibold tracking-tight text-gray-600">
             {book.author}
           </h2>
         </div>
@@ -79,7 +79,7 @@ const BookDetail = () => {
         <div className="">
           <p>{book.description}</p>
           <p className="my-2 text-right text-3xl font-bold text-gray-700">
-            {book.price.toFixed(2)}&nbsp;&euro;
+            {book.price.toFixed(2)}&euro;
           </p>
           <div className="flex-between flex flex-wrap justify-end gap-5">
             {userId === book.seller.id ? (
