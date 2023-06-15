@@ -15,7 +15,7 @@ Create -
   }
 
 Read - 
-  unique(att: id) 
+  specific(att: id) 
   {
     return user & Book[] (not deleted) & invoice[]
   }
@@ -106,6 +106,6 @@ Read -
 
   specific(att: id)
   {
-    return invoice[] & User
+    return invoice & User
   }
 
