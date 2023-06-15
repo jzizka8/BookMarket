@@ -20,7 +20,7 @@ const shippingInfoSchema = z.object({
 
 export const createBodySchema = z.object({
   bookId: z.array(z.string().min(1)),
-  amount: z.number().nonnegative(),
+  amount: z.number().positive(),
   shippingData: shippingInfoSchema
 });
 

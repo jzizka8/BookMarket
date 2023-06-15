@@ -6,6 +6,7 @@ import {
 import createOrder from '../../repositories/order/create';
 import { failResponse, loadFailedResponse } from '../common';
 import { DeletedRecordError, NonexistentRecordError } from '../../repositories/types/errors';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -25,7 +26,10 @@ const create = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (order.isErr) {
-      const error = order.unwrap();
+      const error = order.error;
+      if (error instanceof PrismaClientKnownRequestError) {
+        return loadFailedResponse(res, 'The user does not exist.');
+      }
       if (error instanceof DeletedRecordError 
         || error instanceof NonexistentRecordError) {
         return loadFailedResponse(res, error.message);

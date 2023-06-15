@@ -14,9 +14,9 @@ const deleteBook = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      const error = book.unwrap();
+      const error = book.error;
       if (error instanceof DeletedRecordError) {
-        return loadFailedResponse(res, 'The book has already been deleted.')
+        return loadFailedResponse(res, error.message)
       }
       return loadFailedResponse(res, 'The book does not exist.');
     }

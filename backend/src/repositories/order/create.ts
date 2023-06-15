@@ -16,6 +16,12 @@ const create = async (data: OrderCreateData): OrderCreateResult => {
     return await client.$transaction(async (tx) => {
       const { shippingData, ...orderData } = data;
 
+      if (orderData.bookId.length === 0) {
+        return Result.err(
+          new NonexistentRecordError("Order without books can't be created.")
+        );
+      }
+
       await tx.user.findUniqueOrThrow({
         where: { id: orderData.userId },
       });
@@ -34,12 +40,13 @@ const create = async (data: OrderCreateData): OrderCreateResult => {
 
       if (!nullDeletedAt) {
         return Result.err(
-          new DeletedRecordError('Book has been already deleted!')
+          new DeletedRecordError('Book(s) has been already deleted!')
         );
       }
-      if (books.length !== data.bookId.length || books.length === 0) {
+
+      if (books.length !== data.bookId.length) {
         return Result.err(
-          new NonexistentRecordError("One or more books don't exist")
+          new NonexistentRecordError("One or more books don't exist anymore.")
         );
       }
 

@@ -7,6 +7,7 @@ import { DeletedRecordError } from '../../repositories/types/errors';
 const create = async (req: Request, res: Response) => {
   try {
     // Validation
+    console.log('tu som kua');
     const bodyValidate = await createBodySchema.parseAsync(req.body);
     // Repo call
     const book = await createBook(bodyValidate);

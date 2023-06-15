@@ -7,7 +7,7 @@ export const failResponse = (res: Response, e: unknown) => {
     const validationFailed: ApiResponse<typeof e> = {
       status: 'failure',
       data: e,
-      error: `Validation failed ${e.message}`,
+      error: `Validation failed.`,
     };
     return res.status(400).send(validationFailed);
   }

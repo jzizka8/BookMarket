@@ -12,8 +12,11 @@ export const createBodySchema = z.object({
     .min(2, 'Author of book should has name at least 2 characters long.'),
   price: z
     .number()
-    .nonnegative('Price has to be greater or equal to zero.')
-    .refine((x) => x * 1000 - Math.trunc(x * 1000) < Number.EPSILON), // price is a float with 2 decimal points
+    .nonnegative('Price has to be greater than zero.')
+    .refine((val) => {
+      const decimalPart = (val.toString().split(".")[1] || "").length;
+      return decimalPart <= 2; // Allow up to 2 decimal places
+    }), // price is a float with 2 decimal points
   publicationYear: z
     .number()
     .lte(
@@ -55,10 +58,13 @@ export const updateBodySchema = z
       .number()
       .nonnegative('Price has to be greater or equal to zero.')
       .optional()
-      .refine(
-        (x) =>
-          x !== undefined && x * 1000 - Math.trunc(x * 1000) < Number.EPSILON
-      ),
+      .refine((val) => {
+        if (val === undefined) {
+          return true;
+        }
+        const decimalPart = (val.toString().split(".")[1] || "").length;
+        return decimalPart <= 2; // Allow up to 2 decimal places
+      }, 'Tu sa to pojebe'),
     publicationYear: z
       .number()
       .lte(
@@ -70,7 +76,7 @@ export const updateBodySchema = z
       )
       .optional(),
     language: z.nativeEnum(Lang).optional(),
-    categoryId: z.string().min(1),
+    genre: z.nativeEnum(Genre),
     photo: z.string().optional(),
     description: z.string().optional(),
   })

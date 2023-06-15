@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { BookGenericReturn, BookUpdateData } from './types';
-import { DeletedRecordError } from '../types/errors';
+import { ConflictingRecordError, DeletedRecordError } from '../types/errors';
 
 /**
  * Repository call that updates the book's data.
@@ -29,6 +29,12 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
       return Result.err(
         new DeletedRecordError('The specified book has already been deleted!')
       );
+    }
+
+    if (book.orderId) {
+      return Result.err(
+        new ConflictingRecordError('The book has been already sold.')
+      )
     }
 
     return Result.ok(
