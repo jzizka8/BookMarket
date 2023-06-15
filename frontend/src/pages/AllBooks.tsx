@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import BookCard from '../components/BookCard/BookCard';
 import { Genre, Lang } from '../types/prismaTypes';
 
 const AllBooks = () => {
-  const books = [
+  const filteredBooks = [
     {
       id: '51802sf7-9ab5-437d-b4a4-1db640c69eda',
       createdAt: new Date(),
@@ -106,11 +107,15 @@ const AllBooks = () => {
       },
     },
   ];
-
+  const SHOWN_ITEMS_COUNT = 20;
+  const [shownItems, setShownItems] = useState(SHOWN_ITEMS_COUNT);
+  const showMore = () => {
+    setShownItems(shownItems + SHOWN_ITEMS_COUNT);
+  };
   return (
-    <div className="flex justify-center bg-slate-100">
-      <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {books.map((book) => (
+    <div className="mx-4 my-9 flex flex-col items-center">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {filteredBooks.slice(0, shownItems).map((book) => (
           <BookCard
             key={book.id}
             {...{
@@ -118,6 +123,17 @@ const AllBooks = () => {
             }}
           />
         ))}
+      </div>
+      <div className="flex justify-center">
+        {filteredBooks.length > shownItems && (
+          <button
+            type="button"
+            className="m-8 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-2xl font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={showMore}
+          >
+            Show more
+          </button>
+        )}
       </div>
     </div>
   );
