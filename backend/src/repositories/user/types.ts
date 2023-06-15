@@ -1,5 +1,5 @@
 import type { Result } from '@badrap/result';
-import type { Book, Invoice, User } from '@prisma/client';
+import type { Book, Order, User } from '@prisma/client';
 
 export type UserCreateData = {
   username: string;
@@ -16,7 +16,7 @@ export type UserReadSpecificResult = Promise<
     username: string;
     createdAt: Date;
     booksForSale: Book[];
-    invoices: Invoice[];
+    orders: Order[];
   }>
 >;
 

@@ -12,13 +12,7 @@ import type { BookCreateData, BookGenericReturn } from './types';
  */
 const create = async (data: BookCreateData): BookGenericReturn => {
   try {
-    const { categoryName, soldBy, ...bookData } = data;
-
-    const category = await client.category.findUniqueOrThrow({
-      where: {
-        name: categoryName,
-      },
-    });
+    const { soldBy, ...bookData } = data;
 
     const user = await client.user.findUniqueOrThrow({
       where: {
@@ -29,11 +23,6 @@ const create = async (data: BookCreateData): BookGenericReturn => {
     const book = await client.book.create({
       data: {
         ...bookData,
-        category: {
-          connect: {
-            id: category.id,
-          },
-        },
         seller: {
           connect: {
             id: user.id,

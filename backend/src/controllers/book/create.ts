@@ -15,9 +15,9 @@ const create = async (req: Request, res: Response) => {
     if (book.isErr) {
       const error = book.unwrap();
       if (error instanceof DeletedRecordError) {
-        return loadFailedResponse(res, 'The entity does not exist');
+        return loadFailedResponse(res, 'The book does not exist');
       }
-      return loadFailedResponse(res, 'The entity can not be created.');
+      return loadFailedResponse(res, 'The book can not be created.');
     }
     return res.status(201).send({
       data: book.unwrap(),

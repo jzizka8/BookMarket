@@ -14,10 +14,10 @@ import { DeletedRecordError, NonexistentRecordError } from '../types/errors';
 const create = async (data: OrderCreateData): OrderCreateResult => {
   try {
     return await client.$transaction(async (tx) => {
-      const { shippingData, ...invoiceData } = data;
+      const { shippingData, ...orderData } = data;
 
       await tx.user.findUniqueOrThrow({
-        where: { id: invoiceData.userId },
+        where: { id: orderData.userId },
       });
 
       const books = await tx.book.findMany({
@@ -52,8 +52,8 @@ const create = async (data: OrderCreateData): OrderCreateResult => {
 
       const order = await tx.order.create({
         data: {
-          buyerId: invoiceData.userId,
-          amount: invoiceData.amount,
+          buyerId: orderData.userId,
+          amount: orderData.amount,
           shippingInfoId: shippingInfo.id,
           books: {
             connect: books.map((book) => ({ id: book.id })),

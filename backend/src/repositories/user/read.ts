@@ -10,11 +10,11 @@ import { WrongOwnershipError } from '../types/errors';
 
 /**
  * Repository call that reads data about a specific user.
- * The books and invoices are by default ordered by its `createdAt`
+ * The books and orders are by default ordered by its `createdAt`
  * property in descending order.
  *
  * @param   data  - user id
- * @returns       - On success: Result.ok(User & { Book[], Invoice[] })
+ * @returns       - On success: Result.ok(User & { Book[], Order[] })
  *                - On failure: Result.err(_)
  */
 export const specific = async (
@@ -32,7 +32,7 @@ export const specific = async (
             where: { deletedAt: null },
             orderBy: { createdAt: 'desc' },
           },
-          invoices: {
+          orders: {
             orderBy: { createdAt: 'desc' },
           },
         },
@@ -59,7 +59,7 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     });
 
     if (user.hashedPassword !== data.hashedPassword) {
-      return Result.err(new WrongOwnershipError("Password don't match."));
+      return Result.err(new WrongOwnershipError(`Password don't match with user - ${user.username}.`));
     }
 
     const userToReturn = {

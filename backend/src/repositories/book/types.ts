@@ -7,7 +7,7 @@ export type BookCreateData = {
   price: number;
   publicationYear: number;
   language: Lang;
-  categoryName: Genre;
+  genre: Genre;
   soldBy: string;
   photo: string | null;
   description: string | null;

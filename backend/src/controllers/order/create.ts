@@ -2,10 +2,10 @@ import type { Request, Response } from 'express';
 import {
   createBodySchema,
   createParamsSchema,
-} from '../../schemas/invoiceSchemas';
-import createInvoice from '../../repositories/invoice/create';
+} from '../../schemas/orderSchemas';
+import createOrder from '../../repositories/order/create';
 import { failResponse, loadFailedResponse } from '../common';
-import { DeletedRecordError } from '../../repositories/types/errors';
+import { DeletedRecordError, NonexistentRecordError } from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -21,18 +21,19 @@ const create = async (req: Request, res: Response) => {
     };
 
     // Repo call
-    const book = await createInvoice(data);
+    const order = await createOrder(data);
 
     // Checking repo answer and returning
-    if (book.isErr) {
-      const error = book.unwrap();
-      if (error instanceof DeletedRecordError) {
-        return loadFailedResponse(res, 'The entity does not exist.');
+    if (order.isErr) {
+      const error = order.unwrap();
+      if (error instanceof DeletedRecordError 
+        || error instanceof NonexistentRecordError) {
+        return loadFailedResponse(res, error.message);
       }
       return loadFailedResponse(res, 'The entity can not be created.');
     }
     return res.status(201).send({
-      data: book.unwrap(),
+      data: order.unwrap(),
     });
   } catch (e) {
     return failResponse(res, e);

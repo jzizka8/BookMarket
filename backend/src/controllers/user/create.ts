@@ -20,7 +20,7 @@ const create = async (req: Request, res: Response) => {
           'The user with this name already exist.'
         );
       }
-      return loadFailedResponse(res, 'The entity can not be created.');
+      return loadFailedResponse(res, 'The user can not be created.');
     }
     return res.status(201).send({
       data: userCreated.unwrap(),

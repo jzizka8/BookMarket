@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import delBook from '../../repositories/book/delete';
 import { deleteSchema } from '../../schemas/bookSchemas';
 import { loadFailedResponse, failResponse } from '../common';
+import { DeletedRecordError } from '../../repositories/types/errors';
 
 const deleteBook = async (req: Request, res: Response) => {
   try {
@@ -13,7 +14,11 @@ const deleteBook = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      return loadFailedResponse(res, 'The entity does not exist.');
+      const error = book.unwrap();
+      if (error instanceof DeletedRecordError) {
+        return loadFailedResponse(res, 'The book has already been deleted.')
+      }
+      return loadFailedResponse(res, 'The book does not exist.');
     }
     return res.status(200).send({
       data: book.unwrap(),

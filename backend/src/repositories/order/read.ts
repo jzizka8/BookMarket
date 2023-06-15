@@ -1,5 +1,5 @@
 import { Result } from '@badrap/result';
-import type { Book, Order, User } from '@prisma/client';
+import type { Book, Order, ShippingInfo, User } from '@prisma/client';
 import type {
   OrderReadAllData,
   OrderReadAllResult,
@@ -26,15 +26,15 @@ export const allByUser = async (
 
     const userOrders = await client.order.findMany({
       where: { buyerId: data.userId },
-      include: { books: true },
+      include: { books: true, shippingInfo: true },
     });
 
-    const result = userOrders as (Order & { books: Book[] })[] & {
+    const result = userOrders as (Order & { books: Book[], shippingInfo: ShippingInfo })[] & {
       buyer: User;
     };
     result.buyer = user;
     return Result.ok(
-      userOrders as (Order & { books: Book[] })[] & { buyer: User }
+      userOrders as (Order & { books: Book[], shippingInfo: ShippingInfo })[] & { buyer: User }
     );
   } catch (e) {
     return Result.err(e as Error);
@@ -44,7 +44,7 @@ export const allByUser = async (
 /**
  * Repository call that reads data about a specific order.
  *
- * @param   data  - invoice id
+ * @param   data  - order id
  * @returns       - On success: Result.ok(Order & {buyer: User})
  *                - On failure: otherwise Result.err(_)
  */

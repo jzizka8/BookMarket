@@ -41,7 +41,7 @@ export const all = async (): BookReadAllReturn => {
     const result = await client.book.findMany({
       where: {
         deletedAt: null,
-        invoiceId: null,
+        orderId: null,
       },
       orderBy: {
         createdAt: 'desc',

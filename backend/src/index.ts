@@ -4,9 +4,8 @@ import cors from 'cors';
 import { env } from 'process';
 import type { ApiResponse } from './controllers/types';
 import userRouter from './routes/user';
-import categoryRouter from './routes/category';
 import bookRouter from './routes/book';
-import invoiceRouter from './routes/invoice';
+import orderRouter from './routes/order';
 
 configEnvVariables();
 const app = express();
@@ -22,8 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bookRouter);
-app.use(categoryRouter);
-app.use(invoiceRouter);
+app.use(orderRouter);
 app.use(userRouter);
 
 // No route was taken - 404 - Resource (API endpoint) not found.
