@@ -1,11 +1,18 @@
-import { Book } from '../../types/prismaTypes';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import useCart from '../../hooks/UseCart';
+import { Book } from '../../types/prismaTypes';
 interface IBookCardProps {
   book: Book;
 }
 
-const BookCard = (props: IBookCardProps) => {
+const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
+  const { addToCart } = useCart();
   const book = props.book;
+  const addToCartWrapper = () => {
+    addToCart(props.book);
+    // TODO: popup
+  };
   return (
     <div className="flex max-w-sm flex-col  rounded-lg border border-gray-200 bg-white p-3 shadow ">
       <div className="flex justify-center overflow-hidden  ">
@@ -44,6 +51,7 @@ const BookCard = (props: IBookCardProps) => {
         <button
           type="button"
           className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          onClick={addToCartWrapper}
         >
           <img className="mr-2 h-6 w-6" src="/src/assets/cart.svg" alt="" />
           Buy now

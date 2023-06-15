@@ -1,6 +1,7 @@
-import { useParams } from 'react-router-dom';
-import { Genre, Lang } from '../types/prismaTypes';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import useCart from '../hooks/UseCart';
+import { Book, Genre, Lang } from '../types/prismaTypes';
 
 const BookDetail = () => {
   const { bookId } = useParams();
@@ -28,6 +29,7 @@ const BookDetail = () => {
       'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
       'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry',
   };
+
   useEffect(() => {
     document.title = `${book.title} - book detail`;
   }, [bookId]);
@@ -72,7 +74,7 @@ const BookDetail = () => {
             {book.price.toFixed(2)}&nbsp;&euro;
           </p>
           <div className="flex-between flex flex-wrap justify-end gap-5">
-            <BookDetailButtons sellerId={book.seller.id} />
+            <BookDetailButtons book={book} />
           </div>
         </div>
         {/* additional data table */}
@@ -102,15 +104,19 @@ const BookDetail = () => {
 };
 
 interface IBookDetailButtonsProps {
-  sellerId: string;
+  book: Book;
 }
 
 function BookDetailButtons(props: IBookDetailButtonsProps) {
   // TODO: retrieve from auth
   // change the number to see the version for regular customer
-  const userId = '5452fa3f-7a0c-446d-96f8-3c86476f58b8';
+  const userId = '5452fa3f-7a0c-446d-96f8-3c86476f58b';
 
-  if (userId === props.sellerId) {
+  const { addToCart } = useCart();
+  const addToCartWrapper = () => {
+    addToCart(props.book);
+  };
+  if (userId === props.book.seller.id) {
     return (
       <>
         <button
@@ -142,6 +148,7 @@ function BookDetailButtons(props: IBookDetailButtonsProps) {
     <button
       type="button"
       className="ml-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      onClick={addToCartWrapper}
     >
       <img className="mr-2 h-6 w-6" src="/src/assets/cart.svg" alt="" />
       Add to cart
