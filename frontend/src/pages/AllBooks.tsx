@@ -1,8 +1,20 @@
 import BookCard from '../components/BookCard/BookCard';
 import { Genre, Lang } from '../types/prismaTypes';
 import { useState } from 'react';
+import Filter from '../components/Filter';
+// import axios from 'axios';
 
 const AllBooks = () => {
+  // const allBooks = async () => {
+  //   try {
+  //     const response = await axios.get('https://localhost:3000/books');
+  //     return response;
+  //   } catch (error) {
+  //     console.error('Error fetching books:', error);
+  //   }
+  // };
+  //
+  // console.log(allBooks());
   const books = [
     {
       id: '51802sf7-9ab5-437d-b4a4-1db640c69eda',
@@ -122,17 +134,29 @@ const AllBooks = () => {
 
   return (
     <>
-      <div className="m-4 flex items-center">
-        <input
-          type="text"
-          placeholder="Title or Author"
-          className="bg-search-icon rounded-md border border-gray-300 py-2 pl-10 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            filterBooks(e.target.value);
-          }}
-        />
+      <div className="flex px-6">
+        <div className="flex w-full flex-col items-center justify-between py-4 sm:flex-row">
+          <div className="flex flex-col sm:ml-0 md:mb-4 md:ml-24">
+            <label
+              htmlFor="search"
+              className="text-sm font-medium text-gray-700"
+            >
+              Search
+            </label>
+            <input
+              id="search"
+              type="text"
+              placeholder="Title or Author"
+              className="bg-search-icon h-12 rounded-md border border-gray-300 p-2 pl-10 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none sm:ml-0 sm:w-8 md:w-96"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                filterBooks(e.target.value);
+              }}
+            />
+          </div>
+          <Filter books={filteredBooks} />
+        </div>
       </div>
       <div className="flex justify-center bg-slate-100">
         <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
