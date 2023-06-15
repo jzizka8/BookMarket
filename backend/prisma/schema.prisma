@@ -11,24 +11,22 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(uuid())
-  createdAt      DateTime  @default(now())
-  username       String    @unique
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  username       String   @unique
   hashedPassword String
-  booksForSale   Book[]    @relation("BooksForSale")
-  invoices       Invoice[]
+  booksForSale   Book[]   @relation("BooksForSale")
+  orders         Order[]
 }
 
 model Book {
   id              String    @id @default(uuid())
   createdAt       DateTime  @default(now())
   deletedAt       DateTime?
-  categoryId      String
-  category        Category  @relation(fields: [categoryId], references: [id])
   soldBy          String
   seller          User      @relation("BooksForSale", fields: [soldBy], references: [id])
-  invoiceId       String?
-  invoice         Invoice?  @relation(fields: [invoiceId], references: [id])
+  orderId         String?
+  order           Order?    @relation(fields: [orderId], references: [id])
   title           String
   author          String
   price           Float
@@ -36,20 +34,22 @@ model Book {
   language        Lang
   photo           String?
   description     String?
+  genre           Genre
 }
 
-model Category {
-  id    String @id @default(uuid())
-  name  Genre  @unique
-  books Book[]
+model Order {
+  id             String       @id @default(uuid())
+  createdAt      DateTime     @default(now())
+  shippingInfo   ShippingInfo @relation(fields: [shippingInfoId], references: [id])
+  shippingInfoId String       @unique
+  buyerId        String
+  buyer          User         @relation(fields: [buyerId], references: [id])
+  amount         Float
+  books          Book[]
 }
 
-model Invoice {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  buyerId     String
-  buyer       User     @relation(fields: [buyerId], references: [id])
-  amount      Float
+model ShippingInfo {
+  id          String @id @default(uuid())
   name        String
   surname     String
   email       String
@@ -58,7 +58,7 @@ model Invoice {
   city        String
   zipcode     String
   country     String
-  books       Book[]
+  order       Order?
 }
 
 enum Lang {
@@ -93,4 +93,5 @@ enum Genre {
   Religion
   LiteraryFiction
   NonFiction
+  Crime
 }
