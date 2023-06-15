@@ -1,5 +1,6 @@
 import BookCard from '../components/BookCard/BookCard';
 import { Genre, Lang } from '../types/prismaTypes';
+import { useState } from 'react';
 
 const AllBooks = () => {
   const books = [
@@ -107,19 +108,45 @@ const AllBooks = () => {
     },
   ];
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState(books);
+
+  const filterBooks = (query: string) => {
+    const filtered = books.filter(
+      (book) =>
+        book.title.toLowerCase().includes(query.toLowerCase()) ||
+        book.author.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredBooks(filtered);
+  };
+
   return (
-    <div className="flex justify-center bg-slate-100">
-      <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {books.map((book) => (
-          <BookCard
-            key={book.id}
-            {...{
-              book,
-            }}
-          />
-        ))}
+    <>
+      <div className="m-4 flex items-center">
+        <input
+          type="text"
+          placeholder="Title or Author"
+          className="bg-search-icon rounded-md border border-gray-300 py-2 pl-10 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            filterBooks(e.target.value);
+          }}
+        />
       </div>
-    </div>
+      <div className="flex justify-center bg-slate-100">
+        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filteredBooks.map((book) => (
+            <BookCard
+              key={book.id}
+              {...{
+                book,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 export default AllBooks;

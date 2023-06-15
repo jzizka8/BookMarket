@@ -52,3 +52,11 @@
     background-color: #f7fafc;
     color: #4a5568;
 }
+
+.bg-search-icon {
+    background-image: url("../assets/search.svg");
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-size: 18px 18px;
+    padding-left: 32px;
+}
