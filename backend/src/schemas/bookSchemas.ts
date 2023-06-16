@@ -76,7 +76,7 @@ export const updateBodySchema = z
       )
       .optional(),
     language: z.nativeEnum(Lang).optional(),
-    genre: z.nativeEnum(Genre),
+    genre: z.nativeEnum(Genre).optional(),
     photo: z.string().url().optional(),
     description: z.string().optional(),
   })
