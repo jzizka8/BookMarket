@@ -21,6 +21,11 @@ export type BookReadSpecificData = {
   bookId: string;
 };
 
+export type BookReadAllData = {
+  count: number;
+  offset: number;
+};
+
 export type BookUpdateData = {
   bookId: string;
   toUpdate: ToUpdate;

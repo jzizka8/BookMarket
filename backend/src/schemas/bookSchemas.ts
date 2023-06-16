@@ -14,7 +14,7 @@ export const createBodySchema = z.object({
     .number()
     .nonnegative('Price has to be greater than zero.')
     .refine((val) => {
-      const decimalPart = (val.toString().split(".")[1] || "").length;
+      const decimalPart = (val.toString().split('.')[1] || '').length;
       return decimalPart <= 2; // Allow up to 2 decimal places
     }), // price is a float with 2 decimal points
   publicationYear: z
@@ -62,7 +62,7 @@ export const updateBodySchema = z
         if (val === undefined) {
           return true;
         }
-        const decimalPart = (val.toString().split(".")[1] || "").length;
+        const decimalPart = (val.toString().split('.')[1] || '').length;
         return decimalPart <= 2; // Allow up to 2 decimal places
       }, 'Tu sa to pojebe'),
     publicationYear: z
@@ -84,4 +84,9 @@ export const updateBodySchema = z
 
 export const updateParamsSchema = z.object({
   bookId: z.string().nonempty(),
+});
+
+export const readAllParamasSchema = z.object({
+  count: z.number().positive().default(5),
+  offset: z.number().nonnegative().default(0),
 });

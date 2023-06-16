@@ -1,12 +1,15 @@
 import type { Request, Response } from 'express';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import {
   createBodySchema,
   createParamsSchema,
 } from '../../schemas/orderSchemas';
 import createOrder from '../../repositories/order/create';
 import { failResponse, loadFailedResponse } from '../common';
-import { DeletedRecordError, NonexistentRecordError } from '../../repositories/types/errors';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import {
+  DeletedRecordError,
+  NonexistentRecordError,
+} from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -26,12 +29,14 @@ const create = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (order.isErr) {
-      const error = order.error;
+      const { error } = order;
       if (error instanceof PrismaClientKnownRequestError) {
         return loadFailedResponse(res, 'The user does not exist.');
       }
-      if (error instanceof DeletedRecordError 
-        || error instanceof NonexistentRecordError) {
+      if (
+        error instanceof DeletedRecordError ||
+        error instanceof NonexistentRecordError
+      ) {
         return loadFailedResponse(res, error.message);
       }
       return loadFailedResponse(res, 'The entity can not be created.');

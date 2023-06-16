@@ -29,12 +29,18 @@ export const allByUser = async (
       include: { books: true, shippingInfo: true },
     });
 
-    const result = userOrders as (Order & { books: Book[], shippingInfo: ShippingInfo })[] & {
+    const result = userOrders as (Order & {
+      books: Book[];
+      shippingInfo: ShippingInfo;
+    })[] & {
       buyer: User;
     };
     result.buyer = user;
     return Result.ok(
-      userOrders as (Order & { books: Book[], shippingInfo: ShippingInfo })[] & { buyer: User }
+      userOrders as (Order & {
+        books: Book[];
+        shippingInfo: ShippingInfo;
+      })[] & { buyer: User }
     );
   } catch (e) {
     return Result.err(e as Error);
@@ -48,9 +54,7 @@ export const allByUser = async (
  * @returns       - On success: Result.ok(Order & {buyer: User})
  *                - On failure: otherwise Result.err(_)
  */
-export const specific = async (
-  data: OrderReadAllData
-): OrderReadAllResult => {
+export const specific = async (data: OrderReadAllData): OrderReadAllResult => {
   try {
     return Result.ok(
       await client.order.findUniqueOrThrow({

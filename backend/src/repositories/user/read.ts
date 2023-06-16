@@ -59,7 +59,11 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     });
 
     if (user.hashedPassword !== data.hashedPassword) {
-      return Result.err(new WrongOwnershipError(`Password don't match with user - ${user.username}.`));
+      return Result.err(
+        new WrongOwnershipError(
+          `Password don't match with user - ${user.username}.`
+        )
+      );
     }
 
     const userToReturn = {

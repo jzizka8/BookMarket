@@ -8,8 +8,7 @@ const seed = async () => {
   // Seeding users and categories first as they don't have any dependencies
   await client.user.createMany({ data: data.users });
 
-  await client.shippingInfo.createMany({ data: data.shippingInfo })
-
+  await client.shippingInfo.createMany({ data: data.shippingInfo });
 
   await Promise.all(
     data.orders.map((order) =>

@@ -3,6 +3,6 @@ import { specificOrder, all } from './read';
 
 export default {
   create,
-  specificOrder: specificOrder,
+  specificOrder,
   allOrders: all,
 };

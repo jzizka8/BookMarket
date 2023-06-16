@@ -39,7 +39,7 @@ const data: SeedData = {
       photo: 'https://mrtns.sk/tovar/_xl/1663/xl1663909.jpg',
       description:
         'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry',
-      genre: "Romance" 
+      genre: 'Romance',
     },
     {
       id: '85f850fc-07c6-4a8d-bffe-6d6e27a53453',
@@ -52,7 +52,7 @@ const data: SeedData = {
       language: 'EN',
       photo: 'https://mrtns.sk/tovar/_xl/1899/xl1899569.jpg',
       description: 'A fantasy book about dragons.',
-      genre: "Fantasy"
+      genre: 'Fantasy',
     },
     {
       id: '387deb3b-2fa9-48b4-bef1-0023f64e7cb3',
@@ -64,7 +64,7 @@ const data: SeedData = {
       publicationYear: 2015,
       language: 'SK',
       photo: 'https://mrtns.sk/tovar/_xl/214/xl214712.jpg',
-      genre: "Crime",
+      genre: 'Crime',
     },
     {
       id: '47d30c60-26e0-4055-9422-a3cbd5ece3d3',
@@ -79,7 +79,7 @@ const data: SeedData = {
         'https://img-cloud.megaknihy.cz/3237710-original/10cfdc54f45bbce9acf20cd8be01d7c3/miss-bensons-reise.jpg',
       description:
         'Raus aus dem grauen London der fünziger Jahre, hinein ins Abenteuer bis ans andere Ende der Welt. Margery Benson und ihre junge Assistentin Enid Pretty wagen sich auf den Weg nach Neu-Kaledonien, um ihre Lebensträume wahr zu machen. Eine hinreißende Geschichte über Freundschaft und Freiheit, voller Mut, Hoffnung und Humor.',
-      genre: "Historical",
+      genre: 'Historical',
     },
     {
       id: '477263bc-98e3-403f-adfa-9a4749ece38a',
@@ -91,7 +91,7 @@ const data: SeedData = {
       language: 'CS',
       photo:
         'https://www.knihydobrovsky.cz/thumbs/book-detail-fancy-box/mod_eshop/produkty/398470745/59.jpg',
-      genre: "LiteraryFiction",
+      genre: 'LiteraryFiction',
     },
   ],
   shippingInfo: [
@@ -116,7 +116,7 @@ const data: SeedData = {
       city: 'Mesto',
       zipcode: '04028',
       country: 'Slovakia',
-    }
+    },
   ],
   orders: [
     {

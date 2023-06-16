@@ -52,10 +52,9 @@ const create = async (data: OrderCreateData): OrderCreateResult => {
 
       const shippingInfo = await tx.shippingInfo.create({
         data: {
-          ...shippingData
-        }
+          ...shippingData,
+        },
       });
-
 
       const order = await tx.order.create({
         data: {

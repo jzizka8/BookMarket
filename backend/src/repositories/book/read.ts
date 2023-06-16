@@ -1,6 +1,7 @@
 import { Result } from '@badrap/result';
 import type {
   BookGenericReturn,
+  BookReadAllData,
   BookReadAllReturn,
   BookReadSpecificData,
 } from './types';
@@ -36,9 +37,11 @@ export const specific = async (
  * @returns - On success: All books
  *          - On failure: A generic error
  */
-export const all = async (): BookReadAllReturn => {
+export const all = async (data: BookReadAllData): BookReadAllReturn => {
   try {
     const result = await client.book.findMany({
+      skip: data.offset,
+      take: data.count,
       where: {
         deletedAt: null,
         orderId: null,

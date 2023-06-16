@@ -1,11 +1,17 @@
 import type { Request, Response } from 'express';
-import { /* loadFailedResponse, */ failResponse, loadFailedResponse } from '../common';
+import {
+  /* loadFailedResponse, */ failResponse,
+  loadFailedResponse,
+} from '../common';
 import {
   updateBodySchema,
   updateParamsSchema,
 } from '../../schemas/bookSchemas';
 import update from '../../repositories/book/update';
-import { ConflictingRecordError, DeletedRecordError } from '../../repositories/types/errors';
+import {
+  ConflictingRecordError,
+  DeletedRecordError,
+} from '../../repositories/types/errors';
 
 const updateBook = async (req: Request, res: Response) => {
   try {
@@ -22,7 +28,7 @@ const updateBook = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      const error = book.error;
+      const { error } = book;
       if (error instanceof DeletedRecordError) {
         return loadFailedResponse(res, 'The book has been already deleted.');
       }

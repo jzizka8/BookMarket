@@ -34,7 +34,7 @@ const update = async (data: BookUpdateData): BookGenericReturn => {
     if (book.orderId) {
       return Result.err(
         new ConflictingRecordError('The book has been already sold.')
-      )
+      );
     }
 
     return Result.ok(
