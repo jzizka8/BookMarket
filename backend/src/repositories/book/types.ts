@@ -24,9 +24,9 @@ export type BookReadSpecificData = {
 export type BookReadAllData = {
   count: number;
   offset: number;
-  genre?: Genre | undefined,
-  max: number,
-  min: number,
+  genre?: Genre | undefined;
+  max: number;
+  min: number;
 };
 
 export type BookUpdateData = {

@@ -64,7 +64,7 @@ export const updateBodySchema = z
         }
         const decimalPart = (val.toString().split('.')[1] || '').length;
         return decimalPart <= 2; // Allow up to 2 decimal places
-      }, 'Tu sa to pojebe'),
+      }),
     publicationYear: z
       .number()
       .lte(
@@ -90,6 +90,26 @@ export const readAllParamasSchema = z.object({
   count: z.number().positive().default(5),
   offset: z.number().nonnegative().default(0),
   genre: z.nativeEnum(Genre).optional(),
-  max: z.number().nonnegative().default(Number.MAX_SAFE_INTEGER),
-  min: z.number().nonnegative().default(0),
+  max: z
+    .number()
+    .nonnegative()
+    .default(Number.MAX_SAFE_INTEGER)
+    .refine((val) => {
+      if (val === undefined) {
+        return true;
+      }
+      const decimalPart = (val.toString().split('.')[1] || '').length;
+      return decimalPart <= 2; // Allow up to 2 decimal places
+    }),
+  min: z
+    .number()
+    .nonnegative()
+    .default(0)
+    .refine((val) => {
+      if (val === undefined) {
+        return true;
+      }
+      const decimalPart = (val.toString().split('.')[1] || '').length;
+      return decimalPart <= 2; // Allow up to 2 decimal places
+    }),
 });

@@ -40,7 +40,7 @@ export const specific = async (
  */
 export const all = async (data: BookReadAllData): BookReadAllReturn => {
   try {
-    const genre = data.genre;
+    const { genre } = data;
     const result = await client.book.findMany({
       skip: data.offset,
       take: data.count,
