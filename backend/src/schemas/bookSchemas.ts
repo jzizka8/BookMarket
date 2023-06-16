@@ -77,7 +77,7 @@ export const updateBodySchema = z
       .optional(),
     language: z.nativeEnum(Lang).optional(),
     genre: z.nativeEnum(Genre),
-    photo: z.string().url.optional(),
+    photo: z.string().url().optional(),
     description: z.string().optional(),
   })
   .strict();
@@ -89,4 +89,7 @@ export const updateParamsSchema = z.object({
 export const readAllParamasSchema = z.object({
   count: z.number().positive().default(5),
   offset: z.number().nonnegative().default(0),
+  genre: z.nativeEnum(Genre).optional(),
+  max: z.number().nonnegative().default(Number.MAX_SAFE_INTEGER),
+  min: z.number().nonnegative().default(0),
 });
