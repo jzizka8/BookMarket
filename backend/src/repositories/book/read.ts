@@ -32,17 +32,24 @@ export const specific = async (
 };
 
 /**
- * Repository call that reads data of all books.
+ * Repository call that reads data of all books
+ *  which fullfil requirements and take only data.count.
  *
  * @returns - On success: All books
  *          - On failure: A generic error
  */
 export const all = async (data: BookReadAllData): BookReadAllReturn => {
   try {
+    const genre = data.genre;
     const result = await client.book.findMany({
       skip: data.offset,
       take: data.count,
       where: {
+        price: {
+          lte: data.max,
+          gte: data.min,
+        },
+        ...(genre !== undefined && { genre }),
         deletedAt: null,
         orderId: null,
       },
