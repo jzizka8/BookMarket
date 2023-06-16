@@ -28,7 +28,7 @@ export const createBodySchema = z.object({
     ),
   language: z.nativeEnum(Lang),
   genre: z.nativeEnum(Genre),
-  photo: z.string().nullable(),
+  photo: z.string().url().nullable(),
   description: z.string().nullable(),
 });
 
@@ -77,7 +77,7 @@ export const updateBodySchema = z
       .optional(),
     language: z.nativeEnum(Lang).optional(),
     genre: z.nativeEnum(Genre),
-    photo: z.string().optional(),
+    photo: z.string().url.optional(),
     description: z.string().optional(),
   })
   .strict();

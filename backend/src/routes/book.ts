@@ -12,7 +12,6 @@ bookRouter.delete(bookRouteSpecific, BookController.deleteBook);
 // GET /book/{bookId}
 bookRouter.get(bookRouteSpecific, BookController.specificBook);
 
-// POST
 bookRouter.post('/book/load', BookController.allBooks);
 
 // PATCH book/{bookId}
