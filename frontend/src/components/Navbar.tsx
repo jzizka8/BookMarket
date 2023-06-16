@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex w-full flex-row justify-between md:w-auto">
           <div className="flex items-center">
             <Link to="/books">
-              <BookIcon className="h-12 md:mr-3" />
+              <BookIcon className="h-12 w-12 md:mr-3" />
             </Link>
           </div>
           <button
