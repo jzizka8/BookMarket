@@ -5,7 +5,7 @@ const genreValues = Object.values(Genre) as [string, ...string[]];
 
 const filterSchema = z
   .object({
-    genre: z.enum(genreValues).optional(),
+    genre: z.enum([...genreValues, '']).default(''),
     minPrice: z
       .string()
       .regex(/^\d+$/)

@@ -36,6 +36,7 @@ const Filter = (props: FilterProps) => {
     }
 
     props.setFilterQuery(filterObj);
+    console.log(filterObj);
   };
 
   const initialMinValue = 0;
@@ -82,6 +83,9 @@ const Filter = (props: FilterProps) => {
             className="form-input h-11 p-0"
             {...register('genre')}
           >
+            <option key="" value="">
+              {' '}
+            </option>
             {Object.values(Genre).map((genre) => (
               <option key={genre} value={genre}>
                 {genre}
