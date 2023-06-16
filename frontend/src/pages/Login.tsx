@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
+import BookIcon from '../icons/BookIcon';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,13 +26,7 @@ const Login = () => {
     <>
       <div className="flex h-screen items-center justify-center">
         <div className="w-64 sm:w-80">
-          <img
-            src="https://via.placeholder.com/300x200"
-            alt="Placeholder Image"
-            width="300"
-            height="200"
-            className="mx-auto"
-          />
+          <BookIcon className="fill-rose-900" />
           <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
             <div className="mb-4">
               <label
