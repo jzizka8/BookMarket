@@ -37,7 +37,7 @@ const AccordionItem = ({ id, title, content }: AccordionItemProps) => {
         >
           <span className="text-lg">{title}</span>
           <div>
-            <span>{content.price.toFixed(2)}€</span>
+            <span>{content.price.toFixed(2)}&nbsp;€</span>
             <svg
               data-accordion-icon
               className={`inline h-6 w-6 shrink-0 transition duration-200 ease-in-out ${
@@ -72,7 +72,7 @@ const AccordionItem = ({ id, title, content }: AccordionItemProps) => {
                 <li className="flex justify-around py-2">
                   <span className="font-medium">{`${book.name}`}</span>
                   <span className="hidden sm:inline">{book.author}</span>
-                  <span>{book.price.toFixed(2)}€</span>
+                  <span>{book.price.toFixed(2)}&nbsp;€</span>
                 </li>
               </Link>
             ))}
