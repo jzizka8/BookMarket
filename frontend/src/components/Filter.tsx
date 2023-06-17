@@ -69,7 +69,7 @@ const Filter = (props: FilterProps) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-between sm:mr-0 sm:flex-row md:mb-4"
+        className="flex flex-col sm:mr-0 sm:flex-row md:mb-4"
       >
         <div className="mr-4 flex flex-col">
           <label
@@ -107,9 +107,10 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="w-15 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('minPrice')}
             onChange={handleMinChange}
+            style={{ width: '4rem' }}
           />
           {errors.minPrice && (
             <span className="mt-2 block text-red-800">
@@ -131,9 +132,10 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="w-15 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('maxPrice')}
             onChange={handleMaxChange}
+            style={{ width: '4rem' }}
           />
           {errors.maxPrice && (
             <span className="mt-2 block text-red-800">
