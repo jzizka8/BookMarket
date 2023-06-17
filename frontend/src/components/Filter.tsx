@@ -107,7 +107,7 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="w-15 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('minPrice')}
             onChange={handleMinChange}
           />
@@ -131,7 +131,7 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="w-15 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('maxPrice')}
             onChange={handleMaxChange}
           />
