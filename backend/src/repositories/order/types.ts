@@ -33,18 +33,10 @@ export type OrderCreateResult = Promise<
 >;
 
 export type OrderReadSpecificData = {
-  userId: string;
-};
-
-export type OrderReadSpecificResult = Promise<
-  Result<(Order & { books: Book[] })[] & { buyer: User }>
->;
-
-export type OrderReadAllData = {
   orderId: string;
 };
 
-export type OrderReadAllResult = Promise<
+export type OrderReadSpecificResult = Promise<
   Result<
     Order & {
       shippingInfo: ShippingData;

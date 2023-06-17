@@ -33,7 +33,7 @@ export const specific = async (
 
 /**
  * Repository call that reads data of all books
- *  which fullfil requirements and take only data.count.
+ * which fullfil requirements and take only data.count.
  *
  * @returns - On success: All books
  *          - On failure: A generic error

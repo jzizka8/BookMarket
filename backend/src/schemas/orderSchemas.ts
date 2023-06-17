@@ -28,10 +28,6 @@ export const createParamsSchema = z.object({
   userId: z.string().nonempty(),
 });
 
-export const allSchema = z.object({
-  userId: z.string().min(1),
-});
-
 export const specificSchema = z.object({
   orderId: z.string().min(1),
 });
