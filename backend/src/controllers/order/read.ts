@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
 import { specificSchema } from '../../schemas/orderSchemas';
-import { specific } from '../../repositories/order/read';
+import specific from '../../repositories/order/read';
 import { failResponse, loadFailedResponse } from '../common';
 
-export const specificOrder = async (req: Request, res: Response) => {
+const specificOrder = async (req: Request, res: Response) => {
   try {
     // Validation
     const paramsValidate = specificSchema.parse(req.params);
@@ -22,3 +22,5 @@ export const specificOrder = async (req: Request, res: Response) => {
     return failResponse(res, e);
   }
 };
+
+export default specificOrder;

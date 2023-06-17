@@ -1,8 +1,5 @@
 import { Result } from '@badrap/result';
-import type {
-  OrderReadSpecificData,
-  OrderReadSpecificResult,
-} from './types';
+import type { OrderReadSpecificData, OrderReadSpecificResult } from './types';
 import client from '../client';
 
 /**
@@ -12,7 +9,9 @@ import client from '../client';
  * @returns       - On success: Result.ok(Order & {buyer: User})
  *                - On failure: otherwise Result.err(_)
  */
-export const specific = async (data: OrderReadSpecificData): OrderReadSpecificResult => {
+const specific = async (
+  data: OrderReadSpecificData
+): OrderReadSpecificResult => {
   try {
     return Result.ok(
       await client.order.findUniqueOrThrow({
@@ -34,3 +33,5 @@ export const specific = async (data: OrderReadSpecificData): OrderReadSpecificRe
     return Result.err(e as Error);
   }
 };
+
+export default specific;

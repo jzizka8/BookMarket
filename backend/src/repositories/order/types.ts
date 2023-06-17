@@ -1,5 +1,5 @@
 import type { Result } from '@badrap/result';
-import type { Book, Order, User } from '@prisma/client';
+import type { Order } from '@prisma/client';
 
 type ShippingData = {
   name: string;
