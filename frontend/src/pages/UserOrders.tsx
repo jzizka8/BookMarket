@@ -89,17 +89,17 @@ const UserOrders = () => {
       id: 1,
       title: 'Order from 10.05.2023',
       content: {
-        price: 33.50,
+        price: 33.5,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: 12.90,
+            price: 12.9,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: 8.90,
+            price: 8.9,
           },
         ],
       },
@@ -108,17 +108,17 @@ const UserOrders = () => {
       id: 2,
       title: 'Order from 07.04.2023',
       content: {
-        price: 15.00,
+        price: 15.0,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: 12.90,
+            price: 12.9,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: 8.90,
+            price: 8.9,
           },
         ],
       },
@@ -127,17 +127,17 @@ const UserOrders = () => {
       id: 3,
       title: 'Order from 27.03.2023',
       content: {
-        price: 27.90,
+        price: 27.9,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: 12.90,
+            price: 12.9,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: 8.90,
+            price: 8.9,
           },
         ],
       },
@@ -150,10 +150,7 @@ const UserOrders = () => {
         <h1 className="flex justify-center p-4 text-3xl">My orders</h1>
         <div id="accordion-collapse" data-accordion="collapse">
           {accordionItems.map((item) => (
-            <AccordionItem
-              key={item.id}
-              {...item}
-            />
+            <AccordionItem key={item.id} {...item} />
           ))}
         </div>
       </div>
