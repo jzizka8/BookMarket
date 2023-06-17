@@ -72,7 +72,7 @@ const AccordionItem = ({ id, title, content }: AccordionItemProps) => {
                 <li className="flex justify-around py-2">
                   <span className="font-medium">{`${book.name}`}</span>
                   <span className="hidden sm:inline">{book.author}</span>
-                  <span>{book.price}</span>
+                  <span>{book.price.toFixed(2)}€</span>
                 </li>
               </Link>
             ))}
