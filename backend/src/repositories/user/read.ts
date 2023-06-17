@@ -10,11 +10,11 @@ import { WrongOwnershipError } from '../types/errors';
 
 /**
  * Repository call that reads data about a specific user.
- * The books and invoices are by default ordered by its `createdAt`
- *  property in descending order.
+ * The books and orders are by default ordered by its `createdAt`
+ * property in descending order.
  *
  * @param   data  - user id
- * @returns       - On success: Result.ok(User & { Book[], Invoice[] })
+ * @returns       - On success: Result.ok(User & { Book[], Order[] })
  *                - On failure: Result.err(_)
  */
 export const specific = async (
@@ -23,14 +23,20 @@ export const specific = async (
   try {
     return Result.ok(
       await client.user.findUniqueOrThrow({
-        where: { id: data.id },
-        include: {
+        where: { id: data.userId },
+        select: {
+          id: true,
+          createdAt: true,
+          username: true,
           booksForSale: {
             where: { deletedAt: null },
             orderBy: { createdAt: 'desc' },
           },
-          invoices: {
+          orders: {
             orderBy: { createdAt: 'desc' },
+            include: {
+              books: true,
+            },
           },
         },
       })
@@ -56,9 +62,20 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
     });
 
     if (user.hashedPassword !== data.hashedPassword) {
-      return Result.err(new WrongOwnershipError("Password don't match."));
+      return Result.err(
+        new WrongOwnershipError(
+          `Password don't match with user - ${user.username}.`
+        )
+      );
     }
-    return Result.ok(user);
+
+    const userToReturn = {
+      id: user.id,
+      username: user.username,
+      createdAt: user.createdAt,
+    };
+
+    return Result.ok(userToReturn);
   } catch (e) {
     return Result.err(e as Error);
   }

@@ -7,14 +7,16 @@ const client = new PrismaClient();
 const seed = async () => {
   // Seeding users and categories first as they don't have any dependencies
   await client.user.createMany({ data: data.users });
-  await client.category.createMany({ data: data.categories });
+
+  await client.shippingInfo.createMany({ data: data.shippingInfo });
 
   await Promise.all(
-    data.invoices.map((invoice) =>
-      client.invoice.create({
+    data.orders.map((order) =>
+      client.order.create({
         data: {
-          ...invoice,
-          buyer: { connect: { id: invoice.buyer.connect!.id! } },
+          ...order,
+          buyer: { connect: { id: order.buyer.connect!.id! } },
+          shippingInfo: { connect: { id: order.shippingInfo.connect!.id! } },
         },
       })
     )
@@ -24,12 +26,11 @@ const seed = async () => {
     data.books.map(async (book) => {
       const bookData: Prisma.BookCreateInput = {
         ...book,
-        category: { connect: { id: book.category.connect!.id! } },
         seller: { connect: { id: book.seller.connect!.id! } },
       };
 
-      if (book.invoice) {
-        bookData.invoice = { connect: { id: book.invoice.connect!.id! } };
+      if (book.order) {
+        bookData.order = { connect: { id: book.order.connect!.id! } };
       }
 
       return client.book.create({ data: bookData });

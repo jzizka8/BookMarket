@@ -1,5 +1,5 @@
 import type { Result } from '@badrap/result';
-import type { Book, Invoice, User } from '@prisma/client';
+import type { Book, Order, User } from '@prisma/client';
 
 export type UserCreateData = {
   username: string;
@@ -8,17 +8,24 @@ export type UserCreateData = {
 
 export type UserCreateResult = Promise<Result<User>>;
 
-export type UserReadSpecificData = { id: string };
+export type UserReadSpecificData = { userId: string };
 
 export type UserReadSpecificResult = Promise<
-  Result<
-    User & {
-      booksForSale: Book[];
-      invoices: Invoice[];
-    }
-  >
+  Result<{
+    id: string;
+    username: string;
+    createdAt: Date;
+    booksForSale: Book[];
+    orders: Order[];
+  }>
 >;
 
 export type UserReadLoginData = { username: string; hashedPassword: string };
 
-export type UserReadLoginResult = Promise<Result<User>>;
+export type UserReadLoginResult = Promise<
+  Result<{
+    id: string;
+    username: string;
+    createdAt: Date;
+  }>
+>;
