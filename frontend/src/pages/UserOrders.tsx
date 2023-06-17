@@ -5,11 +5,11 @@ type AccordionItemProps = {
   id: number;
   title: string;
   content: {
-    price: string;
+    price: number;
     books: {
       name: string;
       author: string;
-      price: string;
+      price: number;
     }[];
   };
 };
@@ -37,12 +37,12 @@ const AccordionItem = ({ id, title, content }: AccordionItemProps) => {
         >
           <span className="text-lg">{title}</span>
           <div>
-            <span>{content.price}</span>
+            <span>{content.price.toFixed(2)}€</span>
             <svg
               data-accordion-icon
-              className={`inline h-6 w-6 shrink-0 ${
-                isOpen && 'rotate-180 transition duration-200 ease-in-out'
-              } xs:center`}
+              className={`inline h-6 w-6 shrink-0 transition duration-200 ease-in-out ${
+                isOpen && 'rotate-180'
+              }`}
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -89,17 +89,17 @@ const UserOrders = () => {
       id: 1,
       title: 'Order from 10.05.2023',
       content: {
-        price: '33.50€',
+        price: 33.50,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: '12.90€',
+            price: 12.90,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: '8.90€',
+            price: 8.90,
           },
         ],
       },
@@ -108,17 +108,17 @@ const UserOrders = () => {
       id: 2,
       title: 'Order from 07.04.2023',
       content: {
-        price: '15.00€',
+        price: 15.00,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: '12.90€',
+            price: 12.90,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: '8.90€',
+            price: 8.90,
           },
         ],
       },
@@ -127,17 +127,17 @@ const UserOrders = () => {
       id: 3,
       title: 'Order from 27.03.2023',
       content: {
-        price: '27.90€',
+        price: 27.90,
         books: [
           {
             name: 'Harry Potter',
             author: 'J.K.Rowling',
-            price: '12.90€',
+            price: 12.90,
           },
           {
             name: 'The Beach',
             author: 'Alex Garland',
-            price: '8.90€',
+            price: 8.90,
           },
         ],
       },
@@ -152,9 +152,7 @@ const UserOrders = () => {
           {accordionItems.map((item) => (
             <AccordionItem
               key={item.id}
-              id={item.id}
-              title={item.title}
-              content={item.content}
+              {...item}
             />
           ))}
         </div>
