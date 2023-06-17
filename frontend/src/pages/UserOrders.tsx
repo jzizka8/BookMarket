@@ -40,7 +40,7 @@ const AccordionItem = ({ id, title, content }: AccordionItemProps) => {
             <span>{content.price}</span>
             <svg
               data-accordion-icon
-              className={`inline h-6 w-6 shrink-0 ${isOpen && 'rotate-180'}`}
+              className={`inline h-6 w-6 shrink-0 ${isOpen && 'rotate-180 transition duration-200 ease-in-out'} xs:center`}
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
