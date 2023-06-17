@@ -69,9 +69,9 @@ const Filter = (props: FilterProps) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="sm:end flex flex-col px-4 sm:mr-0 sm:flex-row sm:justify-between md:mb-4 md:mr-24"
+        className="flex flex-col justify-between sm:mr-0 sm:flex-row md:mb-4"
       >
-        <div className="flex flex-col p-4">
+        <div className="mr-4 flex flex-col">
           <label
             htmlFor="genre"
             className="block h-5 text-sm font-medium text-gray-700"
@@ -80,7 +80,7 @@ const Filter = (props: FilterProps) => {
           </label>
           <select
             id="genre"
-            className="form-input h-11 p-0"
+            className="form-input h-11 min-w-max p-0"
             {...register('genre')}
           >
             <option key="" value="">
@@ -93,7 +93,7 @@ const Filter = (props: FilterProps) => {
             ))}
           </select>
         </div>
-        <div className="flex flex-col p-4 sm:mt-0">
+        <div className="mr-4 flex flex-col sm:mt-0">
           <label
             htmlFor="minPrice"
             className="block text-sm font-medium text-gray-700"
@@ -107,7 +107,7 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="border-b border-t border-gray-300 bg-white px-3 py-2 text-gray-700 focus:outline-none"
+            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('minPrice')}
             onChange={handleMinChange}
           />
@@ -117,7 +117,7 @@ const Filter = (props: FilterProps) => {
             </span>
           )}
         </div>
-        <div className="flex flex-col p-4">
+        <div className="mr-4 flex flex-col">
           <label
             htmlFor="maxPrice"
             className="block text-sm font-medium text-gray-700"
@@ -131,7 +131,7 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="border-b border-t border-gray-300 bg-white px-3 py-2 text-gray-700 focus:outline-none"
+            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('maxPrice')}
             onChange={handleMaxChange}
           />
@@ -141,7 +141,7 @@ const Filter = (props: FilterProps) => {
             </span>
           )}
         </div>
-        <div className="mt-5 px-4 py-3">
+        <div className="mt-5">
           <button
             type="submit"
             className="mt-2 h-11 w-full rounded-md bg-blue-700 px-4 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:mt-0"
