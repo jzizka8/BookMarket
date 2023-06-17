@@ -12,6 +12,8 @@ interface FilterProps {
 }
 
 const Filter = (props: FilterProps) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -21,7 +23,16 @@ const Filter = (props: FilterProps) => {
   });
 
   const onSubmit: SubmitHandler<FilterSchemaType> = async (data) => {
-    const filterObj: { genre?: string; min?: number; max?: number } = {};
+    const filterObj: {
+      search?: string;
+      genre?: string;
+      min?: number;
+      max?: number;
+    } = {};
+
+    if (data.search) {
+      filterObj.search = data.search;
+    }
 
     if (data.genre) {
       filterObj.genre = data.genre;
@@ -69,13 +80,25 @@ const Filter = (props: FilterProps) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col sm:mr-0 sm:flex-row md:mb-4"
+        className="flex flex-col justify-center sm:mr-0 sm:flex-row md:mb-4"
       >
-        <div className="mr-4 flex flex-col">
-          <label
-            htmlFor="genre"
-            className="block h-5 text-sm font-medium text-gray-700"
-          >
+        <div className="flex flex-col p-4">
+          <label htmlFor="search" className="text-sm font-medium text-gray-700">
+            Search
+          </label>
+          <input
+            id="search"
+            type="text"
+            placeholder="Title or Author"
+            className="bg-search-icon h-11 rounded-md border border-gray-300 p-2 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none sm:ml-0 sm:min-w-[200px]"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+          />
+        </div>
+        <div className="flex flex-col p-4">
+          <label htmlFor="genre" className="text-sm font-medium text-gray-700">
             Genre
           </label>
           <select
@@ -83,9 +106,7 @@ const Filter = (props: FilterProps) => {
             className="form-input h-11 min-w-max p-0"
             {...register('genre')}
           >
-            <option key="" value="">
-              {' '}
-            </option>
+            <option value=""></option>
             {Object.values(Genre).map((genre) => (
               <option key={genre} value={genre}>
                 {genre}
@@ -93,10 +114,10 @@ const Filter = (props: FilterProps) => {
             ))}
           </select>
         </div>
-        <div className="mr-4 flex flex-col sm:mt-0">
+        <div className="w-18 flex flex-col items-center p-4">
           <label
             htmlFor="minPrice"
-            className="block text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-gray-700"
           >
             Min price
           </label>
@@ -107,10 +128,9 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="h-11 w-full border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('minPrice')}
             onChange={handleMinChange}
-            style={{ width: '4rem' }}
           />
           {errors.minPrice && (
             <span className="mt-2 block text-red-800">
@@ -118,10 +138,10 @@ const Filter = (props: FilterProps) => {
             </span>
           )}
         </div>
-        <div className="mr-4 flex flex-col">
+        <div className="w-18 flex flex-col items-center p-4">
           <label
             htmlFor="maxPrice"
-            className="block text-sm font-medium text-gray-700"
+            className="text-sm font-medium text-gray-700"
           >
             Max price
           </label>
@@ -132,10 +152,9 @@ const Filter = (props: FilterProps) => {
             min={min}
             max={max}
             step={step}
-            className="h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
+            className="h-11 w-full border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none"
             {...register('maxPrice')}
             onChange={handleMaxChange}
-            style={{ width: '4rem' }}
           />
           {errors.maxPrice && (
             <span className="mt-2 block text-red-800">
@@ -143,7 +162,7 @@ const Filter = (props: FilterProps) => {
             </span>
           )}
         </div>
-        <div className="mt-5">
+        <div className="mt-5 p-4">
           <button
             type="submit"
             className="mt-2 h-11 w-full rounded-md bg-blue-700 px-4 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:mt-0"

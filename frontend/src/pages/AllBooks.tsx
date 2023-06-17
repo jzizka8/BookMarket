@@ -125,80 +125,58 @@ const AllBooks = () => {
     },
   ];
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredBooks, setFilteredBooks] = useState(books);
+  // const [filteredBooks, setFilteredBooks] = useState(books);
+  const [filteredBooks] = useState(books);
   const [filterQuery, setFilterQuery] = useState({});
 
-  const filterBooks = (query: string) => {
-    const filtered = books.filter(
-      (book) =>
-        book.title.toLowerCase().includes(query.toLowerCase()) ||
-        book.author.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredBooks(filtered);
-  };
+  // const filterBooks = (query: string) => {
+  //   const filtered = books.filter(
+  //     (book) =>
+  //       book.title.toLowerCase().includes(query.toLowerCase()) ||
+  //       book.author.toLowerCase().includes(query.toLowerCase())
+  //   );
+  //   setFilteredBooks(filtered);
+  // };
 
   return (
     <>
-      <div className="flex px-2">
-        <div className="flex w-full flex-col items-center justify-between py-4 sm:flex-row">
-          <div className="flex flex-col sm:ml-0 md:mb-4">
-            <label
-              htmlFor="search"
-              className="text-sm font-medium text-gray-700"
-            >
-              Search
-            </label>
-            <input
-              id="search"
-              type="text"
-              placeholder="Title or Author"
-              className="bg-search-icon h-12 rounded-md border border-gray-300 p-2 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none sm:ml-0
-               sm:min-w-[200px]"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                filterBooks(e.target.value);
-              }}
-            />
-          </div>
-          <button
-            data-collapse-toggle="navbar-default"
-            type="button"
-            className="inline-flex items-center rounded-lg p-2 text-sm hover:text-primary-light focus:outline-none md:ml-3 md:hidden"
-            aria-controls="navbar-default"
-            aria-expanded="false"
-            onClick={toggleMenu}
+      <div className="items-center px-2 text-center">
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          className="inline-flex items-center rounded-lg p-2 text-sm hover:text-primary-light focus:outline-none md:ml-3 md:hidden"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+          onClick={toggleMenu}
+        >
+          <svg
+            fill="none"
+            className="h-6 w-6"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
-            <svg
-              fill="none"
-              className="h-6 w-6"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-              ></path>
-            </svg>
-            Filter
-          </button>
-          <div
-            className={`${
-              isMenuOpen ? 'block' : 'hidden'
-            } w-full py-4 md:block md:w-auto`}
-            id="navbar-default"
-          >
-            <Filter
-              books={filteredBooks}
-              filterQuery={filterQuery}
-              setFilterQuery={setFilterQuery}
-            />
-          </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+            ></path>
+          </svg>
+          Filter
+        </button>
+        <div
+          className={`${
+            isMenuOpen ? 'block' : 'hidden'
+          } w-full py-4 md:block md:w-auto`}
+          id="navbar-default"
+        >
+          <Filter
+            books={filteredBooks}
+            filterQuery={filterQuery}
+            setFilterQuery={setFilterQuery}
+          />
         </div>
       </div>
       <div className="flex justify-center bg-slate-100">
