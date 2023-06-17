@@ -12,8 +12,6 @@ interface FilterProps {
 }
 
 const Filter = (props: FilterProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
   const {
     register,
     handleSubmit,
@@ -91,10 +89,7 @@ const Filter = (props: FilterProps) => {
             type="text"
             placeholder="Title or Author"
             className="bg-search-icon h-11 rounded-md border border-gray-300 p-2 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none sm:ml-0 sm:min-w-[200px]"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-            }}
+            {...register('search')}
           />
         </div>
         <div className="flex flex-col pr-4">
