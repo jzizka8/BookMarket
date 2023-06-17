@@ -1,6 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import type { BookCreateData, BookGenericReturn } from './types';
+import { NonexistentRecordError } from '../types/errors';
 
 /**
  * Repository call that creates a book.
@@ -14,11 +15,15 @@ const create = async (data: BookCreateData): BookGenericReturn => {
   try {
     const { soldBy, ...bookData } = data;
 
-    const user = await client.user.findUniqueOrThrow({
+    const user = await client.user.findUnique({
       where: {
         id: soldBy,
       },
     });
+
+    if (user === null) {
+      return Result.err(new NonexistentRecordError('User does not exist'));
+    }
 
     const book = await client.book.create({
       data: {

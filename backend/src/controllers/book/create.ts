@@ -2,7 +2,10 @@ import type { Request, Response } from 'express';
 import { loadFailedResponse, failResponse } from '../common';
 import createBook from '../../repositories/book/create';
 import { createBodySchema } from '../../schemas/bookSchemas';
-import { DeletedRecordError } from '../../repositories/types/errors';
+import {
+  DeletedRecordError,
+  NonexistentRecordError,
+} from '../../repositories/types/errors';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -14,9 +17,12 @@ const create = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (book.isErr) {
-      const error = book.unwrap();
+      const { error } = book;
       if (error instanceof DeletedRecordError) {
         return loadFailedResponse(res, 'The book does not exist');
+      }
+      if (error instanceof NonexistentRecordError) {
+        return loadFailedResponse(res, error.message);
       }
       return loadFailedResponse(res, 'The book can not be created.');
     }
