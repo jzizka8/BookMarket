@@ -12,8 +12,10 @@ import PaymentInfo from './pages/PaymentInfo';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
+import { FC } from 'react';
+import useAuth from './hooks/useAuth';
 
-export const App = () => {
+export const App: FC = () => {
   return (
     <>
       <header>
@@ -22,14 +24,8 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/books" replace />} index />
         <Route path="books" element={<AllBooks />} />
-        <Route path="/books/:bookId" element={<BookDetail />} />
-        <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
-        <Route path="/userOrders/:userId" element={<UserOrders />} />
-        <Route path="/bookAddition" element={<BookAddition />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/purchase" element={<PurchaseForm />} />
-        <Route path="/paymentInfo" element={<PaymentInfo />} />
-        <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+
+        <Route path="/auth/*" Component={PrivateRoute} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -39,4 +35,26 @@ export const App = () => {
   );
 };
 
+const PrivateRoute: FC = () => {
+  const { auth, isLoading, isError } = useAuth();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!auth || isError) return <Navigate to="/login" />;
+
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/books" replace />} index />
+      <Route path="books" element={<AllBooks />} />
+
+      <Route path="/books/:bookId" element={<BookDetail />} />
+      <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
+      <Route path="/userOrders/:userId" element={<UserOrders />} />
+      <Route path="/bookAddition" element={<BookAddition />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/purchase" element={<PurchaseForm />} />
+      <Route path="/paymentInfo" element={<PaymentInfo />} />
+      <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+    </Routes>
+  );
+};
 export default App;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useCart from '../../hooks/UseCart';
+import useCart from '../../hooks/useCart';
 import { Book } from '../../types/prismaTypes';
 interface IBookCardProps {
   book: Book;
