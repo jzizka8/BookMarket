@@ -1,4 +1,4 @@
-import useCart from '../../hooks/UseCart';
+import useCart from '../hooks/UseCart';
 
 interface ICartItemProps {
   product: {
