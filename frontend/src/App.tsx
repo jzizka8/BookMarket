@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Missing from './pages/Missing';
@@ -12,25 +12,16 @@ import PaymentInfo from './pages/PaymentInfo';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
-import { useEffect } from 'react';
 
 export const App = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const { pathname } = window.location;
-    if (pathname === '/') {
-      navigate('/books');
-    }
-  }, [navigate]);
-
   return (
     <>
       <header>
-        <Navbar></Navbar>
+        <Navbar />
       </header>
       <Routes>
-        <Route path="/books" element={<AllBooks />} />
+        <Route path="/" element={<Navigate to="/books" replace />} index />
+        <Route path="books" element={<AllBooks />} />
         <Route path="/books/:bookId" element={<BookDetail />} />
         <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
         <Route path="/userOrders/:userId" element={<UserOrders />} />
