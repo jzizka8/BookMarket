@@ -13,6 +13,7 @@ import OrderConfirmation from './pages/OrderConfirmation';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
 import { useEffect } from 'react';
+import Footer from './components/Footer';
 
 export const App = () => {
   const navigate = useNavigate();
@@ -25,26 +26,30 @@ export const App = () => {
   }, [navigate]);
 
   return (
-    <>
-      <header>
-        <Navbar></Navbar>
-      </header>
-      <Routes>
-        <Route path="/books" element={<AllBooks />} />
-        <Route path="/books/:bookId" element={<BookDetail />} />
-        <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
-        <Route path="/userOrders/:userId" element={<UserOrders />} />
-        <Route path="/bookAddition" element={<BookAddition />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/purchase" element={<PurchaseForm />} />
-        <Route path="/paymentInfo" element={<PaymentInfo />} />
-        <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+    <div className="bg-zinc-50">
+      {/* TODO: we may move all the page padding here to keep it consistent */}
+      <div className="flex min-h-screen flex-col">
+        <header>
+          <Navbar></Navbar>
+        </header>
+        <Routes>
+          <Route path="/books" element={<AllBooks />} />
+          <Route path="/books/:bookId" element={<BookDetail />} />
+          <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
+          <Route path="/userOrders/:userId" element={<UserOrders />} />
+          <Route path="/bookAddition" element={<BookAddition />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/purchase" element={<PurchaseForm />} />
+          <Route path="/paymentInfo" element={<PaymentInfo />} />
+          <Route path="/orderConfirmation" element={<OrderConfirmation />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/*" element={<Missing />} />
-      </Routes>
-    </>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/*" element={<Missing />} />
+        </Routes>
+        <Footer />
+      </div>
+    </div>
   );
 };
 
