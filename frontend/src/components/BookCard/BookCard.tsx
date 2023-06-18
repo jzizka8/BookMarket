@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useCart from '../../hooks/UseCart';
 import { Book } from '../../types/prismaTypes';
+import TickIcon from '../../icons/TickIcon';
 interface IBookCardProps {
   book: Book;
 }
 
 const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
-  const { addToCart } = useCart();
+  const { cart, addToCart } = useCart();
   const book = props.book;
   const addToCartWrapper = () => {
     addToCart(props.book);
@@ -48,14 +49,24 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
         {book.price.toFixed(2)}&nbsp;&euro;
       </p>
       <div className="flex justify-center ">
-        <button
-          type="button"
-          className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          onClick={addToCartWrapper}
-        >
-          <img className="mr-2 h-6 w-6" src="/src/assets/cart.svg" alt="" />
-          Buy now
-        </button>
+        {cart.filter((item) => item.id == props.book.id).length ?
+          (<Link
+            to="/cart"
+            className="inline-flex items-center rounded-lg bg-green-600 px-5 py-2.5 text-lg font-medium text-white hover:bg-green-700"
+          >
+            <TickIcon className='mr-2 h-6 w-6' />
+            In cart
+          </Link>) :
+          (<button
+            type="button"
+            className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={addToCartWrapper}
+          >
+            <img className="mr-2 h-6 w-6" src="/src/assets/cart.svg" alt="" />
+            Buy now
+          </button>)
+
+        }
       </div>
     </div>
   );
