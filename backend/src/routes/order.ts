@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import OrderController from '../controllers/order';
+import auth from '../middleware/authMiddleware';
 
 const orderRouter = Router();
-export const orderRouteGeneric = '/user/:userId/order';
 
 // POST /user/{userId}/order
-orderRouter.post(orderRouteGeneric, OrderController.create);
+orderRouter.post('/user/:userId/order', auth(), OrderController.create);
 
 // GET /order/{orderId}
 orderRouter.get('/order/:orderId', OrderController.specificOrder);

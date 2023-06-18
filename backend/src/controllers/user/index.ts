@@ -1,8 +1,9 @@
-import create from './create';
-import { userLogin, specificUser } from './read';
+import { userLogin } from './login';
+import specificUser from './read';
+import register from './register';
 
 export default {
-  create,
+  register,
   userLogin,
   specificUser,
 };
