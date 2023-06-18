@@ -1,18 +1,15 @@
 import type { Request, Response } from 'express';
-import { signInSchema } from '../../schemas/userSchemas';
-import createUser from '../../repositories/user/create';
+import { userRegistrationScheme } from '../../schemas/userSchemas';
+import createUser from '../../repositories/user/register';
 import { failResponse, loadFailedResponse } from '../common';
 import { ConflictingRecordError } from '../../repositories/types/errors';
 
-const create = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response) => {
   try {
-    // Validation
-    const bodyValidate = signInSchema.parse(req.body);
+    const body = userRegistrationScheme.parse(req.body);
 
-    // Repo call
-    const userCreated = await createUser(bodyValidate);
+    const userCreated = await createUser(body);
 
-    // Checking repo answer and returning
     if (userCreated.isErr) {
       if (userCreated.error instanceof ConflictingRecordError) {
         return loadFailedResponse(
@@ -30,4 +27,4 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-export default create;
+export default register;
