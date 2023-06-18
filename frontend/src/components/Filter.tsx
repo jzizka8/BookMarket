@@ -98,7 +98,7 @@ const Filter = (props: FilterProps) => {
           </label>
           <select
             id="genre"
-            className="form-input h-11 min-w-max p-0"
+            className="form-input h-11 min-w-max p-2"
             {...register('genre')}
           >
             <option value=""></option>
