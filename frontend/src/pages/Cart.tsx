@@ -6,9 +6,10 @@ const Cart = () => {
   const { cart } = useCart();
   if (cart.length === 0) {
     return (
-      <div className="m-4">
+      <div className="flex justify-center my-8">
+        <div className="w-full max-w-xl mx-4">
         <div
-          className="text-md md:w-3xl mb-4 w-48 rounded-lg bg-yellow-50 p-4 text-yellow-900"
+            className="text-md w-full mb-4 w-48 rounded-lg bg-yellow-100 p-4 text-yellow-900"
           role="alert"
         >
           Your cart is empty.
@@ -19,6 +20,7 @@ const Cart = () => {
         >
           Back to shop
         </Link>
+        </div>
       </div>
     );
   }
