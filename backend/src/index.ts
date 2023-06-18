@@ -35,12 +35,12 @@ app.use(bookRouter);
 app.use(orderRouter);
 app.use(authRouter);
 
-// app.use(
-//   cors({
-//     origin: 'http://localhost:5173',
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 // No route was taken - 404 - Resource (API endpoint) not found.
 app.use((_req, res) => {
