@@ -32,7 +32,6 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   //   fetchBooks()
   // );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const handleRemoveBook = (bookId: string) => {
   //   //TODO
   //   // console.log(bookId);
