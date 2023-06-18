@@ -27,7 +27,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               {book.category}
             </span>
             <img
-              className=" h-72 w-[100cqw] rounded-md object-cover "
+              className=" h-56 w-[100cqw] rounded-md object-cover "
               src={book.photo}
               alt=""
             />
