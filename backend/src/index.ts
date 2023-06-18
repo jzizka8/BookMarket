@@ -4,9 +4,10 @@ import cors from 'cors';
 import { env } from 'process';
 import cookieParser from 'cookie-parser';
 import type { ApiResponse } from './controllers/types';
-import userRouter from './routes/user';
 import bookRouter from './routes/book';
 import orderRouter from './routes/order';
+import session from './middleware/sessionMiddleware';
+import authRouter from './routes/auth';
 
 declare module 'express-session' {
   interface SessionData {
@@ -32,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bookRouter);
 app.use(orderRouter);
-app.use(userRouter);
 app.use(authRouter);
 
 app.use(
