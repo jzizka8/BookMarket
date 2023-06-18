@@ -75,7 +75,8 @@ const AllBooks = () => {
         hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
         createdAt: new Date(),
       },
-      title: 'Harry Potter and the deathly hallows and the very long title title title',
+      title:
+        'Harry Potter and the deathly hallows and the very long title title title',
       author: 'Joanne Kathleen Rowling Rowling Joanne Kathleen',
       price: 18.9,
       publicationYear: 2023,
