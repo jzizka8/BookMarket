@@ -1,13 +1,11 @@
-import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
 import BookIcon from '../icons/BookIcon';
+import { login } from '../services/authApi';
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -18,7 +16,8 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
     // Handle form submission logic here
-    navigate('/register');
+    login(data.username, data.password);
+    // navigate('/register');
     console.log(data);
   };
 

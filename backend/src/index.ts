@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bookRouter);
 app.use(orderRouter);
-app.use(authRouter);
+app.use('/auth', authRouter);
 
 app.use(
   cors({

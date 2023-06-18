@@ -29,7 +29,7 @@ export const App: FC = () => {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/*" element={<Missing />} />
+        <Route path="/*" element={<Login />} />
       </Routes>
     </>
   );
@@ -54,6 +54,7 @@ const PrivateRoute: FC = () => {
       <Route path="/purchase" element={<PurchaseForm />} />
       <Route path="/paymentInfo" element={<PaymentInfo />} />
       <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+      <Route path="/*" element={<Missing />} />
     </Routes>
   );
 };

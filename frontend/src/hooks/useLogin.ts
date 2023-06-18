@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AuthApi } from '';
+import { login } from '../services/authApi';
 
 type UseLoginProps = {
   redirect: string;
@@ -11,11 +11,11 @@ const useLogin = ({ redirect }: UseLoginProps) => {
   const queryClient = useQueryClient();
 
   const {
-    mutateAsync: login,
+    mutateAsync: loginn,
     isLoading,
     isError,
-  } = useMutation({
-    mutationFn: () => AuthApi.login(),
+  } = useMutation<unknown, unknown, { username: string; password: string }>({
+    mutationFn: (variables) => login(variables.username, variables.password),
     retry: false,
     onSuccess: () => {
       navigate(redirect);
@@ -23,7 +23,7 @@ const useLogin = ({ redirect }: UseLoginProps) => {
     },
   });
 
-  return { login, isLoading, isError };
+  return { login: loginn, isLoading, isError };
 };
 
 export default useLogin;
