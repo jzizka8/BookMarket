@@ -12,7 +12,7 @@ export default {
         }
       },
       fontFamily: {
-        'primary': ['Merriweather']
+        'primary': ['Noto Sans']
       }
     },
   },
