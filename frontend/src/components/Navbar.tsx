@@ -30,7 +30,6 @@ const Navbar = () => {
             aria-expanded="false"
             onClick={toggleMenu}
           >
-            <span className="sr-only">Open main menu</span>
             <svg
               className="h-6 w-6"
               aria-hidden="true"
