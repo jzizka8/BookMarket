@@ -187,6 +187,7 @@ const AllBooks = () => {
               {...{
                 book,
               }}
+              showRemoveButton={false}
             />
           ))}
         </div>
