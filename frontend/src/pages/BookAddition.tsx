@@ -4,7 +4,6 @@ import { NewBookSchemaType } from '../../types/FormSchemaTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import newBookSchema from '../schemas/NewBookSchema';
 import { Genre, Lang } from '../types/prismaTypes';
-import '../styles/index.css';
 import { uploadImage } from '../utils/uploadUtils';
 const BookAddition = () => {
   const navigate = useNavigate();
