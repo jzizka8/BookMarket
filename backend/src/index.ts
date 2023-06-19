@@ -19,8 +19,13 @@ configEnvVariables();
 const app = express();
 const port = env['PORT'] ?? 3000;
 
-// CORS middlware
-app.use(cors());
+// CORS middleware
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 // JSON middleware
 app.use(express.json());
@@ -34,13 +39,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bookRouter);
 app.use(orderRouter);
 app.use('/auth', authRouter);
-
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })
-);
 
 // No route was taken - 404 - Resource (API endpoint) not found.
 app.use((_req, res) => {

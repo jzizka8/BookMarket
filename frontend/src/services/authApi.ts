@@ -11,11 +11,19 @@ export const login = async (username: string, password: string) => {
 };
 
 export const auth = async () => {
-  const resp = await baseApi.get<ResponseSingle<User>>('/auth', {});
+  const resp = await baseApi.get<ResponseSingle<User>>('/auth/user', {});
   return resp.data;
 };
 
 export const logout = async () => {
   const resp = await baseApi.post<ResponseSingle<User>>('/auth/logout', {});
+  return resp.data;
+};
+
+export const registration = async (username: string, password: string) => {
+  const resp = await baseApi.post<ResponseSingle<User>>('/auth/registration', {
+    username: username,
+    password: password,
+  });
   return resp.data;
 };

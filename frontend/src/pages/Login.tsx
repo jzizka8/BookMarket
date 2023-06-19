@@ -4,8 +4,10 @@ import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
 import BookIcon from '../icons/BookIcon';
 import { login } from '../services/authApi';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,11 +16,11 @@ const Login = () => {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
     // Handle form submission logic here
-    login(data.username, data.password);
-    // navigate('/register');
     console.log(data);
+    await login(data.username, data.password);
+    navigate('/');
   };
 
   return (

@@ -24,11 +24,10 @@ export const App: FC = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/books" replace />} index />
         <Route path="books" element={<AllBooks />} />
-
-        <Route path="/auth/*" Component={PrivateRoute} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path="/auth/*" Component={PrivateRoute} />
         <Route path="/*" element={<Login />} />
       </Routes>
     </>

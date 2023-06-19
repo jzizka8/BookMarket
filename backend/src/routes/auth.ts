@@ -16,15 +16,8 @@ authRouter.get('/user', auth(), specificUser);
 
 authRouter.post('/registration', register);
 
-/**
- * This endpoint after successful password verification add the user and
- * role to session stroge.
- */
 authRouter.post('/login', userLogin);
 
-/**
- * Remove the authorized user from session storage.
- */
 authRouter.post('/logout', logout);
 
 export default authRouter;
