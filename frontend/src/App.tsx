@@ -15,7 +15,7 @@ import UserOrders from './pages/UserOrders';
 
 export const App = () => {
   return (
-    <>
+    <div className="font-primary">
       <header>
         <Navbar />
       </header>
@@ -35,7 +35,7 @@ export const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/*" element={<Missing />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
