@@ -63,19 +63,23 @@ const Navbar = () => {
           id="navbar-default"
         >
           <ul className="flex flex-col items-center rounded-lg bg-primary-main text-xl font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0">
-            <li>
-              <NavLink
-                to={`/register`}
-                style={({ isActive }) => (isActive ? { color: '#c08992' } : {})}
-              >
-                <span
-                  className="block rounded bg-primary-main py-2 pl-3 pr-4 hover:text-primary-light md:bg-transparent md:p-0"
-                  aria-current="page"
+            {!auth && (
+              <li>
+                <NavLink
+                  to={`/register`}
+                  style={({ isActive }) =>
+                    isActive ? { color: '#c08992' } : {}
+                  }
                 >
-                  Register
-                </span>
-              </NavLink>
-            </li>
+                  <span
+                    className="block rounded bg-primary-main py-2 pl-3 pr-4 hover:text-primary-light md:bg-transparent md:p-0"
+                    aria-current="page"
+                  >
+                    Register
+                  </span>
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 to={`/books`}
