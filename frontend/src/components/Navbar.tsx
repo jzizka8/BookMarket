@@ -1,19 +1,27 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import LoginIcon from '../icons/LoginIcon';
 import BookIcon from '../icons/BookIcon';
 import LogoutIcon from '../icons/LogoutIcon';
 import ShoppingCartIcon from '../icons/ShoppingCartIcon';
 import useAuth from '../hooks/useAuth';
+import useLogout from '../hooks/useLogout';
 
 const Navbar = () => {
-  const [userLoggedIn] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { auth } = useAuth();
+  const { logout } = useLogout({ redirect: '/login' });
+  const navigate = useNavigate();
+
   console.log(auth);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
   };
 
   return (
@@ -81,11 +89,11 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </li>
-            {userLoggedIn && (
+            {auth && (
               <>
                 <li>
                   <NavLink
-                    to={`/userBooks/idPlaceholder`}
+                    to={`/auth/userBooks/idPlaceholder`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -100,7 +108,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={`/userOrders/idPlaceholder`}
+                    to={`/auth/userOrders/idPlaceholder`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -115,7 +123,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={`/cart`}
+                    to={`/auth/cart`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -127,11 +135,12 @@ const Navbar = () => {
               </>
             )}
             <li>
-              {userLoggedIn ? (
+              {auth ? (
                 <Link
                   to={`/`}
                   title="Logout"
                   className="flex items-center hover:text-primary-light"
+                  onClick={handleLogout}
                 >
                   <LogoutIcon className="h-9" />
                 </Link>

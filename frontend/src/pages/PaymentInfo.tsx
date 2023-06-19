@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PaymentInfoSchemaType } from '../../types/FormSchemaTypes';
 import paymentInfoSchema from '../schemas/PaymentInfoSchema';
 import { useNavigate } from 'react-router-dom';
+import { PaymentInfoSchemaType } from '../types/FormSchemaTypes';
 
 const PaymentInfo = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const PaymentInfo = () => {
   });
   const onSubmit: SubmitHandler<PaymentInfoSchemaType> = (data) => {
     console.log(data);
-    navigate('/orderConfirmation');
+    navigate('/auth/orderConfirmation');
   };
 
   return (

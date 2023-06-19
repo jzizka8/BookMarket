@@ -24,6 +24,8 @@ export const App: FC = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/books" replace />} index />
         <Route path="books" element={<AllBooks />} />
+        <Route path="/books/:bookId" element={<BookDetail />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
@@ -42,10 +44,6 @@ const PrivateRoute: FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/books" replace />} index />
-      <Route path="books" element={<AllBooks />} />
-
-      <Route path="/books/:bookId" element={<BookDetail />} />
       <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
       <Route path="/userOrders/:userId" element={<UserOrders />} />
       <Route path="/bookAddition" element={<BookAddition />} />

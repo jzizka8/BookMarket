@@ -3,10 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
 import BookIcon from '../icons/BookIcon';
-import { login } from '../services/authApi';
 import { useNavigate } from 'react-router-dom';
+import useLogin from '../hooks/useLogin';
+// import { FormEventHandler, useCallback } from 'react';
 
 const Login = () => {
+  const { login } = useLogin({ redirect: '/auth/books' });
+
   const navigate = useNavigate();
   const {
     register,
@@ -19,8 +22,8 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
     // Handle form submission logic here
     console.log(data);
-    await login(data.username, data.password);
-    navigate('/');
+    await login({ username: data.username, password: data.password });
+    navigate('/books');
   };
 
   return (
