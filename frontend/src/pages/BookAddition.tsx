@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import newBookSchema from '../schemas/NewBookSchema';
 import { Genre, Lang } from '../types/prismaTypes';
 import { uploadImage } from '../utils/uploadUtils';
+import { formatGenreName } from '../utils/textFormattingUtils';
 const BookAddition = () => {
   const navigate = useNavigate();
   const {
@@ -95,7 +96,7 @@ const BookAddition = () => {
                 >
                   {Object.values(Genre).map((genre) => (
                     <option key={genre} value={genre}>
-                      {genre}
+                      {formatGenreName(genre)}
                     </option>
                   ))}
                 </select>

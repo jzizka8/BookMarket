@@ -1,4 +1,5 @@
 import { Result } from '@badrap/result';
+import argon2 from 'argon2';
 import client from '../client';
 import type {
   UserReadLoginData,
@@ -23,7 +24,7 @@ export const specific = async (
   try {
     return Result.ok(
       await client.user.findUniqueOrThrow({
-        where: { id: data.userId },
+        where: { username: data.username },
         select: {
           id: true,
           createdAt: true,
@@ -61,7 +62,9 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
       where: { username: data.username },
     });
 
-    if (user.hashedPassword !== data.hashedPassword) {
+    const isVerified = argon2.verify(user.hashedPassword, data.password);
+
+    if (!isVerified) {
       return Result.err(
         new WrongOwnershipError(
           `Password don't match with user - ${user.username}.`
