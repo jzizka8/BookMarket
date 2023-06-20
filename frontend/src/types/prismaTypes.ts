@@ -11,7 +11,7 @@ export type Book = {
   id: string;
   createdAt: Date;
   deletedAt?: Date;
-  category: Genre;
+  genre: Genre;
   soldBy: string;
   seller: User;
   invoice?: Invoice;
