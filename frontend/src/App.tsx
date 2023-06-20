@@ -44,8 +44,8 @@ const PrivateRoute: FC = () => {
 
   return (
     <Routes>
-      <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
-      <Route path="/userOrders/:userId" element={<UserOrders />} />
+      <Route path="/userBooks" element={<UserBooksForSale />} />
+      <Route path="/userOrders" element={<UserOrders />} />
       <Route path="/bookAddition" element={<BookAddition />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/purchase" element={<PurchaseForm />} />

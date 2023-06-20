@@ -97,7 +97,7 @@ const Navbar = () => {
               <>
                 <li>
                   <NavLink
-                    to={`/auth/userBooks/idPlaceholder`}
+                    to={`/auth/userBooks`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -112,7 +112,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={`/auth/userOrders/idPlaceholder`}
+                    to={`/auth/userOrders`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
