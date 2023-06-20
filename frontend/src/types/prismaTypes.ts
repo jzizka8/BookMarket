@@ -4,7 +4,7 @@ export type User = {
   username: string;
   hashedPassword: string;
   booksForSale?: Book[];
-  invoices?: Invoice[];
+  order?: Order;
 };
 
 export type Book = {
@@ -14,7 +14,7 @@ export type Book = {
   category: Genre;
   soldBy: string;
   seller: User;
-  invoice?: Invoice;
+  order?: Order;
   title: string;
   author: string;
   price: number;
@@ -27,24 +27,6 @@ export type Book = {
 export type Category = {
   id: string;
   name: Genre;
-  books?: Book[];
-};
-
-export type Invoice = {
-  id: string;
-  createdAt: Date;
-  buyerId: string;
-  buyer: User;
-  date: Date;
-  amount: number;
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  street: string;
-  city: string;
-  zipcode: string;
-  country: string;
   books?: Book[];
 };
 
@@ -81,12 +63,6 @@ export enum Genre {
   LiteraryFiction = 'LiteraryFiction',
   NonFiction = 'NonFiction',
 }
-type UserData = {
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-};
 
 type Address = {
   street: string;
@@ -99,7 +75,7 @@ export type InvoiceCreateData = {
   userId: string;
   bookId: string[];
   amount: number;
-  userData: UserData;
+  userData: User;
   address: Address;
 };
 export type Order = {
