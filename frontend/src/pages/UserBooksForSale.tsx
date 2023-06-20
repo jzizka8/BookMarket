@@ -1,4 +1,4 @@
-import BookCard from '../components/BookCard/BookCard';
+import BookCard from '../components/BookCard';
 import { Genre, Lang } from '../types/prismaTypes';
 
 const UserBooksForSale = () => {
