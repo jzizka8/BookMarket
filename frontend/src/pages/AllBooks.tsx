@@ -168,8 +168,9 @@ const AllBooks = () => {
           Filter
         </button>
         <div
-          className={`${isMenuOpen ? 'block' : 'hidden'
-            } w-full py-4 md:block md:w-auto`}
+          className={`${
+            isMenuOpen ? 'block' : 'hidden'
+          } w-full py-4 md:block md:w-auto`}
           id="navbar-default"
         >
           <Filter

@@ -79,7 +79,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
           <button
             type="button"
             className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          // onClick={() => handleRemoveBook(book.id)}
+            // onClick={() => handleRemoveBook(book.id)}
           >
             <img
               className="mr-2 h-6 w-6"
