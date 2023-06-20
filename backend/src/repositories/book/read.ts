@@ -22,6 +22,13 @@ export const specific = async (
     return await client.$transaction(async (tx) => {
       const book = await tx.book.findUniqueOrThrow({
         where: { id: data.bookId },
+        include: {
+          seller: {
+            select: {
+              username: true,
+            },
+          },
+        },
       });
 
       return Result.ok(book);
