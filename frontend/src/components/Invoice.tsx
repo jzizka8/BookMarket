@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'right',
     fontSize: 20,
-
   },
   headerContainer: {
     display: 'flex',
