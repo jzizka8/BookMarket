@@ -4,22 +4,10 @@ import useCart from '../hooks/useCart';
 import { Book } from '../types/prismaTypes';
 import { formatGenreName } from '../utils/textFormattingUtils';
 import TickIcon from '../icons/TickIcon';
-// import axios, { AxiosError } from 'axios';
-// import { useQuery } from '@tanstack/react-query';
 interface IBookCardProps {
   book: Book;
   showRemoveButton: boolean;
 }
-
-//COMMENTED CODE WILL EVENTUALLY BE USED FOR FETCHING BOOKS AND REMOVING THEM FROM MARKET,
-//BUT WE NEED AUTH FIRST
-
-// const fetchBooks = async () => {
-//   const response = await axios.get(`https://localhost:3000/books}`);
-//   console.log(response);
-//
-//   return response.data;
-// };
 
 const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   const { cart, addToCart } = useCart();
@@ -28,19 +16,6 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
     addToCart(props.book);
     // TODO: popup
   };
-
-  // const { data, isLoading, error } = useQuery<AxiosError>(['books'], () =>
-  //   fetchBooks()
-  // );
-
-  // const handleRemoveBook = (bookId: string) => {
-  //   //TODO
-  //   // console.log(bookId);
-  // };
-
-  // if (isLoading) return 'Loading...';
-  //
-  // if (error) return 'An error has occurred: ' + error.message;
 
   return (
     <div className="flex max-w-sm flex-col  rounded-lg border border-gray-200 bg-white p-3 shadow ">
