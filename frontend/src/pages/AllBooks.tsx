@@ -181,7 +181,7 @@ const AllBooks = () => {
         </div>
       </div>
       <div className="flex justify-center bg-slate-100">
-        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredBooks.map((book) => (
             <BookCard
               key={book.id}

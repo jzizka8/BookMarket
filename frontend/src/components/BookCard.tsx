@@ -27,7 +27,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               {book.category}
             </span>
             <img
-              className=" h-72 w-[100cqw] rounded-md object-cover "
+              className=" h-56 w-[100cqw] rounded-md object-cover "
               src={book.photo}
               alt=""
             />
@@ -35,11 +35,11 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
         </Link>
       </div>
       <Link to={`./${book.id}`} title={book.title}>
-        <h1 className="my-3 truncate text-center text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600">
+        <h1 className="my-3 line-clamp-2 text-center text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600">
           {book.title}
         </h1>
       </Link>
-      <h2 className="text-l mb-1 truncate text-center font-semibold tracking-tight text-gray-600">
+      <h2 className="text-l mb-1 mt-auto truncate text-center font-semibold tracking-tight text-gray-600">
         {book.author}
       </h2>
       <p className="mb-2 text-center text-2xl text-gray-700">
