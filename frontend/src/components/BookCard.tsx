@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useCart from '../../hooks/useCart';
-import { Book } from '../../types/prismaTypes';
+import useCart from '../hooks/useCart';
+import { Book } from '../types/prismaTypes';
 import { formatGenreName } from '../../utils/textFormattingUtils';
 interface IBookCardProps {
   book: Book;
@@ -28,23 +28,21 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               {formatGenreName(book.category)}
             </span>
             <img
-              className=" h-72 w-[100cqw] rounded-md object-cover "
+              className=" h-56 w-[100cqw] rounded-md object-cover "
               src={book.photo}
               alt=""
             />
           </div>
         </Link>
       </div>
-      <Link to={`./${book.id}`}>
-        <h1 className="my-3 text-center text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600">
+      <Link to={`./${book.id}`} title={book.title}>
+        <h1 className="my-3 line-clamp-2 text-center text-xl font-bold tracking-tight text-gray-900 hover:text-blue-600">
           {book.title}
         </h1>
       </Link>
-      <Link className="mt-auto" to={`./${book.id}`}>
-        <h2 className="text-l mb-1 text-center font-semibold tracking-tight text-gray-600 hover:text-blue-600">
-          {book.author}
-        </h2>
-      </Link>
+      <h2 className="text-l mb-1 mt-auto truncate text-center font-semibold tracking-tight text-gray-600">
+        {book.author}
+      </h2>
       <p className="mb-2 text-center text-2xl text-gray-700">
         {book.price.toFixed(2)}&nbsp;&euro;
       </p>
