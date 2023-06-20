@@ -5,13 +5,14 @@ import useCart from '../hooks/useCart';
 import { DeleteModal } from '../components/DeleteModal';
 import { getBookDetail } from '../services/bookApi';
 import { Book } from '../types/prismaTypes';
+import { deleteBookImage } from '../utils/uploadUtils';
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const userId = '5452fa3f-7a0c-446d-96f8-3c86476f58b8';
+  const userId = '38ac9406-40d3-4804-932d-4e6ecbec24d1';
   const { addToCart } = useCart();
-  const [book, setBook] = useState<Book | undefined>(undefined); // State to store the book data
+  const [book, setBook] = useState<Book | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,18 +55,14 @@ const BookDetail = () => {
   };
 
   const handleDelete = () => {
-    console.log('Deleted book');
+    deleteBookImage(book.photo!)
   };
 
-  // useEffect(() => {
-  //   document.title = `${book.title} - book detail`;
-  // }, [bookId]);
   book.createdAt;
   const bookAttributes = [
     ['Genre', book.genre],
     ['Language', book.language],
     ['Publication Year', book.publicationYear],
-
     ['Listing created', new Date(book.createdAt).toLocaleDateString()],
     // Add more attributes as needed
   ];
