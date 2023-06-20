@@ -46,13 +46,13 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
       <div className="flex justify-center overflow-hidden  ">
         <Link to={`/books/${book.id}`}>
           <div className="relative">
-            {book.invoice && (
+            {book.orderId && (
               <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-80 text-3xl font-semibold text-white">
                 Sold
               </div>
             )}
             <span className="text-md absolute right-0 rounded-sm bg-yellow-100 px-2.5  py-0.5 font-medium ">
-              {formatGenreName(book.category)}
+              {formatGenreName(book.genre)}
             </span>
             <img
               className=" h-56 w-[100cqw] rounded-md object-cover "

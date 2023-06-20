@@ -25,7 +25,7 @@ const AllBooks = () => {
       id: '51802sf7-9ab5-437d-b4a4-1db640c69eda',
       createdAt: new Date(),
       soldBy: '',
-      category: Genre.ScienceFiction,
+      genre: Genre.ScienceFiction,
       seller: {
         id: '5452fa3f-7a0c-4463-96f8-3c86476f58b8',
         username: 'joe26',
@@ -45,7 +45,7 @@ const AllBooks = () => {
       id: '518028f7-9ab5-437d-b4a4-1db640c69eda',
       createdAt: new Date(),
       soldBy: '',
-      category: Genre.Mystery,
+      genre: Genre.Mystery,
       seller: {
         id: '5452fa3f-7a0c-4463-96f8-3c86476f58b8',
         username: 'joe26',
@@ -66,7 +66,7 @@ const AllBooks = () => {
       id: '51802827-9ab5-437d-b4a4-1db640c69eda',
       createdAt: new Date(),
       soldBy: '',
-      category: Genre.Mystery,
+      genre: Genre.Mystery,
       seller: {
         id: '5452fa3f-7a0c-4463-96f8-3c86476f58b8',
         username: 'joe26',
@@ -86,7 +86,7 @@ const AllBooks = () => {
       id: '518028f7-9ab5-43wd-b4a4-1db640c69eda',
       createdAt: new Date(),
       soldBy: '',
-      category: Genre.Mystery,
+      genre: Genre.Mystery,
       seller: {
         id: '5452fa3f-7a0c-446d-96f8-3c86476f58b8',
         username: 'joe26',
