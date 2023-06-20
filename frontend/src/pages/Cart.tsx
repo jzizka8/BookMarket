@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CartItem from '../components/CartItem/CartItem';
+import CartItem from '../components/CartItem';
 import useCart from '../hooks/UseCart';
 
 const Cart = () => {
