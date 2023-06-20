@@ -1,59 +1,79 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useCart from '../hooks/useCart';
-import { Genre, Lang } from '../types/prismaTypes';
 import { DeleteModal } from '../components/DeleteModal';
+import { getBookDetail } from '../services/bookApi';
+import { Book } from '../types/prismaTypes';
+import { deleteBookImage } from '../utils/uploadUtils';
+import useAuth from '../hooks/useAuth';
+import axios from 'axios';
+
+const deleteBook = async (id: string) => {
+  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
+    withCredentials: true,
+  });
+  return response.data.data;
+};
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const userId = '5452fa3f-7a0c-446d-96f8-3c86476f58b8';
+  const { auth } = useAuth();
   const { addToCart } = useCart();
-  // TODO: dynamic fetch it using bookId
-  const book = {
-    id: '518028f7-9ab5-43wd-b4a4-1db640c69eda',
-    createdAt: new Date(),
-    soldBy: '',
-    category: Genre.Mystery,
-    seller: {
-      id: '5452fa3f-7a0c-446d-96f8-3c86476f58b8',
-      username: 'joe26',
-      hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
-      createdAt: new Date(),
-    },
-    title: 'Harry Potter and the deathly hallows',
-    author: 'Joanne Kathleen Rowling ',
-    price: 18.9,
-    publicationYear: 2023,
-    language: Lang.EN,
-    photo: 'https://picsum.photos/700/800',
-    description:
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-      'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry',
-  };
+  const [book, setBook] = useState<Book | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const bookData = await getBookDetail(bookId!);
+        if (bookData?.status === 'failure') {
+          setBook(undefined);
+        } else {
+          setBook(bookData.data);
+        }
+      } catch {
+        setBook(undefined);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBook();
+  }, [bookId]);
+
+  if (loading) {
+    return (
+      <div>
+        <span className="text-2xl">Loading...</span>
+      </div>
+    );
+  }
+
+  if (!book) {
+    return (
+      <div>
+        <span className="text-2xl">Given book was not found</span>
+      </div>
+    );
+  }
 
   const addToCartWrapper = () => {
     addToCart(book);
   };
 
   const handleDelete = () => {
-    console.log('Deleted book');
+    deleteBookImage(book.photo!);
+    deleteBook(book.id);
   };
 
-  useEffect(() => {
-    document.title = `${book.title} - book detail`;
-  }, [bookId]);
-
+  book.createdAt;
   const bookAttributes = [
-    ['Genre', book.category],
+    ['Genre', book.genre],
     ['Language', book.language],
     ['Publication Year', book.publicationYear],
-    ['Seller', book.seller.username],
-    ['Listing created', book.seller.createdAt.toDateString()],
+    ['Listing created', new Date(book.createdAt).toLocaleDateString()],
     // Add more attributes as needed
   ];
 
@@ -84,7 +104,7 @@ const BookDetail = () => {
             {book.price.toFixed(2)}&euro;
           </p>
           <div className="flex-between flex flex-wrap justify-end gap-5">
-            {userId === book.seller.id ? (
+            {auth?.data.id === book.soldBy ? (
               <>
                 <button
                   type="button"
