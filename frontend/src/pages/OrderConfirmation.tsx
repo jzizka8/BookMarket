@@ -98,17 +98,16 @@ const OrderConfirmation = () => {
           <h1 className="mb-4 py-2.5 text-3xl font-bold leading-tight text-gray-900">
             Thank you for your purchase!
           </h1>
-          <div className="mt-4 flex justify-center py-2.5">
+          <div className="mt-4 py-2.5">
             <BlobProvider document={<Invoice order={InvoiceProps} />}>
               {({ url }) => (
-                <a
-                  href={url ?? '#'}
-                  className="inline-flex items-center text-xl text-blue-600 underline hover:text-red-700"
-                  target="_blank"
+                <button
+                  onClick={() => { window.open(url ?? '#', "_blank") }}
+                  className="text-white bg-primary-main focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 flex-inline items-center text-xl  hover:bg-primary-light"
                   rel="noreferrer"
                 >
-                  <DocumentIcon className="inline h-8 w-8" /> Invoice
-                </a>
+                  <DocumentIcon className="inline h-8 w-8 mr-4" />See Invoice
+                </button>
               )}
             </BlobProvider>
           </div>
