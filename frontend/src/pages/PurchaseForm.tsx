@@ -1,26 +1,34 @@
-import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { PurchaseFormSchemaType } from '../types/FormSchemaTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import purchaseFormSchema from '../schemas/PurchaseFormSchema';
+import { useFormData } from '../context/purchaseFormContext';
 
-const PurchaseForm = () => {
-  const navigate = useNavigate();
+interface PurchaseFormProps {
+  nextStep: () => void;
+}
+
+const PurchaseForm = (props: PurchaseFormProps) => {
+  const { formData, setFormData } = useFormData();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<PurchaseFormSchemaType>({
     resolver: zodResolver(purchaseFormSchema),
+    defaultValues: formData,
   });
+
   const onSubmit: SubmitHandler<PurchaseFormSchemaType> = (data) => {
     console.log(data);
-    navigate('/auth/paymentInfo');
+    setFormData(data);
+    props.nextStep();
   };
 
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-center text-center">
+      <div className="mt-12 flex flex-col items-center justify-center text-center">
         <div>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-4xl">
             Delivery Information
@@ -180,7 +188,7 @@ const PurchaseForm = () => {
             </div>
           </div>
           <div>
-            <div className="mt-4 flex justify-center">
+            <div className="mb-8 mt-4 flex justify-center">
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -194,4 +202,5 @@ const PurchaseForm = () => {
     </>
   );
 };
+
 export default PurchaseForm;

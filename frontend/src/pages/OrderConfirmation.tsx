@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const OrderConfirmation = () => {
   return (
     <>
-      <div className="flex h-screen items-center justify-center">
+      <div className="mt-12 flex items-center justify-center">
         <AnimatePresence>
           <motion.div
             key="step1"

@@ -1,11 +1,14 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import paymentInfoSchema from '../schemas/PaymentInfoSchema';
-import { useNavigate } from 'react-router-dom';
 import { PaymentInfoSchemaType } from '../types/FormSchemaTypes';
 
-const PaymentInfo = () => {
-  const navigate = useNavigate();
+interface PaymentInfoFormProps {
+  nextStep: () => void;
+  previousStep: () => void;
+}
+
+const PaymentInfo = (props: PaymentInfoFormProps) => {
   const {
     register,
     handleSubmit,
@@ -15,12 +18,12 @@ const PaymentInfo = () => {
   });
   const onSubmit: SubmitHandler<PaymentInfoSchemaType> = (data) => {
     console.log(data);
-    navigate('/auth/orderConfirmation');
+    props.nextStep();
   };
 
   return (
     <>
-      <div className="mt-32 flex flex-col items-center justify-center text-center">
+      <div className="mt-12 flex flex-col items-center justify-center text-center">
         <div>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
             Card Information
@@ -121,7 +124,13 @@ const PaymentInfo = () => {
               )}
             </div>
           </div>
-          <div className="mt-8 flex justify-center">
+          <div className="mb-8 mt-8 flex justify-center">
+            <button
+              onClick={props.previousStep}
+              className="mr-4 rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+            >
+              Previous
+            </button>
             <button
               type="submit"
               className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
