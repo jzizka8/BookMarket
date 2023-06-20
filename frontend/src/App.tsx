@@ -14,24 +14,36 @@ import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
 import { FC } from 'react';
 import useAuth from './hooks/useAuth';
+import Footer from './components/Footer';
 
 export const App: FC = () => {
   return (
-    <div className="font-primary">
-      <header>
-        <Navbar />
-      </header>
-      <Routes>
-        <Route path="/" element={<Navigate to="/books" replace />} index />
-        <Route path="books" element={<AllBooks />} />
-        <Route path="/books/:bookId" element={<BookDetail />} />
+    <div className="bg-zinc-50 font-primary">
+      {/* TODO: we may move all the page padding here to keep it consistent */}
+      <div className="flex min-h-screen flex-col">
+        <header>
+          <Navbar />
+        </header>
+        <Routes>
+          <Route path="/" element={<Navigate to="/books" replace />} index />
+          <Route path="books" element={<AllBooks />} />
+          <Route path="/books/:bookId" element={<BookDetail />} />
+          <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
+          <Route path="/userOrders/:userId" element={<UserOrders />} />
+          <Route path="/bookAddition" element={<BookAddition />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/purchase" element={<PurchaseForm />} />
+          <Route path="/paymentInfo" element={<PaymentInfo />} />
+          <Route path="/orderConfirmation" element={<OrderConfirmation />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        <Route path="/auth/*" Component={PrivateRoute} />
-        <Route path="/*" element={<Login />} />
-      </Routes>
+          <Route path="/auth/*" Component={PrivateRoute} />
+          <Route path="/*" element={<Login />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   );
 };
