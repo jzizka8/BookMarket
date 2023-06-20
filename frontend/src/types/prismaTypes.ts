@@ -81,3 +81,44 @@ export enum Genre {
   LiteraryFiction = 'LiteraryFiction',
   NonFiction = 'NonFiction',
 }
+type UserData = {
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+};
+
+type Address = {
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};
+
+export type InvoiceCreateData = {
+  userId: string;
+  bookId: string[];
+  amount: number;
+  userData: UserData;
+  address: Address;
+};
+export type Order = {
+  id: string;
+  createdAt: Date;
+  shippingInfo: ShippingInfo;
+  buyer: User;
+  amount: number;
+  books: Book[];
+};
+
+export type ShippingInfo = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};
