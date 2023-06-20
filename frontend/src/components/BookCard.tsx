@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import { Book } from '../types/prismaTypes';
-import { formatGenreName } from '../../utils/textFormattingUtils';
+import { formatGenreName } from '../utils/textFormattingUtils';
 interface IBookCardProps {
   book: Book;
 }
