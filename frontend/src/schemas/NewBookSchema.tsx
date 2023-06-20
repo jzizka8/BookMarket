@@ -7,7 +7,7 @@ const genreValues = Object.values(Genre) as [string, ...string[]];
 const newBookSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
   author: z.string().min(1, 'Author is required').max(100),
-  yearOfPublication: z
+  publicationYear: z
     .string()
     .min(1, 'Year is required')
     .max(9999, 'Year must be less than or equal to 9999')
@@ -24,7 +24,8 @@ const newBookSchema = z.object({
     .refine((value) => /^\d+(\.\d{1,2})?$/.test(value), 'Invalid price format'),
   language: z.enum(langValues),
   genre: z.enum(genreValues),
-  picture: z.unknown(),
+  photo: z.unknown(),
+  description: z.string().optional(),
 });
 
 export default newBookSchema;
