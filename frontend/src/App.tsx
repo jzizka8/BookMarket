@@ -17,7 +17,7 @@ import useAuth from './hooks/useAuth';
 
 export const App: FC = () => {
   return (
-    <>
+    <div className="font-primary">
       <header>
         <Navbar />
       </header>
@@ -32,7 +32,7 @@ export const App: FC = () => {
         <Route path="/auth/*" Component={PrivateRoute} />
         <Route path="/*" element={<Login />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
