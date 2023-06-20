@@ -11,10 +11,8 @@ export type Book = {
   id: string;
   createdAt: Date;
   deletedAt?: Date;
-  category: Genre;
   soldBy: string;
-  seller: User;
-  invoice?: Invoice;
+  orderId?: string;
   title: string;
   author: string;
   price: number;
@@ -22,6 +20,7 @@ export type Book = {
   language: Lang;
   photo?: string;
   description?: string;
+  genre: Genre;
 };
 
 export type Category = {
@@ -46,6 +45,41 @@ export type Invoice = {
   zipcode: string;
   country: string;
   books?: Book[];
+};
+
+type Address = {
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};
+
+export type InvoiceCreateData = {
+  userId: string;
+  bookId: string[];
+  amount: number;
+  userData: User;
+  address: Address;
+};
+export type Order = {
+  id: string;
+  createdAt: Date;
+  shippingInfo: ShippingInfo;
+  buyer: User;
+  amount: number;
+  books: Book[];
+};
+
+export type ShippingInfo = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
 };
 
 export enum Lang {

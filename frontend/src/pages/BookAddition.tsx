@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
@@ -6,9 +8,12 @@ import newBookSchema from '../schemas/NewBookSchema';
 import { Genre, Lang } from '../types/prismaTypes';
 import { uploadImage } from '../utils/uploadUtils';
 import { formatGenreName } from '../utils/textFormattingUtils';
+import useAuth from '../hooks/useAuth';
+import { createBook } from '../services/bookApi';
 
 const BookAddition = () => {
   const navigate = useNavigate();
+  const { auth } = useAuth();
   const {
     register,
     handleSubmit,
@@ -18,15 +23,12 @@ const BookAddition = () => {
   });
 
   const onSubmit: SubmitHandler<NewBookSchemaType> = async (data) => {
-    console.log(data);
-
     try {
-      const url = await uploadImage('username', data.photo);
-      console.log(url);
+      const url = await uploadImage(auth?.data.username!, data.photo);
+      await createBook(data, auth?.data.id!, url);
     } catch (error) {
-      console.error('Error uploading image or saving document: ', error);
+      console.error('Error uploading image: ', error);
     }
-
     navigate('/');
   };
 
@@ -140,7 +142,7 @@ const BookAddition = () => {
                 Year of Publication
               </label>
               <input
-                type="text"
+                type="number"
                 id="publicationYear"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                 placeholder="YYYY"
@@ -203,6 +205,7 @@ const BookAddition = () => {
                 className="block h-14 w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900 sm:text-base"
                 placeholder="Description of the Book"
                 style={{ paddingTop: '0.75rem' }}
+                {...register('description')}
               />
               {errors.description && (
                 <span className="mt-2 block text-red-800">

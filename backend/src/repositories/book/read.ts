@@ -40,7 +40,7 @@ export const specific = async (
  */
 export const all = async (data: BookReadAllData): BookReadAllReturn => {
   try {
-    const { genre } = data;
+    const { genre, searchInput } = data;
     const result = await client.book.findMany({
       skip: data.offset,
       take: data.count,
@@ -50,6 +50,22 @@ export const all = async (data: BookReadAllData): BookReadAllReturn => {
           gte: data.min,
         },
         ...(genre !== undefined && { genre }),
+        ...(searchInput !== undefined && {
+          OR: [
+            {
+              title: {
+                contains: searchInput,
+                mode: 'insensitive',
+              },
+            },
+            {
+              author: {
+                contains: searchInput,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }),
         deletedAt: null,
         orderId: null,
       },

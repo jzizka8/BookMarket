@@ -5,31 +5,34 @@ import Missing from './pages/Missing';
 import Register from './pages/Register';
 import AllBooks from './pages/AllBooks';
 import UserBooksForSale from './pages/UserBooksForSale';
-import BookDetail from './pages/BookDetail';
 import BookAddition from './pages/BookAddition';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
 import { FC } from 'react';
 import useAuth from './hooks/useAuth';
+import Footer from './components/Footer';
 import Order from './pages/Order';
 
 export const App: FC = () => {
   return (
-    <div className="font-primary">
-      <header>
-        <Navbar />
-      </header>
-      <Routes>
-        <Route path="/" element={<Navigate to="/books" replace />} index />
-        <Route path="books" element={<AllBooks />} />
-        <Route path="/books/:bookId" element={<BookDetail />} />
+    <div className="bg-zinc-50 font-primary">
+      {/* TODO: we may move all the page padding here to keep it consistent */}
+      <div className="flex min-h-screen flex-col">
+        <header>
+          <Navbar />
+        </header>
+        <Routes>
+          <Route path="/" element={<Navigate to="/books" replace />} index />
+          <Route path="books" element={<AllBooks />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        <Route path="/auth/*" Component={PrivateRoute} />
-        <Route path="/*" element={<Login />} />
-      </Routes>
+          <Route path="/auth/*" Component={PrivateRoute} />
+          <Route path="/*" element={<Login />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   );
 };

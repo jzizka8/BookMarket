@@ -13,8 +13,6 @@ const Navbar = () => {
   const { logout } = useLogout({ redirect: '/login' });
   const navigate = useNavigate();
 
-  console.log(auth);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

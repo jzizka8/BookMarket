@@ -34,7 +34,7 @@ export const allBooks = async (req: Request, res: Response) => {
 
     // Checking repo answer and returning
     if (books.isErr) {
-      return loadFailedResponse(res, 'The book does not exist.');
+      return loadFailedResponse(res, 'The books do not exist.');
     }
     return res.status(200).send({
       data: books.unwrap(),
