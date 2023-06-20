@@ -10,6 +10,16 @@ interface IBookCardProps {
   showRemoveButton: boolean;
 }
 
+//COMMENTED CODE WILL EVENTUALLY BE USED FOR FETCHING BOOKS AND REMOVING THEM FROM MARKET,
+//BUT WE NEED AUTH FIRST
+
+// const fetchBooks = async () => {
+//   const response = await axios.get(`https://localhost:3000/books}`);
+//   console.log(response);
+//
+//   return response.data;
+// };
+
 const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   const { addToCart } = useCart();
   const book = props.book;
@@ -17,6 +27,10 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
     addToCart(props.book);
     // TODO: popup
   };
+
+  // const { data, isLoading, error } = useQuery<AxiosError>(['books'], () =>
+  //   fetchBooks()
+  // );
 
   // const handleRemoveBook = (bookId: string) => {
   //   //TODO
