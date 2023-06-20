@@ -15,7 +15,7 @@ const PurchaseForm = () => {
   });
   const onSubmit: SubmitHandler<PurchaseFormSchemaType> = (data) => {
     console.log(data);
-    navigate('/paymentInfo');
+    navigate('/auth/paymentInfo');
   };
 
   return (

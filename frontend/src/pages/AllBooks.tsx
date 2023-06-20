@@ -1,4 +1,4 @@
-import BookCard from '../components/BookCard/BookCard';
+import BookCard from '../components/BookCard';
 import { Genre, Lang } from '../types/prismaTypes';
 import { useState } from 'react';
 import Filter from '../components/Filter';
@@ -93,7 +93,8 @@ const AllBooks = () => {
         hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
         createdAt: new Date(),
       },
-      title: 'Harry Potter and the deathly hallows and the very long title',
+      title:
+        'Harry Potter and the deathly hallows and the very long title title title',
       author: 'Joanne Kathleen Rowling Rowling Joanne Kathleen',
       price: 18.9,
       publicationYear: 2023,
@@ -180,7 +181,7 @@ const AllBooks = () => {
         </div>
       </div>
       <div className="flex justify-center bg-slate-100">
-        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredBooks.map((book) => (
             <BookCard
               key={book.id}

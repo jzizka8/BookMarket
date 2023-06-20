@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useCart from '../hooks/UseCart';
+import useCart from '../hooks/useCart';
 import { Genre, Lang } from '../types/prismaTypes';
 import { DeleteModal } from '../components/DeleteModal';
 
