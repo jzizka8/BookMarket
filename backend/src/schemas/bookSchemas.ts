@@ -112,4 +112,5 @@ export const readAllParamasSchema = z.object({
       const decimalPart = (val.toString().split('.')[1] || '').length;
       return decimalPart <= 2; // Allow up to 2 decimal places
     }),
+  searchInput: z.string().nonempty().optional(),
 });

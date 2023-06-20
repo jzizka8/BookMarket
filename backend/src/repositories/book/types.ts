@@ -27,6 +27,7 @@ export type BookReadAllData = {
   genre?: Genre | undefined;
   max: number;
   min: number;
+  searchInput?: string | undefined;
 };
 
 export type BookUpdateData = {
