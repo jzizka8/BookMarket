@@ -10,6 +10,9 @@ export default {
           'main': '#723d46',
           'dark': '#402227'
         }
+      },
+      fontFamily: {
+        'primary': ['Noto Sans']
       }
     },
   },

@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Missing from './pages/Missing';
@@ -12,28 +12,21 @@ import PaymentInfo from './pages/PaymentInfo';
 import OrderConfirmation from './pages/OrderConfirmation';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
-import { useEffect } from 'react';
+import { FC } from 'react';
+import useAuth from './hooks/useAuth';
 import Footer from './components/Footer';
 
-export const App = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const { pathname } = window.location;
-    if (pathname === '/') {
-      navigate('/books');
-    }
-  }, [navigate]);
-
+export const App: FC = () => {
   return (
-    <div className="bg-zinc-50">
+    <div className="bg-zinc-50 font-primary">
       {/* TODO: we may move all the page padding here to keep it consistent */}
       <div className="flex min-h-screen flex-col">
         <header>
-          <Navbar></Navbar>
+          <Navbar />
         </header>
         <Routes>
-          <Route path="/books" element={<AllBooks />} />
+          <Route path="/" element={<Navigate to="/books" replace />} index />
+          <Route path="books" element={<AllBooks />} />
           <Route path="/books/:bookId" element={<BookDetail />} />
           <Route path="/userBooks/:userId" element={<UserBooksForSale />} />
           <Route path="/userOrders/:userId" element={<UserOrders />} />
@@ -45,7 +38,9 @@ export const App = () => {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/*" element={<Missing />} />
+
+          <Route path="/auth/*" Component={PrivateRoute} />
+          <Route path="/*" element={<Login />} />
         </Routes>
         <Footer />
       </div>
@@ -53,4 +48,23 @@ export const App = () => {
   );
 };
 
+const PrivateRoute: FC = () => {
+  const { auth, isLoading, isError } = useAuth();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (!auth || isError) return <Navigate to="/login" />;
+
+  return (
+    <Routes>
+      <Route path="/userBooks" element={<UserBooksForSale />} />
+      <Route path="/userOrders" element={<UserOrders />} />
+      <Route path="/bookAddition" element={<BookAddition />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/purchase" element={<PurchaseForm />} />
+      <Route path="/paymentInfo" element={<PaymentInfo />} />
+      <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+      <Route path="/*" element={<Missing />} />
+    </Routes>
+  );
+};
 export default App;

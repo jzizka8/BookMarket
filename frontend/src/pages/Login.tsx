@@ -1,12 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormSchemaType } from '../types/FormSchemaTypes';
 import loginFormSchema from '../schemas/LoginFormSchema';
+import BookIcon from '../icons/BookIcon';
+import { useNavigate } from 'react-router-dom';
+import useLogin from '../hooks/useLogin';
+// import { FormEventHandler, useCallback } from 'react';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { login } = useLogin({ redirect: '/auth/books' });
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,23 +19,18 @@ const Login = () => {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFormSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
     // Handle form submission logic here
-    navigate('/register');
     console.log(data);
+    await login({ username: data.username, password: data.password });
+    navigate('/books');
   };
 
   return (
     <>
       <div className="flex h-screen items-center justify-center">
         <div className="w-64 sm:w-80">
-          <img
-            src="https://via.placeholder.com/300x200"
-            alt="Placeholder Image"
-            width="300"
-            height="200"
-            className="mx-auto"
-          />
+          <BookIcon className="fill-rose-900" />
           <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
             <div className="mb-4">
               <label
