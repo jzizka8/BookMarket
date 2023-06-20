@@ -4,20 +4,20 @@ import { Genre, Lang } from '@prisma/client';
 
 export const createBodySchema = z.object({
   soldBy: z.string().min(1),
-  title: z //
+  title: z
     .string()
     .min(2, 'Title of book should be at least 2 characters long.'),
-  author: z //
+  author: z
     .string()
     .min(2, 'Author of book should has name at least 2 characters long.'),
-  price: z //
+  price: z
     .number()
     .nonnegative('Price has to be greater than zero.')
     .refine((val) => {
       const decimalPart = (val.toString().split('.')[1] || '').length;
       return decimalPart <= 2; // Allow up to 2 decimal places
     }), // price is a float with 2 decimal points
-  publicationYear: z //
+  publicationYear: z
     .number()
     .lte(
       getYear(new Date()),
@@ -26,9 +26,9 @@ export const createBodySchema = z.object({
     .nonnegative(
       "Old Testament or Epic of Gilgamesh? If so, write 'publication year' as 0."
     ),
-  language: z.nativeEnum(Lang), //
-  genre: z.nativeEnum(Genre), //
-  photo: z.string().url().nullable(), //
+  language: z.nativeEnum(Lang),
+  genre: z.nativeEnum(Genre),
+  photo: z.string().url().nullable(),
   description: z.string().nullable(),
 });
 
