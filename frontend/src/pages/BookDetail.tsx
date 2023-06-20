@@ -6,11 +6,20 @@ import { DeleteModal } from '../components/DeleteModal';
 import { getBookDetail } from '../services/bookApi';
 import { Book } from '../types/prismaTypes';
 import { deleteBookImage } from '../utils/uploadUtils';
+import useAuth from '../hooks/useAuth';
+import axios from 'axios';
+
+const deleteBook = async (id: string) => {
+  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
+    withCredentials: true,
+  });
+  return response.data.data;
+};
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [showModal, setShowModal] = useState(false);
-  const userId = '38ac9406-40d3-4804-932d-4e6ecbec24d1';
+  const { auth } = useAuth();
   const { addToCart } = useCart();
   const [book, setBook] = useState<Book | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -55,7 +64,8 @@ const BookDetail = () => {
   };
 
   const handleDelete = () => {
-    deleteBookImage(book.photo!)
+    deleteBookImage(book.photo!);
+    deleteBook(book.id);
   };
 
   book.createdAt;
@@ -94,7 +104,7 @@ const BookDetail = () => {
             {book.price.toFixed(2)}&euro;
           </p>
           <div className="flex-between flex flex-wrap justify-end gap-5">
-            {userId === book.soldBy ? (
+            {auth?.data.id === book.soldBy ? (
               <>
                 <button
                   type="button"
