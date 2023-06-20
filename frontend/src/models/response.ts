@@ -1,4 +1,15 @@
 export type ResponseSingle<T> = {
-  item: T;
-  message: string;
+  data: T;
 };
+
+export type ApiResponse<T> =
+  | {
+      status: 'success';
+      data: T;
+      message: string;
+    }
+  | {
+      status: 'failure';
+      data: T;
+      error: string;
+    };
