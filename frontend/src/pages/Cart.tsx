@@ -6,21 +6,19 @@ const Cart = () => {
   const { cart } = useCart();
   if (cart.length === 0) {
     return (
-      <div className="my-8 flex justify-center">
-        <div className="mx-4 w-full max-w-xl">
+      <div className="my-8 mx-4 flex items-center flex-col">
           <div
-            className="text-md mb-4 w-48 w-full rounded-lg bg-yellow-100 p-4 text-yellow-900"
+          className="text-md mb-4 w-full max-w-2xl rounded-lg bg-yellow-100 p-4 text-yellow-900"
             role="alert"
           >
             Your cart is empty.
           </div>
           <Link
             to="/"
-            className="ml-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="mx-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
             Back to shop
-          </Link>
-        </div>
+        </Link>
       </div>
     );
   }
