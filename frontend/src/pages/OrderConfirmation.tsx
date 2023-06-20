@@ -102,11 +102,14 @@ const OrderConfirmation = () => {
             <BlobProvider document={<Invoice order={InvoiceProps} />}>
               {({ url }) => (
                 <button
-                  onClick={() => { window.open(url ?? '#', "_blank") }}
-                  className="text-white bg-primary-main focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 flex-inline items-center text-xl  hover:bg-primary-light"
+                  onClick={() => {
+                    window.open(url ?? '#', '_blank');
+                  }}
+                  className="flex-inline mb-2 mr-2 items-center rounded-lg bg-primary-main px-5 py-2.5 text-xl font-medium text-white hover:bg-primary-light focus:ring-4  focus:ring-blue-300"
                   rel="noreferrer"
                 >
-                  <DocumentIcon className="inline h-8 w-8 mr-4" />See Invoice
+                  <DocumentIcon className="mr-4 inline h-8 w-8" />
+                  See Invoice
                 </button>
               )}
             </BlobProvider>
