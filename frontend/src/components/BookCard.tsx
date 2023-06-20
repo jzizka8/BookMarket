@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useCart from '../hooks/UseCart';
+import useCart from '../hooks/useCart';
 import { Book } from '../types/prismaTypes';
+import { formatGenreName } from '../utils/textFormattingUtils';
 interface IBookCardProps {
   book: Book;
 }
@@ -24,7 +25,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               </div>
             )}
             <span className="text-md absolute right-0 rounded-sm bg-yellow-100 px-2.5  py-0.5 font-medium ">
-              {book.category}
+              {formatGenreName(book.category)}
             </span>
             <img
               className=" h-56 w-[100cqw] rounded-md object-cover "
