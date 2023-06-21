@@ -19,12 +19,10 @@ export const createBook = async (
 export const updateBook = async (
   bookId: string,
   book: NewBookSchemaType,
-  sellerId: string,
   photo?: string
 ) => {
   const resp = await baseApi.patch(`/book/${bookId}`, {
     ...book,
-    soldBy: sellerId,
     photo: photo,
   });
   return resp.data;
