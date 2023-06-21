@@ -6,7 +6,6 @@ import useCart from '../hooks/useCart';
 import { useEffect } from 'react';
 import baseApi from '../services/baseApi';
 import { PurchaseData } from '../types/CreateOrderType';
-import { Order, Genre, Lang } from '../types/prismaTypes';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Invoice } from '../components/Invoice';
 import { DocumentIcon } from '../icons/DocumentIcon';
