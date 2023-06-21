@@ -52,6 +52,7 @@ export const all = async (data: BookReadAllData): BookReadAllReturn => {
       skip: data.offset,
       take: data.count,
       where: {
+        NOT: { ...(data.userId !== undefined && { soldBy: data.userId }) },
         price: {
           lte: data.max,
           gte: data.min,

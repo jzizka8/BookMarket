@@ -28,6 +28,7 @@ export type BookReadAllData = {
   max: number;
   min: number;
   searchInput?: string | undefined;
+  userId?: string | undefined;
 };
 
 export type BookUpdateData = {
