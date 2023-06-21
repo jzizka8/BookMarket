@@ -72,7 +72,7 @@ const AllBooks = () => {
 
   return (
     <>
-      <div className="items-center px-2 text-center">
+      <div className="items-center bg-zinc-50 px-2 text-center">
         <button
           data-collapse-toggle="navbar-default"
           type="button"
@@ -117,7 +117,7 @@ const AllBooks = () => {
       ) : (
         <>
           <div className="flex justify-center">
-            <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="flex h-fit justify-center bg-slate-100">
               {books.map((book: Book) => (
                 <BookCard
                   key={book.id}

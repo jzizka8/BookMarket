@@ -22,6 +22,13 @@ export const specific = async (
     return await client.$transaction(async (tx) => {
       const book = await tx.book.findUniqueOrThrow({
         where: { id: data.bookId },
+        include: {
+          seller: {
+            select: {
+              username: true,
+            },
+          },
+        },
       });
 
       return Result.ok(book);
@@ -45,6 +52,7 @@ export const all = async (data: BookReadAllData): BookReadAllReturn => {
       skip: data.offset,
       take: data.count,
       where: {
+        NOT: { ...(data.userId !== undefined && { soldBy: data.userId }) },
         price: {
           lte: data.max,
           gte: data.min,

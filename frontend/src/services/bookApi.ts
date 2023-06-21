@@ -1,7 +1,6 @@
-import { ApiResponse } from '../models/response';
+import axios from 'axios';
 import { ReadAllBooks } from '../types/ApiTypes';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
-import { Book } from '../types/prismaTypes';
 import baseApi from './baseApi';
 
 export const createBook = async (
@@ -22,7 +21,31 @@ export const getBookDetail = async (bookId: string) => {
   return resp.data;
 };
 
+export const updateBook = async (
+  bookId: string,
+  book: NewBookSchemaType,
+  photo?: string
+) => {
+  const resp = await baseApi.patch(`/book/${bookId}`, {
+    ...book,
+    photo: photo,
+  });
+  return resp.data;
+};
+
 export const fetchBooks = async (body: ReadAllBooks) => {
   const response = await baseApi.post('/book/load', body);
+  return response.data.data;
+};
+
+export const fetchBook = async (id: string) => {
+  const response = await axios.get(`http://localhost:3000/book/${id}`);
+  return response.data.data;
+};
+
+export const deleteBook = async (id: string) => {
+  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
+    withCredentials: true,
+  });
   return response.data.data;
 };

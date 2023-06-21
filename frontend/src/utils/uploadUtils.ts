@@ -13,7 +13,7 @@ export const uploadImage = async (username: string, file?: File[]) => {
   console.log(file);
   if (!file || file.length === 0) {
     const url =
-      'https://firebasestorage.googleapis.com/v0/b/pb138-book-market.appspot.com/o/default-placeholder.png?alt=media&token=5f5cbc42-7630-4426-b70b-e1cbf2110f52';
+      'https://firebasestorage.googleapis.com/v0/b/pb138-book-market.appspot.com/o/default-placeholder.png?alt=media&token=38534c5d-e1db-4c15-96fb-83ddb23fc38b';
     return url;
   }
   const imageName = `${username}/${uuidv4()}`;
@@ -35,10 +35,7 @@ const extractPath = (url: string) => {
 };
 
 export const deleteBookImage = async (url: string) => {
-  if (
-    url !==
-    'https://firebasestorage.googleapis.com/v0/b/pb138-book-market.appspot.com/o/default-placeholder.png?alt=media&token=5f5cbc42-7630-4426-b70b-e1cbf2110f52'
-  ) {
+  if (!url.includes('/o/default-placeholder.png?')) {
     const path = extractPath(url);
     await deleteObject(ref(storage, path!));
   }

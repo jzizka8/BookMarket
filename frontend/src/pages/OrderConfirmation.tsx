@@ -1,10 +1,50 @@
-import cart from '../assets/cart-big.svg';
+import cartIcon from '../assets/cart-big.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePurchaseFormData } from '../context/purchaseFormContext';
+import useAuth from '../hooks/useAuth';
+import useCart from '../hooks/useCart';
+import { useEffect } from 'react';
+import baseApi from '../services/baseApi';
+import { PurchaseData } from '../types/CreateOrderType';
+import { Link } from 'react-router-dom';
 
 const OrderConfirmation = () => {
+  const { cart, clearCart } = useCart();
+  const bookIds = cart.map((book) => book.id);
+  const amount = cart.reduce((total, book) => total + book.price, 0);
+  const { auth } = useAuth();
+  const { purchaseFormData } = usePurchaseFormData();
+
+  const combinedData = {
+    shippingData: {
+      ...purchaseFormData,
+    },
+    bookId: bookIds,
+    amount: amount,
+  };
+
+  const createOrder = async (
+    data: PurchaseData,
+    userId: string | undefined
+  ) => {
+    try {
+      await baseApi.post(`/user/${userId}/order`, data);
+      clearCart();
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (auth?.data.id) {
+      console.log('userId: ' + auth.data.id);
+      createOrder(combinedData, auth.data.id);
+    }
+  }, [auth?.data.id, combinedData]);
+
   return (
     <>
-      <div className="flex h-screen items-center justify-center">
+      <div className="mt-2 flex items-center justify-center">
         <AnimatePresence>
           <motion.div
             key="step1"
@@ -15,7 +55,7 @@ const OrderConfirmation = () => {
             className="text-center"
           >
             <img
-              src={cart}
+              src={cartIcon}
               alt="Big shopping cart full of books."
               className="py-4"
             />
@@ -25,13 +65,13 @@ const OrderConfirmation = () => {
           <h1 className="mb-4 py-2.5 text-3xl font-bold leading-tight text-gray-900">
             Thank you for your purchase!
           </h1>
-          <div className="mt-4 flex justify-center py-2.5">
-            <button
-              type="button"
-              className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          <div className="mt-4 py-2.5">
+            <Link
+              className="flex-inline mb-2 mr-2 items-center rounded-lg bg-primary-main px-5 py-2.5 text-xl font-medium text-white hover:bg-primary-light focus:ring-4  focus:ring-blue-300"
+              to="/auth/userOrders"
             >
-              Generate Invoice
-            </button>
+              My orders
+            </Link>
           </div>
         </div>
       </div>
