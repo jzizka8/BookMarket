@@ -6,11 +6,13 @@ import { Book } from '../types/prismaTypes';
 import { fetchBooks } from '../services/bookApi';
 import filterSchema from '../schemas/FilterSchema';
 import { useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const AllBooks = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filterQuery, setFilterQuery] = useState({});
   const [books, setBooks] = useState<Book[]>([]);
+  const { auth } = useAuth();
 
   const location = useLocation();
   const BOOKS_COUNT = 5;
@@ -37,12 +39,14 @@ const AllBooks = () => {
         count: BOOKS_COUNT,
         offset,
         ...filterQuery,
+        auth,
       });
 
       return fetchBooks({
         count: BOOKS_COUNT,
         offset,
         ...filterQuery,
+        userId: auth?.data.id,
       });
     },
     {
@@ -112,30 +116,30 @@ const AllBooks = () => {
         </div>
       ) : (
         <>
-            <div className="flex justify-center">
-              <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {books.map((book: Book) => (
-                  <BookCard
-                    key={book.id}
-                    {...{
-                      book,
-                    }}
-                    showRemoveButton={false}
-                  />
-                ))}
-              </div>
+          <div className="flex justify-center">
+            <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {books.map((book: Book) => (
+                <BookCard
+                  key={book.id}
+                  {...{
+                    book,
+                  }}
+                  showRemoveButton={false}
+                />
+              ))}
             </div>
-            <div className="my-4 flex justify-center">
-              {books.length % BOOKS_COUNT === 0 && (
-                <button
-                  type="button"
-                  className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  onClick={moveOffset}
-                >
-                  Show more books
-                </button>
-              )}
-            </div>
+          </div>
+          <div className="my-4 flex justify-center">
+            {books.length % BOOKS_COUNT === 0 && (
+              <button
+                type="button"
+                className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={moveOffset}
+              >
+                Show more books
+              </button>
+            )}
+          </div>
         </>
       )}
     </>

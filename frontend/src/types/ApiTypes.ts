@@ -5,4 +5,5 @@ export type ReadAllBooks = {
   max?: number;
   min?: number;
   searchInput?: string | null;
+  userId?: string;
 };
