@@ -3,16 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import filterSchema from '../schemas/FilterSchema';
 import { FilterSchemaType } from '../types/FormSchemaTypes';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatGenreName } from '../utils/textFormattingUtils';
 
-interface FilterProps {
-  books: Book[];
-  filterQuery: object;
-}
-
-const Filter = (props: FilterProps) => {
+const Filter = () => {
   const searchParams = new URLSearchParams(window.location.search);
   const queryParams = Object.fromEntries(searchParams.entries());
   const filterQuery = filterSchema.parse(queryParams);
@@ -56,31 +50,8 @@ const Filter = (props: FilterProps) => {
     });
   };
 
-  const initialMinValue = 0;
-  const initialMaxValue = Math.ceil(
-    props.books.reduce((max, book) => {
-      return book.price > max ? book.price : max;
-    }, 0)
-  );
-  const [, setMinValue] = useState(initialMinValue);
-  const [, setMaxValue] = useState(initialMaxValue);
   const min = 0;
-  const max = initialMaxValue;
   const step = 1;
-
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = parseFloat(e.target.value);
-    if (!isNaN(inputValue)) {
-      setMinValue(inputValue);
-    }
-  };
-
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = parseFloat(e.target.value);
-    if (!isNaN(inputValue)) {
-      setMaxValue(inputValue);
-    }
-  };
 
   return (
     <>
@@ -132,11 +103,9 @@ const Filter = (props: FilterProps) => {
               type="number"
               id="min"
               min={min}
-              max={max}
               step={step}
               className="w-18 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none sm:w-full"
               {...register('min')}
-              onChange={handleMinChange}
             />
             {errors.min && (
               <span className="mt-2 block text-red-800">
@@ -160,7 +129,6 @@ const Filter = (props: FilterProps) => {
             step={step}
             className="w-18 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none sm:w-full"
             {...register('max')}
-            onChange={handleMaxChange}
           />
           {errors.max && (
             <span className="mt-2 block text-red-800">

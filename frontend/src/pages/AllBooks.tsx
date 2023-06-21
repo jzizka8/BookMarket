@@ -26,7 +26,6 @@ const AllBooks = () => {
     setBooks([]);
   }, [location]);
 
-
   const moveOffset = () => {
     setOffset(offset + BOOKS_COUNT);
   };
@@ -99,10 +98,7 @@ const AllBooks = () => {
           } w-full py-4 md:block md:w-auto`}
           id="navbar-default"
         >
-          <Filter
-            books={books}
-            filterQuery={filterQuery}
-          />
+          <Filter />
         </div>
       </div>
       <div className="flex justify-center">
