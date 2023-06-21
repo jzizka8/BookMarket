@@ -39,10 +39,10 @@ const NewBookForm = (props: NewBookFormProps) => {
   const onSubmit: SubmitHandler<NewBookSchemaType> = async (data) => {
     try {
       let url = await uploadImage(auth?.data.username!, data.photo);
-      if (url.includes('default-placeholder.png')) {
-        url = props.book?.photo!;
-      }
       if (props.book && props.id) {
+        if (url.includes('default-placeholder.png')) {
+          url = props.book?.photo!;
+        }
         await updateBook(props.id, data, url);
       } else {
         await createBook(data, auth?.data.id!, url);
