@@ -26,7 +26,7 @@ const AccordionItem = ({ id, title, price, books }: AccordionItemProps) => {
       <h2 id={`accordion-collapse-heading-${id}`}>
         <button
           type="button"
-          className="flex bg-zinc-50 w-full items-center justify-between p-5 text-left font-medium text-gray-600"
+          className="flex w-full items-center justify-between bg-zinc-50 p-5 text-left font-medium text-gray-600"
           onClick={toggleAccordion}
           aria-expanded={isOpen}
           aria-controls={`accordion-collapse-body-${id}`}
