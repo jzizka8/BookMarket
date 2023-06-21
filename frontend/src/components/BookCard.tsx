@@ -18,7 +18,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   };
 
   return (
-    <div className="flex max-w-sm flex-col  rounded-lg border border-gray-200 bg-white p-3 shadow ">
+    <div className="mb-4 flex max-w-sm  flex-col rounded-lg border border-gray-200 bg-white p-3 shadow">
       <div className="flex justify-center overflow-hidden  ">
         <Link to={`/books/${book.id}`}>
           <div className="relative">
