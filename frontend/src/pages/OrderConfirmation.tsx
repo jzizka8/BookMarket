@@ -7,16 +7,8 @@ import { useEffect } from 'react';
 import baseApi from '../services/baseApi';
 import { PurchaseData } from '../types/CreateOrderType';
 
-const createOrder = async (data: PurchaseData, userId: string | undefined) => {
-  try {
-    await baseApi.post(`/user/${userId}/order`, data);
-  } catch (error) {
-    console.error('Error creating order:', error);
-  }
-};
-
 const OrderConfirmation = () => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const bookIds = cart.map((book) => book.id);
   const amount = cart.length;
   const { auth } = useAuth();
@@ -32,7 +24,17 @@ const OrderConfirmation = () => {
     amount: amount,
   };
 
-  console.log(combinedData);
+  const createOrder = async (
+    data: PurchaseData,
+    userId: string | undefined
+  ) => {
+    try {
+      await baseApi.post(`/user/${userId}/order`, data);
+      clearCart();
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
+  };
 
   useEffect(() => {
     if (auth?.data.id) {
