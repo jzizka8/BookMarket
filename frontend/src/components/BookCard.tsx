@@ -65,7 +65,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
           </button>
         ) : cart.filter((item) => item.id === props.book.id).length ? (
           <Link
-            to="/cart"
+            to="/auth/cart"
             className="inline-flex items-center rounded-lg bg-green-600 px-5 py-2.5 text-lg font-medium text-white hover:bg-green-700"
           >
             <TickIcon className="mr-2 h-6 w-6" />

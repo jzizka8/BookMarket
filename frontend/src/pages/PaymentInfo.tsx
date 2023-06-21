@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import paymentInfoSchema from '../schemas/PaymentInfoSchema';
 import { PaymentInfoSchemaType } from '../types/FormSchemaTypes';
+import { usePaymentInfoFormContext } from '../context/paymentInfoFormContext';
 
 interface PaymentInfoFormProps {
   nextStep: () => void;
@@ -9,6 +10,8 @@ interface PaymentInfoFormProps {
 }
 
 const PaymentInfo = (props: PaymentInfoFormProps) => {
+  const { setPaymentInfoData } = usePaymentInfoFormContext();
+
   const {
     register,
     handleSubmit,
@@ -17,7 +20,7 @@ const PaymentInfo = (props: PaymentInfoFormProps) => {
     resolver: zodResolver(paymentInfoSchema),
   });
   const onSubmit: SubmitHandler<PaymentInfoSchemaType> = (data) => {
-    console.log(data);
+    setPaymentInfoData(data);
     props.nextStep();
   };
 

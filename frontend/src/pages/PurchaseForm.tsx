@@ -2,14 +2,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { PurchaseFormSchemaType } from '../types/FormSchemaTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import purchaseFormSchema from '../schemas/PurchaseFormSchema';
-import { useFormData } from '../context/purchaseFormContext';
-
+import { usePurchaseFormData } from '../context/purchaseFormContext';
 interface PurchaseFormProps {
   nextStep: () => void;
 }
 
 const PurchaseForm = (props: PurchaseFormProps) => {
-  const { formData, setFormData } = useFormData();
+  const { purchaseFormData, setPurchaseFormData } = usePurchaseFormData();
 
   const {
     register,
@@ -17,12 +16,11 @@ const PurchaseForm = (props: PurchaseFormProps) => {
     formState: { errors },
   } = useForm<PurchaseFormSchemaType>({
     resolver: zodResolver(purchaseFormSchema),
-    defaultValues: formData,
+    defaultValues: purchaseFormData,
   });
 
   const onSubmit: SubmitHandler<PurchaseFormSchemaType> = (data) => {
-    console.log(data);
-    setFormData(data);
+    setPurchaseFormData(data);
     props.nextStep();
   };
 
@@ -53,11 +51,11 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                   id="firstName"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                   placeholder="Janka"
-                  {...register('firstName')}
+                  {...register('name')}
                 />
-                {errors.firstName && (
+                {errors.name && (
                   <span className="mt-2 block text-red-800">
-                    {errors.firstName?.message}
+                    {errors.name?.message}
                   </span>
                 )}
               </div>
@@ -86,18 +84,18 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                   htmlFor="shippingAddress"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Shipping Address
+                  Street
                 </label>
                 <input
                   type="text"
                   id="shippingAddress"
                   placeholder="Novyi Zem 101"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  {...register('shippingAddress')}
+                  {...register('street')}
                 />
-                {errors.shippingAddress && (
+                {errors.street && (
                   <span className="mt-2 block text-red-800">
-                    {errors.shippingAddress?.message}
+                    {errors.street?.message}
                   </span>
                 )}
               </div>
@@ -124,22 +122,43 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               </div>
               <div>
                 <label
-                  htmlFor="state"
+                  htmlFor="email"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  State or Province
+                  Email
                 </label>
                 <input
                   type="text"
-                  id="state"
-                  placeholder="Lipovec"
+                  id="email"
+                  placeholder="example@gmail.com"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  {...register('state')}
+                  {...register('email')}
                 />
 
-                {errors.state && (
+                {errors.email && (
                   <span className="mt-2 block text-red-800">
-                    {errors.state?.message}
+                    {errors.email?.message}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="phoneNumber"
+                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Phone number
+                </label>
+                <input
+                  type="text"
+                  id="phoneNumber"
+                  placeholder="Lipovec"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
+                  {...register('phoneNumber')}
+                />
+
+                {errors.phoneNumber && (
+                  <span className="mt-2 block text-red-800">
+                    {errors.phoneNumber?.message}
                   </span>
                 )}
               </div>
@@ -176,12 +195,12 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                   id="zip"
                   placeholder="000 00"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  {...register('zip')}
+                  {...register('zipcode')}
                 />
 
-                {errors.zip && (
+                {errors.zipcode && (
                   <span className="mt-2 block text-red-800">
-                    {errors.zip?.message}
+                    {errors.zipcode?.message}
                   </span>
                 )}
               </div>

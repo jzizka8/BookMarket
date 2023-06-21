@@ -2,15 +2,15 @@ import { createContext, useContext, useState } from 'react';
 import { PurchaseFormSchemaType } from '../types/FormSchemaTypes';
 
 interface FormDataContextType {
-  formData: PurchaseFormSchemaType;
-  setFormData: (data: PurchaseFormSchemaType) => void;
+  purchaseFormData: PurchaseFormSchemaType;
+  setPurchaseFormData: (data: PurchaseFormSchemaType) => void;
 }
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
   undefined
 );
 
-export const useFormData = (): FormDataContextType => {
+export const usePurchaseFormData = (): FormDataContextType => {
   const context = useContext(FormDataContext);
   if (!context) {
     throw new Error('useFormData must be used within a FormDataProvider');
@@ -23,18 +23,20 @@ interface FormDataProviderProps {
 }
 
 export const FormDataProvider = ({ children }: FormDataProviderProps) => {
-  const [formData, setFormData] = useState<PurchaseFormSchemaType>({
-    firstName: '',
-    surname: '',
-    shippingAddress: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: '',
-  });
+  const [purchaseFormData, setPurchaseFormData] =
+    useState<PurchaseFormSchemaType>({
+      name: '',
+      surname: '',
+      phoneNumber: '',
+      email: '',
+      street: '',
+      city: '',
+      country: '',
+      zipcode: '',
+    });
 
   return (
-    <FormDataContext.Provider value={{ formData, setFormData }}>
+    <FormDataContext.Provider value={{ purchaseFormData, setPurchaseFormData }}>
       {children}
     </FormDataContext.Provider>
   );

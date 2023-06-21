@@ -12,6 +12,7 @@ import { FC } from 'react';
 import useAuth from './hooks/useAuth';
 import Footer from './components/Footer';
 import Order from './pages/Order';
+import BookDetail from './pages/BookDetail';
 
 export const App: FC = () => {
   return (
@@ -24,6 +25,7 @@ export const App: FC = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/books" replace />} index />
           <Route path="books" element={<AllBooks />} />
+          <Route path="/books/:bookId" element={<BookDetail />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
