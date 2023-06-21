@@ -22,14 +22,14 @@ const Filter = (props: FilterProps) => {
 
   const onSubmit: SubmitHandler<FilterSchemaType> = async (data) => {
     const filterObj: {
-      search?: string;
+      searchInput?: string;
       genre?: string;
       min?: number;
       max?: number;
     } = {};
 
-    if (data.search) {
-      filterObj.search = data.search;
+    if (data.searchInput) {
+      filterObj.searchInput = data.searchInput;
     }
 
     if (data.genre) {
@@ -81,15 +81,15 @@ const Filter = (props: FilterProps) => {
         className="flex flex-col justify-center sm:mr-0 sm:flex-row md:mb-4"
       >
         <div className="flex flex-col pr-4">
-          <label htmlFor="search" className="text-sm font-medium text-gray-700">
+          <label htmlFor="searchInput" className="text-sm font-medium text-gray-700">
             Search
           </label>
           <input
-            id="search"
+            id="searchInput"
             type="text"
             placeholder="Title or Author"
             className="bg-search-icon h-11 rounded-md border border-gray-300 p-2 pr-4 text-gray-800 focus:border-blue-500 focus:outline-none sm:ml-0 sm:min-w-[200px]"
-            {...register('search')}
+            {...register('searchInput')}
           />
         </div>
         <div className="flex flex-col pr-4">

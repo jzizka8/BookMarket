@@ -5,7 +5,7 @@ const genreValues = Object.values(Genre) as [string, ...string[]];
 
 const filterSchema = z
   .object({
-    search: z.string().optional(),
+    searchInput: z.string().optional(),
     genre: z.enum([...genreValues, '']).default(''),
     minPrice: z
       .string()
