@@ -8,16 +8,8 @@ import baseApi from '../services/baseApi';
 import { PurchaseData } from '../types/CreateOrderType';
 import { Link } from 'react-router-dom';
 
-const createOrder = async (data: PurchaseData, userId: string | undefined) => {
-  try {
-    return await baseApi.post(`/user/${userId}/order`, data);
-  } catch (error) {
-    console.error('Error creating order:', error);
-  }
-};
-
 const OrderConfirmation = () => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const bookIds = cart.map((book) => book.id);
   const amount = cart.reduce((total, book) => total + book.price, 0);
   const { auth } = useAuth();
@@ -29,6 +21,18 @@ const OrderConfirmation = () => {
     },
     bookId: bookIds,
     amount: amount,
+  };
+
+  const createOrder = async (
+    data: PurchaseData,
+    userId: string | undefined
+  ) => {
+    try {
+      await baseApi.post(`/user/${userId}/order`, data);
+      clearCart();
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
   };
 
   useEffect(() => {
