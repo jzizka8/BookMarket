@@ -57,6 +57,7 @@ interface IInvoiceProps {
 }
 
 export const Invoice = (props: IInvoiceProps) => {
+  console.log(props.order);
   const shipping = props.order.shippingInfo;
   return (
     <Document>
@@ -81,8 +82,10 @@ export const Invoice = (props: IInvoiceProps) => {
         </View>
         <View style={styles.section}>
           <Text style={styles.header}>Invoice Details</Text>
-          <Text>Order id: {props.order.id.split('-')[0]}</Text>
-          <Text>Created on: {props.order.createdAt.toDateString()}</Text>
+          <Text>Order id: {props.order.id}</Text>
+          <Text>
+            Created on: {new Date(props.order.createdAt).toLocaleDateString()}
+          </Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.header}>Items</Text>
