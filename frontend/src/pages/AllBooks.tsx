@@ -12,7 +12,7 @@ const AllBooks = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filterQuery, setFilterQuery] = useState({});
   const [books, setBooks] = useState<Book[]>([]);
-  const { auth } = useAuth();
+  const { auth, isLoading: authIsLoading } = useAuth();
 
   const location = useLocation();
   const BOOKS_COUNT = 5;
@@ -33,14 +33,20 @@ const AllBooks = () => {
   };
 
   const { isLoading, isError } = useQuery(
-    ['books', filterQuery, offset],
+    ['books', filterQuery, offset, authIsLoading],
     () => {
       console.log({
         count: BOOKS_COUNT,
         offset,
         ...filterQuery,
         auth,
+        authIsLoading,
       });
+
+      // no fetching if not sure whether to ommit some books
+      if (authIsLoading) {
+        return Promise.resolve([]);
+      }
 
       return fetchBooks({
         count: BOOKS_COUNT,
