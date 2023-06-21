@@ -3,29 +3,35 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import filterSchema from '../schemas/FilterSchema';
 import { FilterSchemaType } from '../types/FormSchemaTypes';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { formatGenreName } from '../utils/textFormattingUtils';
 
 interface FilterProps {
   books: Book[];
   filterQuery: object;
-  setFilterQuery: Dispatch<SetStateAction<object>>;
 }
 
 const Filter = (props: FilterProps) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const queryParams = Object.fromEntries(searchParams.entries());
+  const filterQuery = filterSchema.parse(queryParams);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FilterSchemaType>({
     resolver: zodResolver(filterSchema),
+    defaultValues: filterQuery,
   });
-
+  const nagivate = useNavigate();
   const onSubmit: SubmitHandler<FilterSchemaType> = async (data) => {
     const filterObj: {
       searchInput?: string;
       genre?: string;
-      min?: number;
-      max?: number;
+      min?: string;
+      max?: string;
     } = {};
 
     if (data.searchInput) {
@@ -36,16 +42,18 @@ const Filter = (props: FilterProps) => {
       filterObj.genre = data.genre;
     }
 
-    if (data.minPrice) {
-      filterObj.min = data.minPrice;
+    if (data.min) {
+      filterObj.min = data.min.toString();
     }
 
-    if (data.maxPrice) {
-      filterObj.max = data.maxPrice;
+    if (data.max) {
+      filterObj.max = data.max.toString();
     }
 
-    props.setFilterQuery(filterObj);
-    console.log(filterObj);
+    nagivate({
+      pathname: '/books',
+      search: `?${new URLSearchParams(filterObj).toString()}`,
+    });
   };
 
   const initialMinValue = 0;
@@ -54,22 +62,22 @@ const Filter = (props: FilterProps) => {
       return book.price > max ? book.price : max;
     }, 0)
   );
-  const [minValue, setMinValue] = useState(initialMinValue);
-  const [maxValue, setMaxValue] = useState(initialMaxValue);
+  const [, setMinValue] = useState(initialMinValue);
+  const [, setMaxValue] = useState(initialMaxValue);
   const min = 0;
   const max = initialMaxValue;
   const step = 1;
 
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseFloat(e.target.value);
-    if (!isNaN(inputValue) && inputValue >= min && inputValue <= max) {
+    if (!isNaN(inputValue)) {
       setMinValue(inputValue);
     }
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseFloat(e.target.value);
-    if (!isNaN(inputValue) && inputValue >= min && inputValue <= max) {
+    if (!isNaN(inputValue)) {
       setMaxValue(inputValue);
     }
   };
@@ -81,7 +89,10 @@ const Filter = (props: FilterProps) => {
         className="flex flex-col justify-center sm:mr-0 sm:flex-row md:mb-4"
       >
         <div className="flex flex-col pr-4">
-          <label htmlFor="searchInput" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="searchInput"
+            className="text-sm font-medium text-gray-700"
+          >
             Search
           </label>
           <input
@@ -104,14 +115,14 @@ const Filter = (props: FilterProps) => {
             <option value=""></option>
             {Object.values(Genre).map((genre) => (
               <option key={genre} value={genre}>
-                {genre}
+                {formatGenreName(genre)}
               </option>
             ))}
           </select>
         </div>
         <div className="w-18 flex flex-col items-center pr-4">
           <label
-            htmlFor="minPrice"
+            htmlFor="min"
             className="whitespace-nowrap text-sm font-medium text-gray-700"
           >
             Min price
@@ -119,18 +130,17 @@ const Filter = (props: FilterProps) => {
           <div className="flex flex-col items-center">
             <input
               type="number"
-              id="minPrice"
-              value={minValue}
+              id="min"
               min={min}
               max={max}
               step={step}
               className="w-18 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none sm:w-full"
-              {...register('minPrice')}
+              {...register('min')}
               onChange={handleMinChange}
             />
-            {errors.minPrice && (
+            {errors.min && (
               <span className="mt-2 block text-red-800">
-                {errors.minPrice.message}
+                {errors.min.message}
               </span>
             )}
           </div>
@@ -138,25 +148,23 @@ const Filter = (props: FilterProps) => {
 
         <div className="w-18 flex flex-col items-center pr-4">
           <label
-            htmlFor="maxPrice"
+            htmlFor="max"
             className="whitespace-nowrap text-sm font-medium text-gray-700"
           >
             Max price
           </label>
           <input
             type="number"
-            id="maxPrice"
-            value={maxValue}
+            id="max"
             min={min}
-            max={max}
             step={step}
             className="w-18 h-11 border-b border-t border-gray-300 bg-white px-3 text-gray-700 focus:outline-none sm:w-full"
-            {...register('maxPrice')}
+            {...register('max')}
             onChange={handleMaxChange}
           />
-          {errors.maxPrice && (
+          {errors.max && (
             <span className="mt-2 block text-red-800">
-              {errors.maxPrice.message}
+              {errors.max.message}
             </span>
           )}
         </div>

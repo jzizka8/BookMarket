@@ -1,34 +1,59 @@
 import BookCard from '../components/BookCard';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Filter from '../components/Filter';
 import { useQuery } from '@tanstack/react-query';
 import { Book } from '../types/prismaTypes';
 import { fetchBooks } from '../services/bookApi';
-
-
+import filterSchema from '../schemas/FilterSchema';
+import { useLocation } from 'react-router-dom';
 
 const AllBooks = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filterQuery, setFilterQuery] = useState({});
-
-  const BOOKS_COUNT = 5;
-  const [offset, setOffset] = useState(0);
-  const moveOffset = () => {
-    setOffset(offset + BOOKS_COUNT)
-  };
-
   const [books, setBooks] = useState<Book[]>([]);
 
-  const { isLoading, isError } = useQuery(['books', filterQuery, offset], () => fetchBooks({
-    count: BOOKS_COUNT,
-    offset,
-    ...filterQuery
-  }),
+  const location = useLocation();
+  const BOOKS_COUNT = 5;
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const queryParams = Object.fromEntries(searchParams.entries());
+    setFilterQuery(filterSchema.parse(queryParams));
+
+    // reset offset and collected books
+    setOffset(0);
+    setBooks([]);
+  }, [location]);
+
+
+  const moveOffset = () => {
+    setOffset(offset + BOOKS_COUNT);
+  };
+
+  const { isLoading, isError } = useQuery(
+    ['books', filterQuery, offset],
+    () => {
+      console.log({
+        count: BOOKS_COUNT,
+        offset,
+        ...filterQuery,
+      });
+
+      return fetchBooks({
+        count: BOOKS_COUNT,
+        offset,
+        ...filterQuery,
+      });
+    },
     {
       onSuccess: (data) => {
-        setBooks((prevBooks) => [...prevBooks, ...data]);
+        console.log(data);
+        // keep previous book for pagging
+        setBooks((prevData) => [...prevData, ...data]);
       },
-    });
+    }
+  );
   if (isLoading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -77,11 +102,10 @@ const AllBooks = () => {
           <Filter
             books={books}
             filterQuery={filterQuery}
-            setFilterQuery={setFilterQuery}
           />
         </div>
       </div>
-      <div className="flex justify-center bg-slate-100">
+      <div className="flex justify-center">
         <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {books.map((book: Book) => (
             <BookCard
@@ -94,14 +118,18 @@ const AllBooks = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center my-4">
-        <button type="button" className="text-white bg-primary-main hover:bg-primary-dark focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          onClick={moveOffset}>
-          Show more books
-        </button>
+      <div className="my-4 flex justify-center">
+        {books.length % BOOKS_COUNT === 0 && (
+          <button
+            type="button"
+            className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={moveOffset}
+          >
+            Show more books
+          </button>
+        )}
       </div>
     </>
   );
 };
 export default AllBooks;
-
