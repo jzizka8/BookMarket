@@ -24,7 +24,7 @@ const AllBooks = () => {
     // reset offset and collected books
     setOffset(0);
     setBooks([]);
-  }, [location]);
+  }, [location.search]);
 
   const moveOffset = () => {
     setOffset(offset + BOOKS_COUNT);
@@ -59,7 +59,6 @@ const AllBooks = () => {
   if (isLoading) {
     return <div className="text-center">Loading...</div>;
   }
-
   if (isError) {
     return <div>Error occurred while fetching books.</div>;
   }
@@ -104,30 +103,41 @@ const AllBooks = () => {
           <Filter />
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {books.map((book: Book) => (
-            <BookCard
-              key={book.id}
-              {...{
-                book,
-              }}
-              showRemoveButton={false}
-            />
-          ))}
+      {books.length === 0 ? (
+        <div
+          className="text-md mx-auto mb-4 w-full max-w-2xl rounded-lg bg-yellow-100 p-4 text-yellow-900"
+          role="alert"
+        >
+          No book with these criteria were found
         </div>
-      </div>
-      <div className="my-4 flex justify-center">
-        {books.length % BOOKS_COUNT === 0 && (
-          <button
-            type="button"
-            className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={moveOffset}
-          >
-            Show more books
-          </button>
-        )}
-      </div>
+      ) : (
+        <>
+            <div className="flex justify-center">
+              <div className="mt-5 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {books.map((book: Book) => (
+                  <BookCard
+                    key={book.id}
+                    {...{
+                      book,
+                    }}
+                    showRemoveButton={false}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="my-4 flex justify-center">
+              {books.length % BOOKS_COUNT === 0 && (
+                <button
+                  type="button"
+                  className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={moveOffset}
+                >
+                  Show more books
+                </button>
+              )}
+            </div>
+        </>
+      )}
     </>
   );
 };
