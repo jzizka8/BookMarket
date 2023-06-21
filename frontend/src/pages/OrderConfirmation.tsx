@@ -6,9 +6,7 @@ import useCart from '../hooks/useCart';
 import { useEffect } from 'react';
 import baseApi from '../services/baseApi';
 import { PurchaseData } from '../types/CreateOrderType';
-import { BlobProvider } from '@react-pdf/renderer';
-import { Invoice } from '../components/Invoice';
-import { DocumentIcon } from '../icons/DocumentIcon';
+import { Link } from 'react-router-dom';
 
 const createOrder = async (data: PurchaseData, userId: string | undefined) => {
   try {
@@ -68,20 +66,12 @@ const OrderConfirmation = () => {
             Thank you for your purchase!
           </h1>
           <div className="mt-4 py-2.5">
-            <BlobProvider document={<Invoice order={combinedData} />}>
-              {({ url }) => (
-                <button
-                  onClick={() => {
-                    window.open(url ?? '#', '_blank');
-                  }}
-                  className="flex-inline mb-2 mr-2 items-center rounded-lg bg-primary-main px-5 py-2.5 text-xl font-medium text-white hover:bg-primary-light focus:ring-4  focus:ring-blue-300"
-                  rel="noreferrer"
-                >
-                  <DocumentIcon className="mr-4 inline h-8 w-8" />
-                  See Invoice
-                </button>
-              )}
-            </BlobProvider>
+            <Link
+              className="flex-inline mb-2 mr-2 items-center rounded-lg bg-primary-main px-5 py-2.5 text-xl font-medium text-white hover:bg-primary-light focus:ring-4  focus:ring-blue-300"
+              to="/auth/userOrders"
+            >
+              My orders
+            </Link>
           </div>
         </div>
       </div>
