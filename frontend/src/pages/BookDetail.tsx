@@ -1,62 +1,40 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import { DeleteModal } from '../components/DeleteModal';
-import { getBookDetail } from '../services/bookApi';
-import { Book } from '../types/prismaTypes';
+import { useQuery } from '@tanstack/react-query';
 import { deleteBookImage } from '../utils/uploadUtils';
 import useAuth from '../hooks/useAuth';
-import axios from 'axios';
+import { deleteBook, fetchBook } from '../services/bookApi';
 
-const deleteBook = async (id: string) => {
-  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
-    withCredentials: true,
-  });
-  return response.data.data;
-};
+type AttributeType = {
+  title: string;
+  value: string;
+  path?: string;
+}[];
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const { auth } = useAuth();
   const { addToCart } = useCart();
-  const [book, setBook] = useState<Book | undefined>(undefined);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const bookData = await getBookDetail(bookId!);
-        if (bookData?.status === 'failure') {
-          setBook(undefined);
-        } else {
-          setBook(bookData.data);
-        }
-      } catch {
-        setBook(undefined);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBook();
-  }, [bookId]);
-
-  if (loading) {
-    return (
-      <div>
-        <span className="text-2xl">Loading...</span>
-      </div>
-    );
+  if (!bookId) {
+    return <>An unexpected error occured</>;
   }
 
-  if (!book) {
-    return (
-      <div>
-        <span className="text-2xl">Given book was not found</span>
-      </div>
-    );
+  const {
+    isLoading,
+    isError,
+    data: book,
+  } = useQuery(['book'], () => fetchBook(bookId));
+  if (isLoading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error occurred while fetching books.</div>;
   }
 
   const addToCartWrapper = () => {
@@ -68,13 +46,19 @@ const BookDetail = () => {
     deleteBook(book.id);
   };
 
-  book.createdAt;
-  const bookAttributes = [
-    ['Genre', book.genre],
-    ['Language', book.language],
-    ['Publication Year', book.publicationYear],
-    ['Listing created', new Date(book.createdAt).toLocaleDateString()],
-    // Add more attributes as needed
+  const bookAttributes: AttributeType = [
+    { title: 'Genre', value: book.genre, path: `/books?genre=${book.genre}` },
+    {
+      title: 'Language',
+      value: book.language,
+      path: `/books?language=${book.language}`,
+    },
+    { title: 'Publication Year', value: book.publicationYear.toString() },
+    { title: 'Seller', value: book.seller.username },
+    {
+      title: 'Listing created',
+      value: new Date(book.createdAt).toLocaleDateString(),
+    },
   ];
 
   return (
@@ -159,15 +143,26 @@ const BookDetail = () => {
           </h1>
           <table className="w-full text-left text-sm text-gray-500">
             <tbody>
-              {bookAttributes.map(([attribute, value]) => (
-                <tr className=" odd:bg-gray-100" key={attribute}>
+              {bookAttributes.map((attr) => (
+                <tr className=" odd:bg-gray-100" key={attr.title}>
                   <th
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
                   >
-                    {attribute}
+                    {attr.title}
                   </th>
-                  <td className="px-6 py-4 text-right">{value}</td>
+                  <td className="px-6 py-4 text-right">
+                    {attr.path ? (
+                      <Link
+                        to={attr.path}
+                        className="hover:text-blac hover:font-bold"
+                      >
+                        {attr.value}
+                      </Link>
+                    ) : (
+                      attr.value
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
