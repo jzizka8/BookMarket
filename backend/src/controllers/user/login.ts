@@ -11,7 +11,7 @@ export const userLogin = async (req: Request, res: Response) => {
     const user = await login(bodyValidate);
 
     if (user.isErr) {
-      const error = user.error;
+      const { error } = user;
       if (error instanceof WrongOwnershipError) {
         return loadFailedResponse(res, error.message);
       }
