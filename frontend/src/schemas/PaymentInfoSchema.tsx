@@ -16,8 +16,8 @@ const paymentInfoSchema = z.object({
     .string()
     .min(1, 'Name is required')
     .max(100)
-    .refine((value) => /^[\p{L}]+$/u.test(value), {
-      message: 'Name is required and must only contain letters',
+    .refine((value) => /^[\p{L}\s]+$/u.test(value), {
+      message: 'Name is required and must only contain letters and spaces',
     }),
 });
 

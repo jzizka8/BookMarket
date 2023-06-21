@@ -1,10 +1,49 @@
-import cart from '../assets/cart-big.svg';
+import cartIcon from '../assets/cart-big.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePurchaseFormData } from '../context/purchaseFormContext';
+import useAuth from '../hooks/useAuth';
+import useCart from '../hooks/useCart';
+import { useEffect } from 'react';
+import baseApi from '../services/baseApi';
+import { PurchaseData } from '../types/CreateOrderType';
+
+const createOrder = async (data: PurchaseData, userId: string | undefined) => {
+  try {
+    await baseApi.post(`/user/${userId}/order`, data);
+  } catch (error) {
+    console.error('Error creating order:', error);
+  }
+};
 
 const OrderConfirmation = () => {
+  const { cart } = useCart();
+  const bookIds = cart.map((book) => book.id);
+  const amount = cart.length;
+  const { auth } = useAuth();
+  const { purchaseFormData } = usePurchaseFormData();
+  // const { paymentInfoData } = usePaymentInfoFormContext();
+
+  const combinedData = {
+    shippingData: {
+      ...purchaseFormData,
+      // ...paymentInfoData,
+    },
+    bookId: bookIds,
+    amount: amount,
+  };
+
+  console.log(combinedData);
+
+  useEffect(() => {
+    if (auth?.data.id) {
+      console.log('userId: ' + auth.data.id);
+      createOrder(combinedData, auth.data.id);
+    }
+  }, [auth?.data.id, combinedData]);
+
   return (
     <>
-      <div className="flex h-screen items-center justify-center">
+      <div className="mt-2 flex items-center justify-center">
         <AnimatePresence>
           <motion.div
             key="step1"
@@ -15,7 +54,7 @@ const OrderConfirmation = () => {
             className="text-center"
           >
             <img
-              src={cart}
+              src={cartIcon}
               alt="Big shopping cart full of books."
               className="py-4"
             />

@@ -6,7 +6,7 @@ lint_frontend:
   image: node:lts
   script:
     - cd frontend
-    - npm ci
+    - npm ci --legacy-peer-deps
     - npm run lint
   tags:
     - shared-fi

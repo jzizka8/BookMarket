@@ -6,14 +6,12 @@ import Register from './pages/Register';
 import AllBooks from './pages/AllBooks';
 import UserBooksForSale from './pages/UserBooksForSale';
 import BookAddition from './pages/BookAddition';
-import PurchaseForm from './pages/PurchaseForm';
-import PaymentInfo from './pages/PaymentInfo';
-import OrderConfirmation from './pages/OrderConfirmation';
 import Navbar from './components/Navbar';
 import UserOrders from './pages/UserOrders';
 import { FC } from 'react';
 import useAuth from './hooks/useAuth';
 import Footer from './components/Footer';
+import Order from './pages/Order';
 import BookDetail from './pages/BookDetail';
 
 export const App: FC = () => {
@@ -52,9 +50,7 @@ const PrivateRoute: FC = () => {
       <Route path="/userOrders" element={<UserOrders />} />
       <Route path="/bookAddition" element={<BookAddition />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/purchase" element={<PurchaseForm />} />
-      <Route path="/paymentInfo" element={<PaymentInfo />} />
-      <Route path="/orderConfirmation" element={<OrderConfirmation />} />
+      <Route path="/order" element={<Order />} />
       <Route path="/*" element={<Missing />} />
     </Routes>
   );
