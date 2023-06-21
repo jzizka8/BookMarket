@@ -19,14 +19,14 @@ const AccordionItem = ({ id, title, price, books }: AccordionItemProps) => {
 
   return (
     <div
-      className={`w-[300px] border border-b-0 border-gray-200 first:rounded-t-xl last:rounded-b-xl last:border-b hover:bg-gray-100 ${
+      className={`w-[300px] border border-b-0 border-gray-200 bg-zinc-50 first:rounded-t-xl last:rounded-b-xl last:border-b hover:bg-gray-100 ${
         isOpen && 'bg-gray-100'
       } focus:ring-4 focus:ring-gray-200 sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[900px]`}
     >
       <h2 id={`accordion-collapse-heading-${id}`}>
         <button
           type="button"
-          className="flex w-full items-center justify-between bg-zinc-50 p-5 text-left font-medium text-gray-600"
+          className="flex w-full items-center justify-between p-5 text-left font-medium text-gray-600"
           onClick={toggleAccordion}
           aria-expanded={isOpen}
           aria-controls={`accordion-collapse-body-${id}`}
@@ -54,7 +54,7 @@ const AccordionItem = ({ id, title, price, books }: AccordionItemProps) => {
       </h2>
       <div
         id={`accordion-collapse-body-${id}`}
-        className={`${isOpen ? '' : 'hidden'} bg-white`}
+        className={`${isOpen ? '' : 'hidden'} bg-white last:rounded-b-xl`}
         aria-labelledby={`accordion-collapse-heading-${id}`}
       >
         <div className="border-b-0 border-gray-200 p-5">
