@@ -47,9 +47,12 @@ const AllBooks = () => {
     },
     {
       onSuccess: (data) => {
+        const newBooks = data.filter(
+          (book: Book) => !books?.some((prevBook) => prevBook.id === book.id)
+        );
+        setBooks((prevBooks) => [...prevBooks, ...newBooks]);
+        console.log(newBooks);
         console.log(data);
-        // keep previous book for pagging
-        setBooks((prevData) => [...prevData, ...data]);
       },
     }
   );
