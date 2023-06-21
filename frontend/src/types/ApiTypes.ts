@@ -1,5 +1,3 @@
-import { Genre } from './prismaTypes';
-
 export type ReadAllBooks = {
   count?: number;
   offset?: number;

@@ -1,4 +1,4 @@
-import { Book, Genre } from '../types/prismaTypes';
+import { Genre } from '../types/prismaTypes';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import filterSchema from '../schemas/FilterSchema';
