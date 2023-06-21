@@ -15,7 +15,7 @@ const AccordionItem = ({ item, title }: { item: Order; title: string }) => {
     <div
       className={`w-[300px] border border-b-0 border-gray-200 first:rounded-t-xl last:rounded-b-xl last:border-b hover:bg-gray-100 ${
         isOpen && 'bg-gray-100'
-      } focus:ring-4 focus:ring-gray-200 sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[900px]`}
+      } mb-4 focus:ring-4 focus:ring-gray-200 sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[900px]`}
     >
       <h2 id={`accordion-collapse-heading-${item.id}`}>
         <button
