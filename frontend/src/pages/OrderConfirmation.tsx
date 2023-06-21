@@ -6,10 +6,11 @@ import useCart from '../hooks/useCart';
 import { useEffect } from 'react';
 import baseApi from '../services/baseApi';
 import { PurchaseData } from '../types/CreateOrderType';
+import { Link } from 'react-router-dom';
 
 const createOrder = async (data: PurchaseData, userId: string | undefined) => {
   try {
-    await baseApi.post(`/user/${userId}/order`, data);
+    return await baseApi.post(`/user/${userId}/order`, data);
   } catch (error) {
     console.error('Error creating order:', error);
   }
@@ -64,13 +65,13 @@ const OrderConfirmation = () => {
           <h1 className="mb-4 py-2.5 text-3xl font-bold leading-tight text-gray-900">
             Thank you for your purchase!
           </h1>
-          <div className="mt-4 flex justify-center py-2.5">
-            <button
-              type="button"
-              className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          <div className="mt-4 py-2.5">
+            <Link
+              className="flex-inline mb-2 mr-2 items-center rounded-lg bg-primary-main px-5 py-2.5 text-xl font-medium text-white hover:bg-primary-light focus:ring-4  focus:ring-blue-300"
+              to="/auth/userOrders"
             >
-              Generate Invoice
-            </button>
+              My orders
+            </Link>
           </div>
         </div>
       </div>
