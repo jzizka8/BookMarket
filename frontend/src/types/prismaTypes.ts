@@ -4,7 +4,7 @@ export type User = {
   username: string;
   hashedPassword: string;
   booksForSale?: Book[];
-  invoices?: Invoice[];
+  order?: Order;
 };
 
 export type Book = {
@@ -12,6 +12,9 @@ export type Book = {
   createdAt: Date;
   deletedAt?: Date;
   soldBy: string;
+  seller: {
+    username: string;
+  };
   orderId?: string;
   title: string;
   author: string;
@@ -27,59 +30,6 @@ export type Category = {
   id: string;
   name: Genre;
   books?: Book[];
-};
-
-export type Invoice = {
-  id: string;
-  createdAt: Date;
-  buyerId: string;
-  buyer: User;
-  date: Date;
-  amount: number;
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  street: string;
-  city: string;
-  zipcode: string;
-  country: string;
-  books?: Book[];
-};
-
-type Address = {
-  street: string;
-  city: string;
-  zipcode: string;
-  country: string;
-};
-
-export type InvoiceCreateData = {
-  userId: string;
-  bookId: string[];
-  amount: number;
-  userData: User;
-  address: Address;
-};
-export type Order = {
-  id: string;
-  createdAt: Date;
-  shippingInfo: ShippingInfo;
-  buyer: User;
-  amount: number;
-  books: Book[];
-};
-
-export type ShippingInfo = {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  phoneNumber: string;
-  street: string;
-  city: string;
-  zipcode: string;
-  country: string;
 };
 
 export enum Lang {
@@ -115,3 +65,38 @@ export enum Genre {
   LiteraryFiction = 'LiteraryFiction',
   NonFiction = 'NonFiction',
 }
+
+type Address = {
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};
+
+export type InvoiceCreateData = {
+  userId: string;
+  bookId: string[];
+  amount: number;
+  userData: User;
+  address: Address;
+};
+export type Order = {
+  id: string;
+  createdAt: Date;
+  shippingInfo: ShippingInfo;
+  buyer: User;
+  amount: number;
+  books: Book[];
+};
+
+export type ShippingInfo = {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  street: string;
+  city: string;
+  zipcode: string;
+  country: string;
+};

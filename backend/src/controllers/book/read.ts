@@ -26,7 +26,6 @@ export const specificBook = async (req: Request, res: Response) => {
   }
 };
 
-// Since we're not using any parameters for this call, I'll just leave out the req
 export const allBooks = async (req: Request, res: Response) => {
   try {
     const bodySchema = readAllParamasSchema.parse(req.body);

@@ -113,4 +113,5 @@ export const readAllParamasSchema = z.object({
       return decimalPart <= 2; // Allow up to 2 decimal places
     }),
   searchInput: z.string().nonempty().optional(),
+  userId: z.string().nonempty().optional(),
 });

@@ -37,6 +37,7 @@ export const specific = async (
             orderBy: { createdAt: 'desc' },
             include: {
               books: true,
+              shippingInfo: true,
             },
           },
         },

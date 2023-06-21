@@ -1,6 +1,5 @@
-import { ApiResponse } from '../models/response';
+import axios from 'axios';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
-import { Book } from '../types/prismaTypes';
 import baseApi from './baseApi';
 
 export const createBook = async (
@@ -28,7 +27,14 @@ export const updateBook = async (
   return resp.data;
 };
 
-export const getBookDetail = async (bookId: string) => {
-  const resp = await baseApi.get<ApiResponse<Book>>(`/book/${bookId}`);
-  return resp.data;
+export const fetchBook = async (id: string) => {
+  const response = await axios.get(`http://localhost:3000/book/${id}`);
+  return response.data.data;
+};
+
+export const deleteBook = async (id: string) => {
+  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
+    withCredentials: true,
+  });
+  return response.data.data;
 };
