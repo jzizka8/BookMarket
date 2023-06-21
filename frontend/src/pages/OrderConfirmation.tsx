@@ -1,20 +1,16 @@
 import cartIcon from '../assets/cart-big.svg';
 import { motion, AnimatePresence } from 'framer-motion';
-// import { usePaymentInfoFormContext } from '../context/paymentInfoFormContext';
 import { usePurchaseFormData } from '../context/purchaseFormContext';
 import useAuth from '../hooks/useAuth';
-import axios from 'axios';
 import useCart from '../hooks/useCart';
 import { useEffect } from 'react';
+import baseApi from '../services/baseApi';
+import { PurchaseData } from '../types/CreateOrderType';
 
-const createOrder = async (data: any, userId: string | undefined) => {
+const createOrder = async (data: PurchaseData, userId: string | undefined) => {
   try {
-    const response: any = await axios.post(`/user/${userId}/order`, data);
-
-    // Handle the response as needed
-    console.log('Order created:', response.data);
+    await baseApi.post(`/user/${userId}/order`, data);
   } catch (error) {
-    // Handle error
     console.error('Error creating order:', error);
   }
 };
@@ -40,6 +36,7 @@ const OrderConfirmation = () => {
 
   useEffect(() => {
     if (auth?.data.id) {
+      console.log('userId: ' + auth.data.id);
       createOrder(combinedData, auth.data.id);
     }
   }, [auth?.data.id, combinedData]);
