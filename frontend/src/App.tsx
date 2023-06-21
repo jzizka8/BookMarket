@@ -26,7 +26,6 @@ export const App: FC = () => {
           <Route path="/" element={<Navigate to="/books" replace />} index />
           <Route path="books" element={<AllBooks />} />
           <Route path="/books/:bookId" element={<BookDetail />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

@@ -62,7 +62,7 @@ export const login = async (data: UserReadLoginData): UserReadLoginResult => {
       where: { username: data.username },
     });
 
-    const isVerified = argon2.verify(user.hashedPassword, data.password);
+    const isVerified = await argon2.verify(user.hashedPassword, data.password);
 
     if (!isVerified) {
       return Result.err(
