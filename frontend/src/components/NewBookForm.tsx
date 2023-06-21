@@ -19,7 +19,6 @@ type NewBookFormProps = {
 const NewBookForm = (props: NewBookFormProps) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  console.log(props.book);
   const {
     register,
     handleSubmit,

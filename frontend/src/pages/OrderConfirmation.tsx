@@ -18,7 +18,8 @@ const createOrder = async (data: PurchaseData, userId: string | undefined) => {
 const OrderConfirmation = () => {
   const { cart } = useCart();
   const bookIds = cart.map((book) => book.id);
-  const amount = cart.length;
+  const amount = cart.reduce((total, book) => total + book.price, 0);
+  console.log(amount);
   const { auth } = useAuth();
   const { purchaseFormData } = usePurchaseFormData();
   // const { paymentInfoData } = usePaymentInfoFormContext();
