@@ -12,6 +12,9 @@ export type Book = {
   createdAt: Date;
   deletedAt?: Date;
   soldBy: string;
+  seller: {
+    username: string;
+  };
   orderId?: string;
   title: string;
   author: string;

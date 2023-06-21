@@ -1,20 +1,16 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import NewBookForm from '../components/NewBookForm';
-
-const fetchBook = async (id: string | null) => {
-  if (id) {
-    const response = await axios.get(`http://localhost:3000/book/${id}`);
-    return response.data.data;
-  }
-};
+import { fetchBook } from '../services/bookApi';
 
 const BookEdit = () => {
   const [searchParams] = useSearchParams();
   const bookId = searchParams.get('id');
+
+  if (!bookId) {
+    return <>An unexpected error occured</>;
+  }
+
   const {
     isLoading,
     isError,
@@ -39,7 +35,7 @@ const BookEdit = () => {
             Fill out the form below to add your book to the market.
           </p>
         </div>
-        <NewBookForm book={book} id={bookId!} />
+        <NewBookForm book={book} id={bookId} />
       </div>
     </>
   );
