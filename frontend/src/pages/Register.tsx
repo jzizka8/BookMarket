@@ -33,7 +33,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="username"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900"
             >
               Your username
             </label>
@@ -53,7 +53,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="password"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 "
             >
               Password
             </label>
@@ -73,7 +73,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 "
             >
               Confirm password
             </label>
