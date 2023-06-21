@@ -22,7 +22,7 @@ export const getBookDetail = async (bookId: string) => {
   return resp.data;
 };
 
-export const fetchBooks = async (body:ReadAllBooks ) => {
+export const fetchBooks = async (body: ReadAllBooks) => {
   const response = await baseApi.post('/book/load', body);
   return response.data.data;
 };

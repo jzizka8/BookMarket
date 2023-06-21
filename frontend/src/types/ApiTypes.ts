@@ -1,10 +1,10 @@
-import { Genre } from "./prismaTypes";
+import { Genre } from './prismaTypes';
 
 export type ReadAllBooks = {
-    count?: number;
-    offset?: number;
-    genre?:Genre;
-    max?: number;
-    min?: number;
-    searchInput?: string | null;
-  };
+  count?: number;
+  offset?: number;
+  genre?: string;
+  max?: number;
+  min?: number;
+  searchInput?: string | null;
+};
