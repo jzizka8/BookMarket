@@ -1,24 +1,33 @@
 import type { Result } from '@badrap/result';
-import type { Book, Invoice, User } from '@prisma/client';
+import type { Book, Order } from '@prisma/client';
 
 export type UserCreateData = {
   username: string;
-  hashedPassword: string;
+  password: string;
 };
 
-export type UserCreateResult = Promise<Result<User>>;
-
-export type UserReadSpecificData = { id: string };
-
-export type UserReadSpecificResult = Promise<
-  Result<
-    User & {
-      booksForSale: Book[];
-      invoices: Invoice[];
-    }
-  >
+export type UserRegisterResult = Promise<
+  Result<{ id: string; username: string }>
 >;
 
-export type UserReadLoginData = { username: string; hashedPassword: string };
+export type UserReadSpecificData = { username: string };
 
-export type UserReadLoginResult = Promise<Result<User>>;
+export type UserReadSpecificResult = Promise<
+  Result<{
+    id: string;
+    username: string;
+    createdAt: Date;
+    booksForSale: Book[];
+    orders: Order[];
+  }>
+>;
+
+export type UserReadLoginData = { username: string; password: string };
+
+export type UserReadLoginResult = Promise<
+  Result<{
+    id: string;
+    username: string;
+    createdAt: Date;
+  }>
+>;

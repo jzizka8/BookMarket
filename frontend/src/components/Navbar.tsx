@@ -1,16 +1,25 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import LoginIcon from '../icons/LoginIcon';
 import BookIcon from '../icons/BookIcon';
 import LogoutIcon from '../icons/LogoutIcon';
 import ShoppingCartIcon from '../icons/ShoppingCartIcon';
+import useAuth from '../hooks/useAuth';
+import useLogout from '../hooks/useLogout';
 
 const Navbar = () => {
-  const [userLoggedIn] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { auth } = useAuth();
+  const { logout } = useLogout({ redirect: '/login' });
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
   };
 
   return (
@@ -19,7 +28,7 @@ const Navbar = () => {
         <div className="flex w-full flex-row justify-between md:w-auto">
           <div className="flex items-center">
             <Link to="/books">
-              <BookIcon className="h-12 md:mr-3" />
+              <BookIcon className="h-12 w-12 md:mr-3" />
             </Link>
           </div>
           <button
@@ -30,7 +39,6 @@ const Navbar = () => {
             aria-expanded="false"
             onClick={toggleMenu}
           >
-            <span className="sr-only">Open main menu</span>
             <svg
               className="h-6 w-6"
               aria-hidden="true"
@@ -53,6 +61,23 @@ const Navbar = () => {
           id="navbar-default"
         >
           <ul className="flex flex-col items-center rounded-lg bg-primary-main text-xl font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0">
+            {!auth && (
+              <li>
+                <NavLink
+                  to={`/register`}
+                  style={({ isActive }) =>
+                    isActive ? { color: '#c08992' } : {}
+                  }
+                >
+                  <span
+                    className="block rounded bg-primary-main py-2 pl-3 pr-4 hover:text-primary-light md:bg-transparent md:p-0"
+                    aria-current="page"
+                  >
+                    Register
+                  </span>
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 to={`/books`}
@@ -66,11 +91,11 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </li>
-            {userLoggedIn && (
+            {auth && (
               <>
                 <li>
                   <NavLink
-                    to={`/userBooks/idPlaceholder`}
+                    to={`/auth/userBooks`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -85,7 +110,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={`/userOrders/idPlaceholder`}
+                    to={`/auth/userOrders`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -100,7 +125,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={`/cart`}
+                    to={`/auth/cart`}
                     style={({ isActive }) =>
                       isActive ? { color: '#c08992' } : {}
                     }
@@ -112,11 +137,12 @@ const Navbar = () => {
               </>
             )}
             <li>
-              {userLoggedIn ? (
+              {auth ? (
                 <Link
                   to={`/`}
                   title="Logout"
                   className="flex items-center hover:text-primary-light"
+                  onClick={handleLogout}
                 >
                   <LogoutIcon className="h-9" />
                 </Link>

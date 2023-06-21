@@ -1,6 +1,7 @@
 import { Result } from '@badrap/result';
 import type {
   BookGenericReturn,
+  BookReadAllData,
   BookReadAllReturn,
   BookReadSpecificData,
 } from './types';
@@ -20,7 +21,14 @@ export const specific = async (
   try {
     return await client.$transaction(async (tx) => {
       const book = await tx.book.findUniqueOrThrow({
-        where: { id: data.id },
+        where: { id: data.bookId },
+        include: {
+          seller: {
+            select: {
+              username: true,
+            },
+          },
+        },
       });
 
       return Result.ok(book);
@@ -31,17 +39,42 @@ export const specific = async (
 };
 
 /**
- * Repository call that reads data of all books.
+ * Repository call that reads data of all books
+ * which fullfil requirements and take only data.count.
  *
  * @returns - On success: All books
  *          - On failure: A generic error
  */
-export const all = async (): BookReadAllReturn => {
+export const all = async (data: BookReadAllData): BookReadAllReturn => {
   try {
+    const { genre, searchInput } = data;
     const result = await client.book.findMany({
+      skip: data.offset,
+      take: data.count,
       where: {
+        price: {
+          lte: data.max,
+          gte: data.min,
+        },
+        ...(genre !== undefined && { genre }),
+        ...(searchInput !== undefined && {
+          OR: [
+            {
+              title: {
+                contains: searchInput,
+                mode: 'insensitive',
+              },
+            },
+            {
+              author: {
+                contains: searchInput,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }),
         deletedAt: null,
-        invoiceId: null,
+        orderId: null,
       },
       orderBy: {
         createdAt: 'desc',

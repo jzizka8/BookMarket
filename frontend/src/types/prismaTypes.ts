@@ -11,10 +11,8 @@ export type Book = {
   id: string;
   createdAt: Date;
   deletedAt?: Date;
-  category: Genre;
   soldBy: string;
-  seller: User;
-  order?: Order;
+  orderId?: string;
   title: string;
   author: string;
   price: number;
@@ -22,6 +20,7 @@ export type Book = {
   language: Lang;
   photo?: string;
   description?: string;
+  genre: Genre;
 };
 
 export type Category = {

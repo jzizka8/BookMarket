@@ -1,83 +1,53 @@
-import cart from '../assets/cart-big.svg';
+import cartIcon from '../assets/cart-big.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePurchaseFormData } from '../context/purchaseFormContext';
+import useAuth from '../hooks/useAuth';
+import useCart from '../hooks/useCart';
+import { useEffect } from 'react';
+import baseApi from '../services/baseApi';
+import { PurchaseData } from '../types/CreateOrderType';
 import { Order, Genre, Lang } from '../types/prismaTypes';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Invoice } from '../components/Invoice';
 import { DocumentIcon } from '../icons/DocumentIcon';
-const InvoiceProps: Order = {
-  id: '46808aed-cca9-4860-b69d-bfe56852f170',
-  createdAt: new Date(),
-  buyer: {
-    id: '08767ab4-e849-4f78-9418-65343ed4efa7',
-    username: 'josefson26',
-    hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
-    createdAt: new Date(),
-  },
-  amount: 180.9,
-  shippingInfo: {
-    id: 'ab25a2f0-a0f0-4f78-a8db-dd706804e131',
-    name: 'William',
-    surname: 'Harrington',
-    email: 'william@email.com',
-    phoneNumber: '+421999008007',
-    street: 'Ulica',
-    city: 'Mesto',
-    zipcode: '04028',
-    country: 'Slovakia',
-  },
-  books: [
-    {
-      id: '518028f7-9ab5-43wd-b4a4-1db640c69eda',
-      createdAt: new Date(),
-      soldBy: '',
-      category: Genre.Mystery,
-      seller: {
-        id: '5452fa3f-7a0c-446d-96f8-3c86476f58b8',
-        username: 'joe26',
-        hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
-        createdAt: new Date(),
-      },
-      title: 'Harry Potter and the deathly hallows',
-      author: 'Joanne Kathleen Rowling ',
-      price: 18.9,
-      publicationYear: 2023,
-      language: Lang.EN,
-      photo: 'https://picsum.photos/600/900',
-      description:
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry',
-    },
-    {
-      id: '518028f7-fdsf-43wd-b4a4-1db640c69eda',
-      createdAt: new Date(),
-      soldBy: '',
-      category: Genre.Mystery,
-      seller: {
-        id: '5452fa3f-7a0c-446d-96f8-3c86476f58b8',
-        username: 'joefds26',
-        hashedPassword: '081d6e498fabb341f5d06ed1f83d089d',
-        createdAt: new Date(),
-      },
-      title: 'Harry Potter ',
-      author: 'Joanne Kathleen Rowling ',
-      price: 128.9,
-      publicationYear: 2023,
-      language: Lang.EN,
-      photo: 'https://picsum.photos/600/900',
-      description:
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry' +
-        'The fourth swoon-worthy rom com from New York and Sunday Times bestselling TikTok sensation Emily Henry',
-    },
-  ],
+
+const createOrder = async (data: PurchaseData, userId: string | undefined) => {
+  try {
+    return await baseApi.post(`/user/${userId}/order`, data);
+  } catch (error) {
+    console.error('Error creating order:', error);
+  }
 };
+
 const OrderConfirmation = () => {
+  const { cart } = useCart();
+  const bookIds = cart.map((book) => book.id);
+  const amount = cart.length;
+  const { auth } = useAuth();
+  const { purchaseFormData } = usePurchaseFormData();
+  // const { paymentInfoData } = usePaymentInfoFormContext();
+
+  const combinedData = {
+    shippingData: {
+      ...purchaseFormData,
+      // ...paymentInfoData,
+    },
+    bookId: bookIds,
+    amount: amount,
+  };
+
+  console.log(combinedData);
+
+  useEffect(() => {
+    if (auth?.data.id) {
+      console.log('userId: ' + auth.data.id);
+      createOrder(combinedData, auth.data.id);
+    }
+  }, [auth?.data.id, combinedData]);
+
   return (
     <>
-      <div className="flex h-screen items-center justify-center">
+      <div className="mt-2 flex items-center justify-center">
         <AnimatePresence>
           <motion.div
             key="step1"
@@ -88,7 +58,7 @@ const OrderConfirmation = () => {
             className="text-center"
           >
             <img
-              src={cart}
+              src={cartIcon}
               alt="Big shopping cart full of books."
               className="py-4"
             />
@@ -99,7 +69,7 @@ const OrderConfirmation = () => {
             Thank you for your purchase!
           </h1>
           <div className="mt-4 py-2.5">
-            <BlobProvider document={<Invoice order={InvoiceProps} />}>
+            <BlobProvider document={<Invoice order={combinedData} />}>
               {({ url }) => (
                 <button
                   onClick={() => {

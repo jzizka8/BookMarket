@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import registerFormSchema from '../schemas/RegisterFormSchema';
 import { RegisterFormSchemaType } from '../types/FormSchemaTypes';
 import { useNavigate } from 'react-router-dom';
+import { registration } from '../services/authApi';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,9 +15,10 @@ const Register = () => {
   } = useForm<RegisterFormSchemaType>({
     resolver: zodResolver(registerFormSchema),
   });
-  const onSubmit: SubmitHandler<RegisterFormSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormSchemaType> = async (data) => {
     console.log(data);
-    navigate('/');
+    await registration(data.username, data.password);
+    navigate('/login');
   };
   return (
     <>
@@ -31,7 +33,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="username"
-              className="f ont-medium mb-2 block text-sm text-gray-900 dark:text-white"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
               Your username
             </label>

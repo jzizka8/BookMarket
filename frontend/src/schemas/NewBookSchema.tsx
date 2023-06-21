@@ -7,24 +7,15 @@ const genreValues = Object.values(Genre) as [string, ...string[]];
 const newBookSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
   author: z.string().min(1, 'Author is required').max(100),
-  yearOfPublication: z
-    .string()
+  publicationYear: z.coerce
+    .number()
     .min(1, 'Year is required')
-    .max(9999, 'Year must be less than or equal to 9999')
-    .refine((value) => {
-      if (value) {
-        const parsedYear = parseInt(value);
-        return value === parsedYear.toString();
-      }
-    }, 'Year must be a whole number'),
-  price: z
-    .string()
-    .min(1, 'Price is required')
-    .max(10)
-    .refine((value) => /^\d+(\.\d{1,2})?$/.test(value), 'Invalid price format'),
+    .max(9999, 'Year must be less than or equal to 9999'),
+  price: z.coerce.number().multipleOf(0.01),
   language: z.enum(langValues),
   genre: z.enum(genreValues),
-  picture: z.unknown(),
+  photo: z.unknown(),
+  description: z.string().optional(),
 });
 
 export default newBookSchema;
