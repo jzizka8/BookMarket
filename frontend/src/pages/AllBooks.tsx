@@ -1,20 +1,34 @@
 import BookCard from '../components/BookCard';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Filter from '../components/Filter';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Book } from '../types/prismaTypes';
+import { fetchBooks } from '../services/bookApi';
 
-const fetchBooks = async () => {
-  const response = await axios.post('http://localhost:3000/book/load', {});
-  return response.data.data;
-};
+
 
 const AllBooks = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filterQuery, setFilterQuery] = useState({});
 
-  const { data: books, isLoading, isError } = useQuery(['books'], fetchBooks);
+  const BOOKS_COUNT = 5;
+  const [offset, setOffset] = useState(0);
+  const moveOffset = () => {
+    setOffset(offset + BOOKS_COUNT)
+  };
+
+  const [books, setBooks] = useState<Book[]>([]);
+
+  const { isLoading, isError } = useQuery(['books', filterQuery, offset], () => fetchBooks({
+    count: BOOKS_COUNT,
+    offset,
+    ...filterQuery
+  }),
+    {
+      onSuccess: (data) => {
+        setBooks((prevBooks) => [...prevBooks, ...data]);
+      },
+    });
   if (isLoading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -80,7 +94,14 @@ const AllBooks = () => {
           ))}
         </div>
       </div>
+      <div className="flex justify-center my-4">
+        <button type="button" className="text-white bg-primary-main hover:bg-primary-dark focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          onClick={moveOffset}>
+          Show more books
+        </button>
+      </div>
     </>
   );
 };
 export default AllBooks;
+
