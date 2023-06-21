@@ -92,7 +92,7 @@ const BookDetail = () => {
               <>
                 <Link
                   to={`/auth/bookEdit?id=${bookId}`}
-                  className="text-md inline-flex items-center rounded-lg border border-blue-700 px-5 py-2.5 text-center font-medium text-blue-700 hover:bg-blue-800 hover:text-white"
+                  className="text-md inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-center font-medium text-white hover:bg-beige-dark hover:text-white"
                 >
                   {/* Raw svg to allow styling with tailwind and css */}
                   <svg
@@ -110,7 +110,7 @@ const BookDetail = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(!showModal)}
-                  className="text-md inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 font-medium text-white hover:bg-red-700"
+                  className="text-md inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 font-medium text-white hover:bg-red-900"
                 >
                   <img
                     className="mr-2 h-6 w-6"

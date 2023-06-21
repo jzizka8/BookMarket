@@ -10,7 +10,7 @@ const UserBooksForSale = () => {
       <Link to="/auth/bookAddition" className="mx-auto sm:ml-auto sm:mr-2">
         <button
           type="button"
-          className="m-2 inline-flex w-52 items-center justify-center rounded-lg bg-lime-600 px-5 py-2.5 text-lg font-medium text-white hover:bg-lime-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="m-2 inline-flex w-52 items-center justify-center rounded-lg bg-beige-main px-5 py-2.5 text-lg font-medium text-white hover:bg-beige-dark focus:outline-none"
         >
           <img
             className="mr-2 h-6 w-6"

@@ -18,7 +18,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   };
 
   return (
-    <div className="flex max-w-sm flex-col  rounded-lg border border-gray-200 bg-white p-3 shadow ">
+    <div className="mb-4 flex max-w-sm  flex-col rounded-lg border border-gray-200 bg-white p-3 shadow">
       <div className="flex justify-center overflow-hidden  ">
         <Link to={`/books/${book.id}`}>
           <div className="relative">
@@ -53,7 +53,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
         {props.showRemoveButton ? (
           <button
             type="button"
-            className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 text-lg font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
             // onClick={() => handleRemoveBook(book.id)}
           >
             <img
@@ -61,12 +61,12 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               src="../../src/assets/cart-trash.svg"
               alt=""
             />
-            Remove from Market
+            Remove
           </button>
         ) : cart.filter((item) => item.id === props.book.id).length ? (
           <Link
             to="/auth/cart"
-            className="inline-flex items-center rounded-lg bg-green-600 px-5 py-2.5 text-lg font-medium text-white hover:bg-green-700"
+            className="inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 text-lg font-medium text-white hover:bg-red-900"
           >
             <TickIcon className="mr-2 h-6 w-6" />
             In cart
@@ -74,7 +74,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
         ) : (
           <button
             type="button"
-            className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-lg font-medium text-white hover:bg-beige-dark focus:outline-none focus:ring-4 focus:ring-blue-300"
             onClick={addToCartWrapper}
           >
             <img
@@ -82,7 +82,7 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
               src="../../src/assets/cart.svg"
               alt=""
             />
-            Buy now
+            Add to cart
           </button>
         )}
       </div>

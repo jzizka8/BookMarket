@@ -17,7 +17,7 @@ import BookEdit from './pages/BookEdit';
 
 export const App: FC = () => {
   return (
-    <div className="bg-zinc-50 font-primary">
+    <div className="bg-zinc-100 font-primary">
       {/* TODO: we may move all the page padding here to keep it consistent */}
       <div className="flex min-h-screen flex-col">
         <header>
