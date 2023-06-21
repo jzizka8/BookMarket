@@ -13,6 +13,7 @@ import useAuth from './hooks/useAuth';
 import Footer from './components/Footer';
 import Order from './pages/Order';
 import BookDetail from './pages/BookDetail';
+import BookEdit from './pages/BookEdit';
 
 export const App: FC = () => {
   return (
@@ -49,6 +50,7 @@ const PrivateRoute: FC = () => {
       <Route path="/userBooks" element={<UserBooksForSale />} />
       <Route path="/userOrders" element={<UserOrders />} />
       <Route path="/bookAddition" element={<BookAddition />} />
+      <Route path="/bookEdit" element={<BookEdit />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/order" element={<Order />} />
       <Route path="/*" element={<Missing />} />

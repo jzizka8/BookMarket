@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import { DeleteModal } from '../components/DeleteModal';
 import { getBookDetail } from '../services/bookApi';
@@ -106,8 +106,8 @@ const BookDetail = () => {
           <div className="flex-between flex flex-wrap justify-end gap-5">
             {auth?.data.id === book.soldBy ? (
               <>
-                <button
-                  type="button"
+                <Link
+                  to={`/auth/bookEdit?id=${bookId}`}
                   className="text-md inline-flex items-center rounded-lg border border-blue-700 px-5 py-2.5 text-center font-medium text-blue-700 hover:bg-blue-800 hover:text-white"
                 >
                   {/* Raw svg to allow styling with tailwind and css */}
@@ -122,7 +122,7 @@ const BookDetail = () => {
                     </g>
                   </svg>
                   Edit book
-                </button>
+                </Link>
                 <button
                   type="button"
                   onClick={() => setShowModal(!showModal)}
