@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,20 +9,61 @@ import { Genre, Lang } from '../types/prismaTypes';
 import { uploadImage } from '../utils/uploadUtils';
 import { formatGenreName } from '../utils/textFormattingUtils';
 import useAuth from '../hooks/useAuth';
-import { createBook } from '../services/bookApi';
+import { createBook, updateBook } from '../services/bookApi';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+
+const fetchBook = async (id: string | null) => {
+  if (id) {
+    const response = await axios.get(`http://localhost:3000/book/${id}`);
+    return response.data.data;
+  }
+  return {
+    title: '',
+    author: '',
+    publicationYear: '',
+    price: '',
+    language: '',
+    genre: '',
+  };
+};
 
 const BookAddition = () => {
-  const navigate = useNavigate();
   const { auth } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const bookId = searchParams.get('id');
+  const {
+    isLoading,
+    isError,
+    data: book,
+  } = useQuery(['book'], () => fetchBook(bookId));
+  if (isLoading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error occurred while fetching books.</div>;
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<NewBookSchemaType>({
+    defaultValues: { ...book },
     resolver: zodResolver(newBookSchema),
   });
 
   const onSubmit: SubmitHandler<NewBookSchemaType> = async (data) => {
+    if (bookId) {
+      try {
+        const url = await uploadImage(auth?.data.username!, data.photo);
+        await updateBook(bookId, data, auth?.data.id!, url);
+      } catch (error) {
+        console.error('Error uploading image: ', error);
+      }
+    }
     try {
       const url = await uploadImage(auth?.data.username!, data.photo);
       await createBook(data, auth?.data.id!, url);
@@ -56,8 +97,8 @@ const BookAddition = () => {
               <input
                 type="text"
                 id="title"
+                placeholder={'Book title'}
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                placeholder="Title of Your Book"
                 {...register('title')}
               />
               {errors.title && (
@@ -77,7 +118,7 @@ const BookAddition = () => {
                 type="text"
                 id="author"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                placeholder="Author's Name"
+                placeholder={'Book author'}
                 {...register('author')}
               />
               {errors.author && (
@@ -184,6 +225,7 @@ const BookAddition = () => {
               <input
                 type="file"
                 id="picture"
+                title="Keep original picture"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                 {...register('photo')}
               />
