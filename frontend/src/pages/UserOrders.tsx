@@ -83,7 +83,7 @@ const UserOrders = () => {
   const { auth } = useAuth();
 
   return (
-    <div className="mx-auto flex h-screen w-[300px] justify-center sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[900px]">
+    <div className="mx-auto flex h-fit w-[300px] justify-center sm:w-[500px] md:w-[600px] lg:w-[800px] xl:w-[900px]">
       <div>
         <h1 className="flex justify-center p-4 text-3xl">My orders</h1>
         <div id="accordion-collapse" data-accordion="collapse">
