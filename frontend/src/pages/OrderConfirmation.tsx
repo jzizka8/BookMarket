@@ -19,21 +19,16 @@ const OrderConfirmation = () => {
   const { cart } = useCart();
   const bookIds = cart.map((book) => book.id);
   const amount = cart.reduce((total, book) => total + book.price, 0);
-  console.log(amount);
   const { auth } = useAuth();
   const { purchaseFormData } = usePurchaseFormData();
-  // const { paymentInfoData } = usePaymentInfoFormContext();
 
   const combinedData = {
     shippingData: {
       ...purchaseFormData,
-      // ...paymentInfoData,
     },
     bookId: bookIds,
     amount: amount,
   };
-
-  console.log(combinedData);
 
   useEffect(() => {
     if (auth?.data.id) {
