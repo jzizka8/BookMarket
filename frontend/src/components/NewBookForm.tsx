@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import newBookSchema from '../schemas/NewBookSchema';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 type NewBookFormProps = {
   id?: string;
@@ -19,6 +20,8 @@ type NewBookFormProps = {
 const NewBookForm = (props: NewBookFormProps) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -46,6 +49,7 @@ const NewBookForm = (props: NewBookFormProps) => {
         await updateBook(props.id, data, url);
       } else {
         await createBook(data, auth?.data.id!, url);
+        await queryClient.invalidateQueries({ queryKey: ['auth'] });
       }
 
       navigate('/');
