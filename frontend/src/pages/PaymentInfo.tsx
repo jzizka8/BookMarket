@@ -130,13 +130,13 @@ const PaymentInfo = (props: PaymentInfoFormProps) => {
           <div className="mb-8 mt-8 flex justify-center">
             <button
               onClick={props.previousStep}
-              className="mr-4 rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="mr-4 rounded-md bg-beige-main px-4 py-2 text-white hover:bg-beige-dark focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
             >
               Previous
             </button>
             <button
               type="submit"
-              className="rounded-md bg-indigo-500 px-4 py-2.5 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded-md bg-beige-main px-4 py-2.5 text-white hover:bg-beige-dark focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               Submit
             </button>
