@@ -139,7 +139,7 @@ const Filter = () => {
         <div className="mt-5 pr-4">
           <button
             type="submit"
-            className="mt-2 h-11 w-full rounded-md bg-blue-700 px-4 py-2.5 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:mt-0"
+            className="mt-2 h-11 w-full rounded-md bg-beige-main px-4 py-2.5 text-white hover:bg-beige-dark focus:outline-none focus:ring-2 sm:mt-0"
           >
             Filter
           </button>

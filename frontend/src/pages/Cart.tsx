@@ -15,7 +15,7 @@ const Cart = () => {
         </div>
         <Link
           to="/"
-          className="mx-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="mx-auto inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-lg font-medium text-white hover:bg-beige-dark focus:outline-none focus:ring-4"
         >
           Back to shop
         </Link>
@@ -38,13 +38,13 @@ const Cart = () => {
         <div className="mb-6 flex justify-between">
           <Link
             to="/"
-            className="inline-flex items-center rounded-lg border border-blue-700 px-5 py-2.5 text-center font-medium text-blue-700 hover:bg-blue-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="inline-flex items-center rounded-lg border border-beige-main px-5 py-2.5 text-center font-medium text-beige-main hover:bg-beige-dark hover:text-white focus:outline-none"
           >
             Back to shop
           </Link>
           <Link
             to="/auth/order"
-            className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5  font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5  font-medium text-white hover:bg-beige-dark focus:outline-none focus:ring-4"
           >
             Proceed
           </Link>
