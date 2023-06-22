@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import { Book } from '../types/prismaTypes';
 import { formatGenreName } from '../utils/textFormattingUtils';
@@ -12,6 +12,7 @@ interface IBookCardProps {
 const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
   const { cart, addToCart } = useCart();
   const book = props.book;
+  const navigate = useNavigate();
   const addToCartWrapper = () => {
     addToCart(props.book);
     // TODO: popup
@@ -53,15 +54,10 @@ const BookCard: React.FC<IBookCardProps> = (props: IBookCardProps) => {
         {props.showRemoveButton ? (
           <button
             type="button"
-            className="inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 text-lg font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-            // onClick={() => handleRemoveBook(book.id)}
+            className="text-md inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-center font-medium text-white hover:bg-beige-dark hover:text-white"
+            onClick={() => navigate(`/books/${book.id}`)}
           >
-            <img
-              className="mr-2 h-6 w-6"
-              src="../../src/assets/cart-trash.svg"
-              alt=""
-            />
-            Remove
+            View Detail
           </button>
         ) : cart.filter((item) => item.id === props.book.id).length ? (
           <Link

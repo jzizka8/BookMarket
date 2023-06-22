@@ -16,11 +16,6 @@ export const createBook = async (
   return resp.data;
 };
 
-export const getBookDetail = async (bookId: string) => {
-  const resp = await baseApi.get<ApiResponse<Book>>(`/book/${bookId}`);
-  return resp.data;
-};
-
 export const updateBook = async (
   bookId: string,
   book: NewBookSchemaType,
