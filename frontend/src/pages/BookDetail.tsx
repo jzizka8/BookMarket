@@ -123,7 +123,7 @@ const BookDetail = () => {
             ) : (
               <button
                 type="button"
-                className="ml-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                className="ml-auto inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-lg font-medium text-white hover:bg-beige-dark focus:outline-none"
                 onClick={addToCartWrapper}
               >
                 <img
@@ -144,7 +144,7 @@ const BookDetail = () => {
           <table className="w-full text-left text-sm text-gray-500">
             <tbody>
               {bookAttributes.map((attr) => (
-                <tr className=" odd:bg-gray-100" key={attr.title}>
+                <tr className=" odd:bg-gray-200" key={attr.title}>
                   <th
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
