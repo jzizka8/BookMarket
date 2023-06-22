@@ -5,29 +5,25 @@ const genreValues = Object.values(Genre) as [string, ...string[]];
 
 const filterSchema = z
   .object({
-    search: z.string().optional(),
-    genre: z.enum([...genreValues, '']).default(''),
-    minPrice: z
+    searchInput: z.string().optional(),
+    genre: z.enum([...genreValues, '']).optional(),
+    min: z
       .string()
-      .regex(/^\d+$/)
-      .transform((value) => (value ? parseInt(value) : undefined))
+      .transform((value) => (value ? parseInt(value) : 0))
       .optional(),
-    maxPrice: z
+    max: z
       .string()
-      .regex(/^\d+$/)
       .transform((value) => (value ? parseInt(value) : undefined))
       .optional(),
   })
   .refine(
     (data) => {
-      const { minPrice, maxPrice } = data;
-      return (
-        minPrice === undefined || maxPrice === undefined || minPrice <= maxPrice
-      );
+      const { min, max } = data;
+      return min === undefined || max === undefined || min <= max;
     },
     {
       message: 'Invalid price range',
-      path: ['minPrice'],
+      path: ['min'],
     }
   );
 

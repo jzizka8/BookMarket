@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ReadAllBooks } from '../types/ApiTypes';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
 import baseApi from './baseApi';
 
@@ -15,6 +16,11 @@ export const createBook = async (
   return resp.data;
 };
 
+export const getBookDetail = async (bookId: string) => {
+  const resp = await baseApi.get<ApiResponse<Book>>(`/book/${bookId}`);
+  return resp.data;
+};
+
 export const updateBook = async (
   bookId: string,
   book: NewBookSchemaType,
@@ -25,6 +31,11 @@ export const updateBook = async (
     photo: photo,
   });
   return resp.data;
+};
+
+export const fetchBooks = async (body: ReadAllBooks) => {
+  const response = await baseApi.post('/book/load', body);
+  return response.data.data;
 };
 
 export const fetchBook = async (id: string) => {
