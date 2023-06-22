@@ -50,7 +50,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                   type="text"
                   id="firstName"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  placeholder="Janka"
+                  placeholder="Name"
                   {...register('name')}
                 />
                 {errors.name && (
@@ -70,7 +70,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                   type="text"
                   id="surname"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
-                  placeholder="Srnka"
+                  placeholder="Surname"
                   {...register('surname')}
                 />
                 {errors.surname && (
@@ -89,7 +89,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                 <input
                   type="text"
                   id="shippingAddress"
-                  placeholder="Novyi Zem 101"
+                  placeholder="Address 01"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                   {...register('street')}
                 />
@@ -109,7 +109,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                 <input
                   type="text"
                   id="city"
-                  placeholder="New York"
+                  placeholder="City"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                   {...register('city')}
                 />
@@ -151,7 +151,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                 <input
                   type="text"
                   id="phoneNumber"
-                  placeholder="Lipovec"
+                  placeholder="+421999999999"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                   {...register('phoneNumber')}
                 />
@@ -172,7 +172,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
                 <input
                   type="text"
                   id="country"
-                  placeholder="Bulgaria"
+                  placeholder="Country"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-gray-900 sm:text-base"
                   {...register('country')}
                 />

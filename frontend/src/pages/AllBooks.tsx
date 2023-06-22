@@ -141,7 +141,7 @@ const AllBooks = () => {
             {books.length % BOOKS_COUNT === 0 && (
               <button
                 type="button"
-                className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="mb-2 mr-2 rounded-lg bg-primary-main px-5 py-2.5 text-lg font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-blue-300"
                 onClick={moveOffset}
               >
                 Show more books
