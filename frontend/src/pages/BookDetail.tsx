@@ -87,54 +87,56 @@ const BookDetail = () => {
           <p className="my-2 text-right text-3xl font-bold text-gray-700">
             {book.price.toFixed(2)}&euro;
           </p>
-          <div className="flex-between flex flex-wrap justify-end gap-5">
-            {auth?.data.id === book.soldBy ? (
-              <>
-                <Link
-                  to={`/auth/bookEdit?id=${bookId}`}
-                  className="text-md inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-center font-medium text-white hover:bg-beige-dark hover:text-white"
-                >
-                  {/* Raw svg to allow styling with tailwind and css */}
-                  <svg
-                    className="mr-2 h-6 w-6 fill-current "
-                    viewBox="0 0 24.00 24.00"
+          {!book.orderId && (
+            <div className="flex-between flex flex-wrap justify-end gap-5">
+              {auth?.data.id === book.soldBy ? (
+                <>
+                  <Link
+                    to={`/auth/bookEdit?id=${bookId}`}
+                    className="text-md inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-center font-medium text-white hover:bg-beige-dark hover:text-white"
                   >
-                    <g id="SVGRepo_iconCarrier">
-                      {' '}
-                      <path d="M3.99512 17.2072V19.5C3.99512 19.7761 4.21897 20 4.49512 20H6.79289C6.9255 20 7.05268 19.9473 7.14645 19.8536L16.5942 10.4058L13.5935 7.40518L4.14163 16.8535C4.04782 16.9473 3.99512 17.0745 3.99512 17.2072Z"></path>{' '}
-                      <path d="M14.8322 6.16693L17.8327 9.16734L19.2929 7.7071C19.6834 7.31658 19.6834 6.68341 19.2929 6.29289L17.707 4.70697C17.3165 4.3165 16.6834 4.31644 16.2929 4.70684L14.8322 6.16693Z"></path>{' '}
-                    </g>
-                  </svg>
-                  Edit book
-                </Link>
+                    {/* Raw svg to allow styling with tailwind and css */}
+                    <svg
+                      className="mr-2 h-6 w-6 fill-current "
+                      viewBox="0 0 24.00 24.00"
+                    >
+                      <g id="SVGRepo_iconCarrier">
+                        {' '}
+                        <path d="M3.99512 17.2072V19.5C3.99512 19.7761 4.21897 20 4.49512 20H6.79289C6.9255 20 7.05268 19.9473 7.14645 19.8536L16.5942 10.4058L13.5935 7.40518L4.14163 16.8535C4.04782 16.9473 3.99512 17.0745 3.99512 17.2072Z"></path>{' '}
+                        <path d="M14.8322 6.16693L17.8327 9.16734L19.2929 7.7071C19.6834 7.31658 19.6834 6.68341 19.2929 6.29289L17.707 4.70697C17.3165 4.3165 16.6834 4.31644 16.2929 4.70684L14.8322 6.16693Z"></path>{' '}
+                      </g>
+                    </svg>
+                    Edit book
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(!showModal)}
+                    className="text-md inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 font-medium text-white hover:bg-red-900"
+                  >
+                    <img
+                      className="mr-2 h-6 w-6"
+                      src="/src/assets/cross.svg"
+                      alt=""
+                    />
+                    Remove
+                  </button>
+                </>
+              ) : (
                 <button
                   type="button"
-                  onClick={() => setShowModal(!showModal)}
-                  className="text-md inline-flex items-center rounded-lg bg-red-main px-5 py-2.5 font-medium text-white hover:bg-red-900"
+                  className="ml-auto inline-flex items-center rounded-lg bg-beige-main px-5 py-2.5 text-lg font-medium text-white hover:bg-beige-dark focus:outline-none"
+                  onClick={addToCartWrapper}
                 >
                   <img
                     className="mr-2 h-6 w-6"
-                    src="/src/assets/cross.svg"
+                    src="/src/assets/cart.svg"
                     alt=""
                   />
-                  Remove
+                  Add to cart
                 </button>
-              </>
-            ) : (
-              <button
-                type="button"
-                className="ml-auto inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-                onClick={addToCartWrapper}
-              >
-                <img
-                  className="mr-2 h-6 w-6"
-                  src="/src/assets/cart.svg"
-                  alt=""
-                />
-                Add to cart
-              </button>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
         {/* additional data table */}
         <div className="mb-2 justify-self-center text-center sm:col-span-2 sm:w-1/2">
@@ -144,7 +146,7 @@ const BookDetail = () => {
           <table className="w-full text-left text-sm text-gray-500">
             <tbody>
               {bookAttributes.map((attr) => (
-                <tr className=" odd:bg-gray-100" key={attr.title}>
+                <tr className=" odd:bg-gray-200" key={attr.title}>
                   <th
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"

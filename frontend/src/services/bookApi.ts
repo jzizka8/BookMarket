@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ReadAllBooks } from '../types/ApiTypes';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
 import baseApi from './baseApi';
+import { Book } from '../types/prismaTypes';
 
 export const createBook = async (
   book: NewBookSchemaType,
@@ -38,7 +39,7 @@ export const fetchBooks = async (body: ReadAllBooks) => {
   return response.data.data;
 };
 
-export const fetchBook = async (id: string) => {
+export const fetchBook = async (id: string): Promise<Book> => {
   const response = await axios.get(`http://localhost:3000/book/${id}`);
   return response.data.data;
 };
