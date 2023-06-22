@@ -23,7 +23,7 @@ const Register = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <h1 className="break-words text-center text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
+        <h1 className="break-words text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
           Create an account
         </h1>
         <form
