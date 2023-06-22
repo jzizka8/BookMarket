@@ -28,7 +28,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
     <>
       <div className="mt-12 flex flex-col items-center justify-center text-center">
         <div>
-          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-4xl">
+          <h1 className="mb-4 text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
             Delivery Information
           </h1>
           <p className="mb-4 break-words text-center">
@@ -42,7 +42,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="firstName"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   First Name
                 </label>
@@ -62,7 +62,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="surname"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Surname
                 </label>
@@ -82,7 +82,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="shippingAddress"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Street
                 </label>
@@ -102,7 +102,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="city"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   City
                 </label>
@@ -123,7 +123,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Email
                 </label>
@@ -144,7 +144,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="phoneNumber"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Phone number
                 </label>
@@ -165,7 +165,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="country"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Country
                 </label>
@@ -186,7 +186,7 @@ const PurchaseForm = (props: PurchaseFormProps) => {
               <div>
                 <label
                   htmlFor="zip"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   ZIP code
                 </label>
