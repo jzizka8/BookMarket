@@ -22,7 +22,7 @@ const port = env['PORT'] ?? 3000;
 // CORS middleware
 app.use(
   cors({
-    origin: 'http://192.168.0.13:5173',
+    origin: env['FRONTEND'],
     credentials: true,
   })
 );
