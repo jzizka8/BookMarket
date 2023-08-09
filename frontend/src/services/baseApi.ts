@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const baseApi = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Access-Control-Allow-Credentials': true,
-  },
+  baseURL: 'http://192.168.0.13:3000',
   withCredentials: true,
 });
 
