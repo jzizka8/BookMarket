@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ReadAllBooks } from '../types/ApiTypes';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
 import baseApi from './baseApi';
