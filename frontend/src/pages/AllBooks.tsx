@@ -35,13 +35,6 @@ const AllBooks = () => {
   const { isLoading, isError } = useQuery(
     ['books', filterQuery, offset, authIsLoading],
     () => {
-      console.log({
-        count: BOOKS_COUNT,
-        offset,
-        ...filterQuery,
-        auth,
-        authIsLoading,
-      });
 
       // no fetching if not sure whether to ommit some books
       if (authIsLoading) {
@@ -61,8 +54,6 @@ const AllBooks = () => {
           (book: Book) => !books?.some((prevBook) => prevBook.id === book.id)
         );
         setBooks((prevBooks) => [...prevBooks, ...newBooks]);
-        console.log(newBooks);
-        console.log(data);
       },
     }
   );

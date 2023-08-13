@@ -13,7 +13,6 @@ const CartItem = (props: ICartItemProps) => {
 
   const removeItem = () => {
     removeFromCart(props.product.id);
-    console.log(`removing:${props.product}`);
   };
 
   const { removeFromCart } = useCart();

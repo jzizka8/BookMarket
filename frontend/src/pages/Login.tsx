@@ -21,7 +21,6 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormSchemaType> = async (data) => {
     // Handle form submission logic here
-    console.log(data);
     await login({ username: data.username, password: data.password });
     navigate('/books');
   };
