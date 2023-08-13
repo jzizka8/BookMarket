@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ReadAllBooks } from '../types/ApiTypes';
 import { NewBookSchemaType } from '../types/FormSchemaTypes';
 import baseApi from './baseApi';
@@ -35,12 +34,12 @@ export const fetchBooks = async (body: ReadAllBooks) => {
 };
 
 export const fetchBook = async (id: string): Promise<Book> => {
-  const response = await axios.get(`http://localhost:3000/book/${id}`);
+  const response = await baseApi.get(`/book/${id}`);
   return response.data.data;
 };
 
 export const deleteBook = async (id: string) => {
-  const response = await axios.delete(`http://localhost:3000/book/${id}`, {
+  const response = await baseApi.delete(`/book/${id}`, {
     withCredentials: true,
   });
   return response.data.data;

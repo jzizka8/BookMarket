@@ -16,7 +16,6 @@ const Register = () => {
     resolver: zodResolver(registerFormSchema),
   });
   const onSubmit: SubmitHandler<RegisterFormSchemaType> = async (data) => {
-    console.log(data);
     await registration(data.username, data.password);
     navigate('/login');
   };

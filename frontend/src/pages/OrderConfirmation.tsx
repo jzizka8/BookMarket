@@ -37,7 +37,6 @@ const OrderConfirmation = () => {
 
   useEffect(() => {
     if (auth?.data.id) {
-      console.log('userId: ' + auth.data.id);
       createOrder(combinedData, auth.data.id);
     }
   }, [auth?.data.id, combinedData]);

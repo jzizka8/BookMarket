@@ -10,7 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { storage } from '../firestore';
 
 export const uploadImage = async (username: string, file?: File[]) => {
-  console.log(file);
   if (!file || file.length === 0) {
     const url =
       'https://firebasestorage.googleapis.com/v0/b/pb138-book-market.appspot.com/o/default-placeholder.png?alt=media&token=38534c5d-e1db-4c15-96fb-83ddb23fc38b';

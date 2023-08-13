@@ -57,7 +57,6 @@ interface IInvoiceProps {
 }
 
 export const Invoice = (props: IInvoiceProps) => {
-  console.log(props.order);
   const shipping = props.order.shippingInfo;
   return (
     <Document>
