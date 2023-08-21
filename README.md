@@ -28,7 +28,7 @@ Book Market is a simple app for selling second-hand books, that was created as a
     `sudo -u postgres psql`
 - create database  
     `create database "book-market";`
-- create an user with name *username* and password *Password*  
+- create a user with a name *username* and password *Password*  
     `create user username with encrypted password 'Password';`
 - add DB privileges to the user  
     `grant all privileges on database "book-market" to username;`
